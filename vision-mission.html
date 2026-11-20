@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vision &amp; Mission | Lotte India Corporation Private Limited</title>
+  <meta name="description" content="Discover Lotte India's Vision, Mission, and Core Values: Challenge, Respect, Originality, and Beyond Customer Expectations.">
+  <meta name="keywords" content="Lotte India vision, lotte india mission, core values, lotte wellfood philosophy, challenge respect originality">
+  <link rel="canonical" href="https://www.lotteindia.com/vision-mission.html">
+  <meta property="og:title" content="Vision &amp; Mission | Lotte India Corporation Private Limited">
+  <meta property="og:description" content="We enrich people's lives by providing superior products and services that our customers love and trust.">
+  <meta property="og:image" content="https://www.lotteindia.com/images/about-us-banner-img.jpg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Vision & Mission Page Specific Styling */
+    .vm-hero-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 60px 50px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .vm-hero-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(230,0,18,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .vm-icon-bubble {
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, rgba(230,0,18,0.1) 0%, rgba(230,0,18,0.2) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      color: var(--lotte-red);
+      margin-bottom: 28px;
+      box-shadow: 0 10px 30px rgba(230,0,18,0.15);
+    }
+
+    /* Mission Dark Hero */
+    .mission-box {
+      background: linear-gradient(135deg, #150002 0%, #240005 50%, #150002 100%);
+      border-radius: var(--radius-lg);
+      padding: 70px 50px;
+      border: 1px solid rgba(230,0,18,0.3);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+    .mission-box::before {
+      content: '“';
+      position: absolute;
+      top: -30px;
+      left: 30px;
+      font-size: 14rem;
+      font-family: Georgia, serif;
+      color: rgba(230,0,18,0.08);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .mission-quote {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.3;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .mission-quote span {
+      color: var(--lotte-red);
+    }
+
+    /* Core Values Cards */
+    .value-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 44px 34px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .value-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(230,0,18,0.25);
+    }
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--lotte-red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .value-card:hover::before {
+      transform: scaleX(1);
+    }
+    .value-num {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: rgba(0,0,0,0.04);
+      line-height: 1;
+      transition: var(--transition);
+    }
+    .value-card:hover .value-num {
+      color: rgba(230,0,18,0.1);
+      transform: scale(1.1);
+    }
+    .value-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      background: rgba(230,0,18,0.08);
+      color: var(--lotte-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+      transition: var(--transition);
+    }
+    .value-card:hover .value-icon {
+      background: var(--lotte-red);
+      color: #fff;
+      transform: scale(1.1) rotate(5deg);
+    }
+    .value-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+    .value-subtitle {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--lotte-red);
+      margin-bottom: 16px;
+    }
+    .value-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    /* Subpage links grid */
+    .subpage-card {
+      background: var(--card-dark);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 26px 22px;
+      transition: var(--transition);
+      display: block;
+      color: #fff;
+    }
+    .subpage-card:hover {
+      background: rgba(230,0,18,0.12);
+      border-color: rgba(230,0,18,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+      color: #fff;
+    }
+    .subpage-card .icon-box {
+      font-size: 1.8rem;
+      color: var(--lotte-red);
+      margin-bottom: 14px;
+      transition: var(--transition);
+    }
+    .subpage-card:hover .icon-box {
+      transform: scale(1.15);
+      color: #fff;
+    }
+    .subpage-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .subpage-card p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .vm-hero-card { padding: 36px 24px; }
+      .mission-box { padding: 44px 24px; }
+      .value-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body class="inner-page">
+
+<!-- =========================================
+     NAVIGATION
+     ========================================= -->
+<nav id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="https://www.lotteindia.com/images/logo.png" alt="Lotte India Corporation Private Limited">
+    </a>
+    <div class="nav-menu">
+      <ul style="display:flex;gap:4px;align-items:center;list-style:none;margin:0;padding:0;">
+        <li class="nav-item">
+          <a href="#" class="nav-link">About Us <span class="caret">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="about-us.html">Our Story</a>
+            <a href="vision-mission.html">Vision &amp; Mission</a>
+            <a href="management-principles.html">Management Principles</a>
+            <a href="csr.html">CSR</a>
+            <a href="milestones.html">Milestones</a>
+            <a href="certifications.html">Certifications</a>
+            <a href="our-policies.html">Our Policies</a>
+            <a href="hr-services.html">HR Services</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Our Brands <span class="caret">▾</span></a>
+          <div class="mega-dropdown">
+            <div class="mega-col">
+              <h4>🥧 Pie</h4>
+              <a href="choco-pie.html">Lotte Choco Pie</a>
+              <h4 style="margin-top:16px;">🍬 Confectionery</h4>
+              <a href="coffy-bite.html">Coffy Bite</a>
+              <a href="lotte-eclairs.html">Lotte Eclairs</a>
+              <a href="caramilk.html">Caramilk</a>
+              <a href="lacto-king.html">Lacto King</a>
+            </div>
+            <div class="mega-col">
+              <h4>🍫 Pepero</h4>
+              <a href="pepero.html">Original</a>
+              <a href="pepero.html">Crunchy</a>
+              <h4 style="margin-top:16px;">🌟 Other Brands</h4>
+              <a href="other-brands.html">Coconut Punch</a>
+              <a href="other-brands.html">Fruitz</a>
+              <a href="other-brands.html">Chewits</a>
+              <a href="other-brands.html">Season's Greetings</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Grow With Lotte <span class="caret">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="career-philosophy.html">Career Philosophy</a>
+            <a href="life-at-lotte.html">Life at Lotte</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="investor-centre.html" class="nav-link">Investor Centre</a></li>
+        <li class="nav-item"><a href="news-events.html" class="nav-link">News &amp; Events</a></li>
+        <li class="nav-item"><a href="faq.html" class="nav-link">FAQ</a></li>
+        <li class="nav-item"><a href="contact-us.html" class="nav-link">Contact Us</a></li>
+        <li class="nav-item"><a href="enquiry.html" class="nav-enquiry"><i class="fas fa-paper-plane"></i> Enquiry</a></li>
+      </ul>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- =========================================
+     INNER PAGE BANNER
+     ========================================= -->
+<header class="page-banner" aria-label="Page header">
+  <img src="https://www.lotteindia.com/images/about-us-banner-img.jpg" alt="Lotte India Vision and Mission" class="page-banner-img">
+  <div class="page-banner-overlay"></div>
+  <div class="container page-banner-content">
+    <div data-aos="fade-up">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="about-us.html">About Us</a>
+        <span>/</span>
+        <span class="current">Vision &amp; Mission</span>
+      </nav>
+      <h1>Vision &amp; <span>Mission</span></h1>
+      <p style="color:rgba(255,255,255,0.8);max-width:640px;font-size:1.05rem;margin-top:8px;">The guiding philosophy shaping our innovations, relationships, and pursuit of consumer delight across India.</p>
+    </div>
+  </div>
+</header>
+
+<!-- =========================================
+     SECTION 1: OUR VISION (LIGHT SECTION)
+     ========================================= -->
+<section class="section section-light" aria-labelledby="vision-heading">
+  <div class="container">
+    <div class="vm-hero-card" data-aos="fade-up">
+      <div class="grid grid-2" style="align-items:center;gap:50px;">
+        <div>
+          <div class="vm-icon-bubble">
+            <i class="fas fa-eye"></i>
+          </div>
+          <span class="section-label"><i class="fas fa-compass"></i> Guiding Purpose</span>
+          <h2 id="vision-heading" style="font-size:clamp(2rem, 3.5vw, 2.8rem);font-weight:900;letter-spacing:-1px;line-height:1.2;margin-bottom:20px;">
+            Our <span>Vision</span>
+          </h2>
+          <p style="font-size:1.2rem;font-weight:600;color:var(--text-primary);line-height:1.6;margin-bottom:20px;">
+            A World of Sweet Memories and Joyful Everyday Moments — for Every Consumer Across India.
+          </p>
+          <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:20px;">
+            To be recognized as India's premier, most dependable confectionery enterprise. We envision bringing smiles to millions of families daily by blending innovative food technologies with unmatched taste and unyielding nutritional safety.
+          </p>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:28px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <i class="fas fa-circle-check" style="color:var(--lotte-red);font-size:1.2rem;"></i>
+              <span style="font-weight:600;font-size:0.9rem;">Category Leadership</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <i class="fas fa-circle-check" style="color:var(--lotte-red);font-size:1.2rem;"></i>
+              <span style="font-weight:600;font-size:0.9rem;">Consumer Happiness</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <i class="fas fa-circle-check" style="color:var(--lotte-red);font-size:1.2rem;"></i>
+              <span style="font-weight:600;font-size:0.9rem;">World-Class Standards</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="position:relative;text-align:center;">
+          <div style="background:linear-gradient(135deg, rgba(230,0,18,0.06), rgba(0,0,0,0.02));border:1px solid rgba(230,0,18,0.15);border-radius:var(--radius-lg);padding:40px 30px;">
+            <img src="https://www.lotteindia.com/images/choco-brand.png" alt="Lotte Choco Pie - Circle of Joy" style="max-height:280px;margin:0 auto;filter:drop-shadow(0 20px 40px rgba(230,0,18,0.25));" class="float-product">
+            <div style="margin-top:24px;font-size:0.95rem;font-weight:700;color:var(--text-primary);">
+              India's No.1 Choco Pie
+            </div>
+            <p style="font-size:0.82rem;color:var(--text-secondary);margin:4px 0 0;">Delighting millions with our iconic circle of joy since 2004.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     SECTION 2: OUR MISSION (DARK SECTION)
+     ========================================= -->
+<section class="section section-dark" style="background:#0b0b0b;position:relative;" aria-labelledby="mission-heading">
+  <div class="container">
+    <div class="mission-box" data-aos="zoom-in">
+      <div style="max-width:900px;margin:0 auto;text-align:center;position:relative;z-index:2;">
+        <span class="section-label" style="color:#ff6b7a;"><i class="fas fa-rocket"></i> Our Driving Promise</span>
+        <h2 id="mission-heading" class="sr-only">Our Mission</h2>
+        
+        <div class="mission-quote">
+          “We enrich people's lives by providing <span>superior products and services</span> that our customers love and trust.”
+        </div>
+        
+        <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.8;max-width:760px;margin:0 auto 36px;">
+          Every pie, candy, and toffee we manufacture embodies our dedication to quality, hygiene, and ethical excellence — turning everyday bites into lasting memories of delight.
+        </p>
+
+        <div class="grid grid-3" style="margin-top:40px;text-align:left;gap:24px;">
+          <div style="background:rgba(255,255,255,0.05);padding:24px 20px;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.1);">
+            <div style="font-size:1.8rem;color:var(--lotte-red);margin-bottom:12px;"><i class="fas fa-heart"></i></div>
+            <h4 style="color:#fff;font-size:1.05rem;font-weight:700;margin-bottom:6px;">Enriching Lives</h4>
+            <p style="color:rgba(255,255,255,0.6);font-size:0.85rem;line-height:1.6;">Infusing happiness, comfort, and sweet celebration into the daily routine of our consumers.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);padding:24px 20px;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.1);">
+            <div style="font-size:1.8rem;color:var(--lotte-red);margin-bottom:12px;"><i class="fas fa-award"></i></div>
+            <h4 style="color:#fff;font-size:1.05rem;font-weight:700;margin-bottom:6px;">Superior Products</h4>
+            <p style="color:rgba(255,255,255,0.6);font-size:0.85rem;line-height:1.6;">Deploying top-tier raw ingredients and world-class automated Korean manufacturing precision.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);padding:24px 20px;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.1);">
+            <div style="font-size:1.8rem;color:var(--lotte-red);margin-bottom:12px;"><i class="fas fa-handshake-angle"></i></div>
+            <h4 style="color:#fff;font-size:1.05rem;font-weight:700;margin-bottom:6px;">Loved &amp; Trusted</h4>
+            <p style="color:rgba(255,255,255,0.6);font-size:0.85rem;line-height:1.6;">Nurturing deep consumer affinity and transparent stakeholder trust across the subcontinent.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     SECTION 3: CORE VALUES (LIGHT / WARM WHITE)
+     ========================================= -->
+<section class="section section-light" aria-labelledby="values-heading">
+  <div class="container">
+    <div class="text-center mb-40">
+      <span class="section-label"><i class="fas fa-gem"></i> Guiding DNA</span>
+      <h2 id="values-heading" class="section-title">Our <span>Core Values</span></h2>
+      <p class="section-subtitle">Four enduring pillars that inspire how we work, innovate, and connect with people every single day.</p>
+    </div>
+
+    <div class="grid grid-2" style="gap:30px;margin-top:50px;">
+      <!-- Value 1: Challenge -->
+      <div class="value-card" data-aos="fade-up">
+        <span class="value-num">01</span>
+        <div>
+          <div class="value-icon">
+            <i class="fas fa-mountain"></i>
+          </div>
+          <div class="value-subtitle">Continuous Growth</div>
+          <h3 class="value-title">Challenge</h3>
+          <p class="value-desc">
+            We embrace challenges and continuously strive for growth. We refuse to rest on our laurels, constantly questioning current standards to pioneer bolder ideas, expand market boundaries, and unlock new potential for our customers and employees.
+          </p>
+        </div>
+      </div>
+
+      <!-- Value 2: Respect -->
+      <div class="value-card" data-aos="fade-up" data-delay="100">
+        <span class="value-num">02</span>
+        <div>
+          <div class="value-icon">
+            <i class="fas fa-hand-holding-heart"></i>
+          </div>
+          <div class="value-subtitle">People &amp; Dignity</div>
+          <h3 class="value-title">Respect</h3>
+          <p class="value-desc">
+            We respect our customers, employees and stakeholders. Mutual dignity, inclusivity, active listening, and fair collaboration form the sacred foundation of every partnership, workplace initiative, and consumer relationship we nurture.
+          </p>
+        </div>
+      </div>
+
+      <!-- Value 3: Originality -->
+      <div class="value-card" data-aos="fade-up" data-delay="200">
+        <span class="value-num">03</span>
+        <div>
+          <div class="value-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <div class="value-subtitle">Creative Thinking</div>
+          <h3 class="value-title">Originality</h3>
+          <p class="value-desc">
+            We foster creativity and innovative thinking. From inventing the marshmallow 'Pie' category in India to crafting singular confectionery recipes like Coffy Bite, our pioneering spirit sets us apart and fuels meaningful brand experiences.
+          </p>
+        </div>
+      </div>
+
+      <!-- Value 4: Beyond Customer Expectations -->
+      <div class="value-card" data-aos="fade-up" data-delay="300">
+        <span class="value-num">04</span>
+        <div>
+          <div class="value-icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <div class="value-subtitle">Exceeding Delight</div>
+          <h3 class="value-title">Beyond Customer Expectations</h3>
+          <p class="value-desc">
+            We always strive to exceed what our customers expect. By continuously elevating food safety, flavor perfection, packaging freshness, and customer responsiveness, we turn everyday interactions into authentic moments of wonder and joy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     EXPLORE ABOUT US QUICK LINKS
+     ========================================= -->
+<section class="section section-dark" aria-labelledby="subpages-heading">
+  <div class="container">
+    <div class="text-center mb-40">
+      <span class="section-label" style="color:#ff6b7a;"><i class="fas fa-compass"></i> Discover More</span>
+      <h2 id="subpages-heading" class="section-title white">Explore <span>About Us</span></h2>
+      <p class="section-subtitle white">Learn more about our governance, leadership, and sustainability initiatives.</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:20px;margin-top:40px;">
+      <a href="about-us.html" class="subpage-card" data-aos="fade-up">
+        <div class="icon-box"><i class="fas fa-book-open"></i></div>
+        <h4>Our Story</h4>
+        <p>From Parrys Confectionery takeover in 2004 to becoming India's favorite Choco Pie brand.</p>
+      </a>
+      <a href="management-principles.html" class="subpage-card" data-aos="fade-up" data-delay="50">
+        <div class="icon-box"><i class="fas fa-scale-balanced"></i></div>
+        <h4>Management Principles</h4>
+        <p>Transparent, on-site, value-based, and core-competency driven leadership practices.</p>
+      </a>
+      <a href="csr.html" class="subpage-card" data-aos="fade-up" data-delay="100">
+        <div class="icon-box"><i class="fas fa-hand-holding-heart"></i></div>
+        <h4>CSR Initiatives</h4>
+        <p>Lotte SmartLearn Schools, STEM labs, WASH sanitation, and community development.</p>
+      </a>
+      <a href="milestones.html" class="subpage-card" data-aos="fade-up" data-delay="150">
+        <div class="icon-box"><i class="fas fa-timeline"></i></div>
+        <h4>Milestones</h4>
+        <p>A century-long timeline of confectionery breakthroughs and market milestones.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     FOOTER
+     ========================================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="https://www.lotteindia.com/images/logo.png" alt="Lotte India">
+        <p>Lotte India Corporation Private Limited is a leading confectionery company in India, part of the Korean conglomerate Lotte Group.</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/LotteChocopieIndia/" target="_blank" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/lottechocopieindia/" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/lotte-india-corporation-limited-official/" target="_blank" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="http://www.youtube.com/c/LotteChocopieIndia" target="_blank" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>About Lotte</h4>
+        <ul>
+          <li><a href="about-us.html">Our Story</a></li>
+          <li><a href="vision-mission.html">Vision &amp; Mission</a></li>
+          <li><a href="management-principles.html">Management Principles</a></li>
+          <li><a href="csr.html">CSR</a></li>
+          <li><a href="milestones.html">Milestones</a></li>
+          <li><a href="certifications.html">Certifications</a></li>
+          <li><a href="our-policies.html">Our Policies</a></li>
+          <li><a href="hr-services.html">HR Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Our Brands</h4>
+        <ul>
+          <li><a href="choco-pie.html">Lotte Choco Pie</a></li>
+          <li><a href="coffy-bite.html">Coffy Bite</a></li>
+          <li><a href="lotte-eclairs.html">Lotte Eclairs</a></li>
+          <li><a href="caramilk.html">Caramilk</a></li>
+          <li><a href="lacto-king.html">Lacto King</a></li>
+          <li><a href="pepero.html">Pepero</a></li>
+          <li><a href="other-brands.html">Other Brands</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Grow With Lotte</h4>
+        <ul>
+          <li><a href="career-philosophy.html">Career Philosophy</a></li>
+          <li><a href="life-at-lotte.html">Life at Lotte</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Investor Centre</h4>
+        <ul>
+          <li><a href="investor-centre.html">Annual Returns</a></li>
+          <li><a href="investor-centre.html">AGM E-Voting</a></li>
+          <li><a href="investor-centre.html">Postal Ballots</a></li>
+          <li><a href="investor-centre.html">Investor Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="news-events.html">News &amp; Events</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+          <li><a href="enquiry.html">Enquiry</a></li>
+          <li><a href="https://mail.lotteindia.com/" target="_blank">Web Mail</a></li>
+          <li><a href="https://lotteindia.darwinbox.in/user/login/" target="_blank">Employee Portal</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Policies</h4>
+        <ul>
+          <li><a href="https://www.lotteindia.com/pdf/CSR-POLICY-OF-LOTTE-INDIA.pdf" target="_blank">CSR Policy</a></li>
+          <li><a href="our-policies.html">Code of Conduct</a></li>
+          <li><a href="our-policies.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Lotte India Corporation Private Limited. All Rights Reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="our-policies.html">Privacy Policy</a>
+        <a href="our-policies.html">Terms of Use</a>
+        <a href="legal.html">Legal</a>
+        <a href="contact-us.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="scroll-top" title="Back to top"><i class="fas fa-arrow-up"></i></div>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

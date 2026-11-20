@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Story | About Us | Lotte India Corporation Private Limited</title>
+  <meta name="description" content="Discover the story of Lotte India Corporation Private Limited. Part of the Korean conglomerate Lotte Group and Lotte Wellfood, creating joyful sweet moments with India's No.1 Choco Pie.">
+  <meta name="keywords" content="Lotte India story, about lotte india, parrys confectionery, lotte wellfood, lotte group, choco pie india, coffy bite">
+  <link rel="canonical" href="https://www.lotteindia.com/about-us.html">
+  <meta property="og:title" content="Our Story | Lotte India Corporation Private Limited">
+  <meta property="og:description" content="Learn about our journey from Parrys Confectionery to becoming India's favorite Choco Pie brand.">
+  <meta property="og:image" content="https://www.lotteindia.com/images/lotte-building.jpg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Custom enhancements for about-us.html */
+    .heritage-badge-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 32px 0 36px;
+    }
+    .heritage-stat-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .heritage-stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(230,0,18,0.2);
+    }
+    .heritage-stat-card .val {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--lotte-red);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .heritage-stat-card .lbl {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* Facility Cards */
+    .facility-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 36px 30px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .facility-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--lotte-red), #ff6b7a);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .facility-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(230,0,18,0.2);
+    }
+    .facility-card:hover::before {
+      transform: scaleX(1);
+    }
+    .facility-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      background: rgba(230,0,18,0.08);
+      color: var(--lotte-red);
+      margin-bottom: 18px;
+      align-self: flex-start;
+    }
+    .facility-badge.partner {
+      background: rgba(212,160,23,0.12);
+      color: #b38600;
+    }
+    .facility-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
+      background: rgba(230,0,18,0.08);
+      color: var(--lotte-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    .facility-card:hover .facility-icon {
+      background: var(--lotte-red);
+      color: #fff;
+      transform: scale(1.08) rotate(4deg);
+    }
+    .facility-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .facility-address {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+    .facility-specialty {
+      padding-top: 16px;
+      border-top: 1px dashed rgba(0,0,0,0.1);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--lotte-dark-red);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Sub-page quick navigation cards */
+    .subpage-card {
+      background: var(--card-dark);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 26px 22px;
+      transition: var(--transition);
+      display: block;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .subpage-card:hover {
+      background: rgba(230,0,18,0.12);
+      border-color: rgba(230,0,18,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+      color: #fff;
+    }
+    .subpage-card .icon-box {
+      font-size: 1.8rem;
+      color: var(--lotte-red);
+      margin-bottom: 14px;
+      transition: var(--transition);
+    }
+    .subpage-card:hover .icon-box {
+      transform: scale(1.15);
+      color: #fff;
+    }
+    .subpage-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .subpage-card p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+    }
+    .subpage-card .arrow-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--lotte-red);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .subpage-card:hover .arrow-link {
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .heritage-badge-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="inner-page">
+
+<!-- =========================================
+     NAVIGATION
+     ========================================= -->
+<nav id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="https://www.lotteindia.com/images/logo.png" alt="Lotte India Corporation Private Limited">
+    </a>
+    <div class="nav-menu">
+      <ul style="display:flex;gap:4px;align-items:center;list-style:none;margin:0;padding:0;">
+        <li class="nav-item">
+          <a href="#" class="nav-link">About Us <span class="caret">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="about-us.html">Our Story</a>
+            <a href="vision-mission.html">Vision &amp; Mission</a>
+            <a href="management-principles.html">Management Principles</a>
+            <a href="csr.html">CSR</a>
+            <a href="milestones.html">Milestones</a>
+            <a href="certifications.html">Certifications</a>
+            <a href="our-policies.html">Our Policies</a>
+            <a href="hr-services.html">HR Services</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Our Brands <span class="caret">▾</span></a>
+          <div class="mega-dropdown">
+            <div class="mega-col">
+              <h4>🥧 Pie</h4>
+              <a href="choco-pie.html">Lotte Choco Pie</a>
+              <h4 style="margin-top:16px;">🍬 Confectionery</h4>
+              <a href="coffy-bite.html">Coffy Bite</a>
+              <a href="lotte-eclairs.html">Lotte Eclairs</a>
+              <a href="caramilk.html">Caramilk</a>
+              <a href="lacto-king.html">Lacto King</a>
+            </div>
+            <div class="mega-col">
+              <h4>🍫 Pepero</h4>
+              <a href="pepero.html">Original</a>
+              <a href="pepero.html">Crunchy</a>
+              <h4 style="margin-top:16px;">🌟 Other Brands</h4>
+              <a href="other-brands.html">Coconut Punch</a>
+              <a href="other-brands.html">Fruitz</a>
+              <a href="other-brands.html">Chewits</a>
+              <a href="other-brands.html">Season's Greetings</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Grow With Lotte <span class="caret">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="career-philosophy.html">Career Philosophy</a>
+            <a href="life-at-lotte.html">Life at Lotte</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="investor-centre.html" class="nav-link">Investor Centre</a></li>
+        <li class="nav-item"><a href="news-events.html" class="nav-link">News &amp; Events</a></li>
+        <li class="nav-item"><a href="faq.html" class="nav-link">FAQ</a></li>
+        <li class="nav-item"><a href="contact-us.html" class="nav-link">Contact Us</a></li>
+        <li class="nav-item"><a href="enquiry.html" class="nav-enquiry"><i class="fas fa-paper-plane"></i> Enquiry</a></li>
+      </ul>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- =========================================
+     INNER PAGE BANNER
+     ========================================= -->
+<header class="page-banner" aria-label="Page header">
+  <img src="https://www.lotteindia.com/images/about-us-banner-img.jpg" alt="About Lotte India" class="page-banner-img">
+  <div class="page-banner-overlay"></div>
+  <div class="container page-banner-content">
+    <div data-aos="fade-up">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="about-us.html">About Us</a>
+        <span>/</span>
+        <span class="current">Our Story</span>
+      </nav>
+      <h1>Our <span>Story</span></h1>
+      <p style="color:rgba(255,255,255,0.8);max-width:620px;font-size:1.05rem;margin-top:8px;">A legacy of delighting taste buds across India through passion, craftsmanship, and irresistible confections.</p>
+    </div>
+  </div>
+</header>
+
+<!-- =========================================
+     SECTION 1: STORY OF LOTTE INDIA
+     ========================================= -->
+<section class="story-section section" aria-labelledby="story-heading">
+  <div class="container">
+    <div class="story-grid">
+      <!-- Image Column -->
+      <div class="story-image" data-aos="fade-right">
+        <img src="https://www.lotteindia.com/images/lotte-building.jpg" alt="Lotte India Corporate Headquarters Building" loading="lazy">
+        <div class="story-badge">
+          <span style="font-size:1.8rem;font-weight:900;">20+</span>
+          <span>Years in<br>India</span>
+        </div>
+      </div>
+
+      <!-- Content Column -->
+      <div class="story-content" data-aos="fade-left">
+        <span class="section-label"><i class="fas fa-sparkles"></i> Heritage &amp; Excellence</span>
+        <h2 id="story-heading">Story of <span>Lotte India</span></h2>
+        
+        <p>Lotte India Corporation Private Limited came into existence post the takeover of Parrys Confectionery from Murugappa Group in 2004. Lotte Wellfood, the parent company of Lotte India is part of the Korean conglomerate, Lotte Group.</p>
+        
+        <p>Lotte India has been instrumental in creating the 'Pie' category in India — Lotte Choco Pie enjoys near monopoly status. Through decades of dedication to unmatched quality, it has become an essential treat in households nationwide, loved by kids and adults alike.</p>
+        
+        <p>The company is a respectable player in the confectionery space with strong brands like Coffy Bite, Caramilk, Lacto King and Lotte Eclairs, apart from BooProo and Spout gums. With roots tracing back to early twentieth-century confectionery excellence, Lotte India seamlessly blends time-honored Indian traditions with world-class Korean confectionery technology.</p>
+
+        <!-- Stats row -->
+        <div class="heritage-badge-row">
+          <div class="heritage-stat-card">
+            <div class="val">2004</div>
+            <div class="lbl">Lotte Era Began</div>
+          </div>
+          <div class="heritage-stat-card">
+            <div class="val">No. 1</div>
+            <div class="lbl">Choco Pie Brand</div>
+          </div>
+          <div class="heritage-stat-card">
+            <div class="val">3 + 3</div>
+            <div class="lbl">Production Units</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="choco-pie.html" class="btn btn-primary"><i class="fas fa-cookie-bite"></i> Explore Choco Pie</a>
+          <a href="vision-mission.html" class="btn btn-outline" style="border-color:var(--text-primary);color:var(--text-primary);"><i class="fas fa-compass"></i> Vision &amp; Mission</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     GLOBAL LOTTE CONNECTION BAND
+     ========================================= -->
+<section class="section-dark section" style="background:linear-gradient(135deg, #0d0d0d 0%, #1a0003 50%, #0d0d0d 100%);">
+  <div class="container">
+    <div class="grid grid-2" style="align-items:center;gap:60px;">
+      <div data-aos="fade-right">
+        <span class="section-label" style="color:#ff6b7a;"><i class="fas fa-globe-asia"></i> Global Backbone</span>
+        <h2 class="section-title white">Powered by <span>Lotte Wellfood</span> &amp; Lotte Group</h2>
+        <p style="color:rgba(255,255,255,0.7);font-size:1.02rem;line-height:1.8;margin-bottom:24px;">Lotte Group is one of South Korea's largest and most respected global business groups, with diverse interests spanning food &amp; beverages, retail, chemicals, hotel operations, and logistics.</p>
+        <p style="color:rgba(255,255,255,0.7);font-size:1.02rem;line-height:1.8;">Under the leadership of Lotte Wellfood, Lotte India leverages cutting-edge food science, global R&amp;D expertise, and world-class manufacturing systems to enrich the daily lives of Indian consumers with supreme safety and wholesome joy.</p>
+      </div>
+
+      <div data-aos="fade-left">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:28px 24px;">
+            <div style="font-size:2rem;color:var(--lotte-red);margin-bottom:12px;"><i class="fas fa-shield-halved"></i></div>
+            <h4 style="font-size:1.05rem;color:#fff;font-weight:700;margin-bottom:8px;">Global Standards</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.55);line-height:1.6;">ISO, HACCP &amp; FSSC-certified quality processes adapted to Indian consumers' tastes.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:28px 24px;">
+            <div style="font-size:2rem;color:var(--lotte-red);margin-bottom:12px;"><i class="fas fa-seedling"></i></div>
+            <h4 style="font-size:1.05rem;color:#fff;font-weight:700;margin-bottom:8px;">100% Vegetarian</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.55);line-height:1.6;">Specially formulated vegetarian marshmallow technology tailored for the Indian palate.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:28px 24px;">
+            <div style="font-size:2rem;color:var(--lotte-red);margin-bottom:12px;"><i class="fas fa-microscope"></i></div>
+            <h4 style="font-size:1.05rem;color:#fff;font-weight:700;margin-bottom:8px;">Korean R&amp;D</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.55);line-height:1.6;">Continuous recipe perfection, sensory testing, and packaging innovation.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:28px 24px;">
+            <div style="font-size:2rem;color:var(--lotte-red);margin-bottom:12px;"><i class="fas fa-truck-fast"></i></div>
+            <h4 style="font-size:1.05rem;color:#fff;font-weight:700;margin-bottom:8px;">Pan-India Reach</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.55);line-height:1.6;">Over 1 million retail outlets serviced through 2,000+ trusted distributors.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     MANUFACTURING FACILITIES SECTION
+     ========================================= -->
+<section class="section section-light" id="manufacturing-plants" aria-labelledby="facility-heading">
+  <div class="container">
+    <div class="text-center mb-40">
+      <span class="section-label"><i class="fas fa-industry"></i> World-Class Infrastructure</span>
+      <h2 id="facility-heading" class="section-title">Our <span>Manufacturing</span> Facilities</h2>
+      <p class="section-subtitle">Strategically positioned high-capacity facilities engineered with precision automation, stringent food safety certifications, and specialized production hubs.</p>
+    </div>
+
+    <div class="grid grid-2" style="gap:30px;margin-top:50px;">
+      <!-- Facility 1: Chennai -->
+      <div class="facility-card" data-aos="fade-up">
+        <div>
+          <span class="facility-badge"><i class="fas fa-cookie"></i> Choco Pie Plant</span>
+          <div class="facility-icon">
+            <i class="fas fa-industry"></i>
+          </div>
+          <h3 class="facility-title">Chennai Factory</h3>
+          <p class="facility-address">
+            <strong>Address:</strong><br>
+            No. 26, Poonamallee-Thiruvallur Road,<br>
+            Chennai – 602 107, Tamil Nadu
+          </p>
+          <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">Our premier manufacturing plant in South India equipped with advanced baking ovens, automated marshmallow sandwiching units, and temperature-controlled chocolate coating enrobers.</p>
+        </div>
+        <div class="facility-specialty">
+          <i class="fas fa-check-circle"></i> Specialty: Lotte Choco Pie Flagship Facility
+        </div>
+      </div>
+
+      <!-- Facility 2: Rohtak -->
+      <div class="facility-card" data-aos="fade-up" data-delay="100">
+        <div>
+          <span class="facility-badge"><i class="fas fa-cookie"></i> Choco Pie Plant</span>
+          <div class="facility-icon">
+            <i class="fas fa-city"></i>
+          </div>
+          <h3 class="facility-title">Rohtak Factory</h3>
+          <p class="facility-address">
+            <strong>Address:</strong><br>
+            4-7, Sector 30A, Rohtak (IMT),<br>
+            Haryana – 124 001
+          </p>
+          <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">Our state-of-the-art Northern India manufacturing complex located in IMT Rohtak, powering rapid distribution across North, Central, and Eastern Indian states with optimal freshness.</p>
+        </div>
+        <div class="facility-specialty">
+          <i class="fas fa-check-circle"></i> Specialty: High-Volume Lotte Choco Pie Production
+        </div>
+      </div>
+
+      <!-- Facility 3: Nellikuppam -->
+      <div class="facility-card" data-aos="fade-up" data-delay="200">
+        <div>
+          <span class="facility-badge"><i class="fas fa-candy-cane"></i> Confectionery Center</span>
+          <div class="facility-icon">
+            <i class="fas fa-mortar-pestle"></i>
+          </div>
+          <h3 class="facility-title">Nellikuppam Factory</h3>
+          <p class="facility-address">
+            <strong>Address:</strong><br>
+            Morai Street, South Arcot Road, Nellikuppam,<br>
+            Cuddalore – 607 105, Tamil Nadu
+          </p>
+          <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">The historic cradle of beloved Indian confections. Houses our specialized sugar boiling lines, toffee blending kettles, center-filled chocolate extruders, and rapid wrapping machineries.</p>
+        </div>
+        <div class="facility-specialty">
+          <i class="fas fa-check-circle"></i> Specialty: Coffy Bite, Caramilk, Lacto King &amp; Lotte Eclairs
+        </div>
+      </div>
+
+      <!-- Facility 4: Outsourced Manufacturing Units -->
+      <div class="facility-card" data-aos="fade-up" data-delay="300">
+        <div>
+          <span class="facility-badge partner"><i class="fas fa-network-wired"></i> Strategic Network</span>
+          <div class="facility-icon" style="color:#b38600;background:rgba(212,160,23,0.1);">
+            <i class="fas fa-boxes-packing"></i>
+          </div>
+          <h3 class="facility-title">Strategic Outsourced Units</h3>
+          <p class="facility-address">
+            <strong>National Footprint:</strong><br>
+            3 Partner Production Units across India<br>
+            Adhering to Lotte Global Quality Specifications
+          </p>
+          <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;">To meet surging consumer appetite and ensure agile nationwide replenishment, Lotte India partners with 3 high-standard specialized manufacturing units subject to stringent quality audits.</p>
+        </div>
+        <div class="facility-specialty" style="color:#b38600;">
+          <i class="fas fa-check-circle"></i> Specialty: Extended Confectionery &amp; Packaging Capabilities
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     ABOUT US QUICK NAVIGATION
+     ========================================= -->
+<section class="section section-dark" aria-labelledby="subpages-heading">
+  <div class="container">
+    <div class="text-center mb-40">
+      <span class="section-label" style="color:#ff6b7a;"><i class="fas fa-compass"></i> Discover More</span>
+      <h2 id="subpages-heading" class="section-title white">Explore <span>About Us</span></h2>
+      <p class="section-subtitle white">Learn more about our governance, corporate social impact, milestones, and workplace philosophy.</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:20px;margin-top:40px;">
+      <!-- Link 1 -->
+      <a href="vision-mission.html" class="subpage-card" data-aos="fade-up">
+        <div class="icon-box"><i class="fas fa-bullseye"></i></div>
+        <h4>Vision &amp; Mission</h4>
+        <p>Our guiding North Star to enrich everyday lives through products customers love and trust.</p>
+        <span class="arrow-link">Read More <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- Link 2 -->
+      <a href="management-principles.html" class="subpage-card" data-aos="fade-up" data-delay="50">
+        <div class="icon-box"><i class="fas fa-scale-balanced"></i></div>
+        <h4>Management Principles</h4>
+        <p>Transparent, on-site, value-based, and core-competency driven leadership practices.</p>
+        <span class="arrow-link">Read More <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- Link 3 -->
+      <a href="csr.html" class="subpage-card" data-aos="fade-up" data-delay="100">
+        <div class="icon-box"><i class="fas fa-hand-holding-heart"></i></div>
+        <h4>Corporate Responsibility</h4>
+        <p>Lotte SmartLearn Schools initiative, WASH facilities, STEM labs, and community welfare.</p>
+        <span class="arrow-link">Read More <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- Link 4 -->
+      <a href="milestones.html" class="subpage-card" data-aos="fade-up" data-delay="150">
+        <div class="icon-box"><i class="fas fa-timeline"></i></div>
+        <h4>Milestones</h4>
+        <p>A chronological voyage through over a century of iconic confectionery moments.</p>
+        <span class="arrow-link">Read More <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- Link 5 -->
+      <a href="certifications.html" class="subpage-card" data-aos="fade-up" data-delay="200">
+        <div class="icon-box"><i class="fas fa-certificate"></i></div>
+        <h4>Certifications</h4>
+        <p>Highest standards of food hygiene, ISO standards, and safety certifications.</p>
+        <span class="arrow-link">Read More <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- Link 6 -->
+      <a href="our-policies.html" class="subpage-card" data-aos="fade-up" data-delay="250">
+        <div class="icon-box"><i class="fas fa-book"></i></div>
+        <h4>Our Policies</h4>
+        <p>Corporate governance, whistleblower policies, ethical code, and safety compliance.</p>
+        <span class="arrow-link">Read More <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <!-- Link 7 -->
+      <a href="hr-services.html" class="subpage-card" data-aos="fade-up" data-delay="300">
+        <div class="icon-box"><i class="fas fa-users-gear"></i></div>
+        <h4>HR Services</h4>
+        <p>Fostering an empowering, vibrant workplace centered on appreciation and excellence.</p>
+        <span class="arrow-link">Read More <i class="fas fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     FOOTER
+     ========================================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="https://www.lotteindia.com/images/logo.png" alt="Lotte India">
+        <p>Lotte India Corporation Private Limited is a leading confectionery company in India, part of the Korean conglomerate Lotte Group.</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/LotteChocopieIndia/" target="_blank" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/lottechocopieindia/" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/lotte-india-corporation-limited-official/" target="_blank" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="http://www.youtube.com/c/LotteChocopieIndia" target="_blank" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>About Lotte</h4>
+        <ul>
+          <li><a href="about-us.html">Our Story</a></li>
+          <li><a href="vision-mission.html">Vision &amp; Mission</a></li>
+          <li><a href="management-principles.html">Management Principles</a></li>
+          <li><a href="csr.html">CSR</a></li>
+          <li><a href="milestones.html">Milestones</a></li>
+          <li><a href="certifications.html">Certifications</a></li>
+          <li><a href="our-policies.html">Our Policies</a></li>
+          <li><a href="hr-services.html">HR Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Our Brands</h4>
+        <ul>
+          <li><a href="choco-pie.html">Lotte Choco Pie</a></li>
+          <li><a href="coffy-bite.html">Coffy Bite</a></li>
+          <li><a href="lotte-eclairs.html">Lotte Eclairs</a></li>
+          <li><a href="caramilk.html">Caramilk</a></li>
+          <li><a href="lacto-king.html">Lacto King</a></li>
+          <li><a href="pepero.html">Pepero</a></li>
+          <li><a href="other-brands.html">Other Brands</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Grow With Lotte</h4>
+        <ul>
+          <li><a href="career-philosophy.html">Career Philosophy</a></li>
+          <li><a href="life-at-lotte.html">Life at Lotte</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Investor Centre</h4>
+        <ul>
+          <li><a href="investor-centre.html">Annual Returns</a></li>
+          <li><a href="investor-centre.html">AGM E-Voting</a></li>
+          <li><a href="investor-centre.html">Postal Ballots</a></li>
+          <li><a href="investor-centre.html">Investor Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="news-events.html">News &amp; Events</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+          <li><a href="enquiry.html">Enquiry</a></li>
+          <li><a href="https://mail.lotteindia.com/" target="_blank">Web Mail</a></li>
+          <li><a href="https://lotteindia.darwinbox.in/user/login/" target="_blank">Employee Portal</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Policies</h4>
+        <ul>
+          <li><a href="https://www.lotteindia.com/pdf/CSR-POLICY-OF-LOTTE-INDIA.pdf" target="_blank">CSR Policy</a></li>
+          <li><a href="our-policies.html">Code of Conduct</a></li>
+          <li><a href="our-policies.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Lotte India Corporation Private Limited. All Rights Reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="our-policies.html">Privacy Policy</a>
+        <a href="our-policies.html">Terms of Use</a>
+        <a href="legal.html">Legal</a>
+        <a href="contact-us.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="scroll-top" title="Back to top"><i class="fas fa-arrow-up"></i></div>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Management Principles | Lotte India Corporation Private Limited</title>
+  <meta name="description" content="Discover Lotte India's 4 core management principles: Transparent Management, Strengthening Core Competencies, Value Based Management, and On-Site Management.">
+  <meta name="keywords" content="Lotte management principles, transparent management, core competencies, value based management, on-site management, lotte india governance">
+  <link rel="canonical" href="https://www.lotteindia.com/management-principles.html">
+  <meta property="og:title" content="Management Principles | Lotte India Corporation Private Limited">
+  <meta property="og:description" content="Our management philosophy creates value for the business, our employees and society.">
+  <meta property="og:image" content="https://www.lotteindia.com/images/about-us-banner-img.jpg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Management Principles Specific Styling */
+    .principle-hero-box {
+      background: linear-gradient(135deg, rgba(230,0,18,0.04) 0%, rgba(0,0,0,0.02) 100%);
+      border: 1px solid rgba(230,0,18,0.15);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      margin-bottom: 50px;
+      text-align: center;
+      position: relative;
+    }
+    .principle-hero-box p.lead {
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.5;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+    .principle-hero-box p.lead span {
+      color: var(--lotte-red);
+    }
+
+    /* Large Visual Principle Cards */
+    .principle-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 36px;
+    }
+    .principle-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 44px 38px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .principle-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--lotte-red), #ff4d5e);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .principle-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(230,0,18,0.25);
+    }
+    .principle-card:hover::before {
+      transform: scaleX(1);
+    }
+    .principle-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .principle-icon {
+      width: 76px;
+      height: 76px;
+      border-radius: 18px;
+      background: rgba(230,0,18,0.08);
+      color: var(--lotte-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      transition: var(--transition);
+    }
+    .principle-card:hover .principle-icon {
+      background: var(--lotte-red);
+      color: #fff;
+      transform: scale(1.08) rotate(4deg);
+    }
+    .principle-number {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: rgba(0,0,0,0.04);
+      line-height: 1;
+      transition: var(--transition);
+    }
+    .principle-card:hover .principle-number {
+      color: rgba(230,0,18,0.12);
+    }
+    .principle-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--lotte-red);
+      margin-bottom: 8px;
+    }
+    .principle-card h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .principle-summary {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .principle-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .principle-points {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      padding-top: 20px;
+    }
+    .principle-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .principle-points li i {
+      color: var(--lotte-red);
+      margin-top: 4px;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* Triad of Value Section */
+    .value-triad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 40px;
+    }
+    .triad-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .triad-card:hover {
+      background: rgba(230,0,18,0.12);
+      border-color: rgba(230,0,18,0.3);
+      transform: translateY(-6px);
+    }
+    .triad-icon {
+      font-size: 2.5rem;
+      color: var(--lotte-red);
+      margin-bottom: 16px;
+    }
+    .triad-card h4 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .triad-card p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+    }
+
+    /* Subpage Links */
+    .subpage-card {
+      background: var(--card-dark);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 26px 22px;
+      transition: var(--transition);
+      display: block;
+      color: #fff;
+    }
+    .subpage-card:hover {
+      background: rgba(230,0,18,0.12);
+      border-color: rgba(230,0,18,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+      color: #fff;
+    }
+    .subpage-card .icon-box {
+      font-size: 1.8rem;
+      color: var(--lotte-red);
+      margin-bottom: 14px;
+      transition: var(--transition);
+    }
+    .subpage-card:hover .icon-box {
+      transform: scale(1.15);
+      color: #fff;
+    }
+    .subpage-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .subpage-card p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 992px) {
+      .principle-grid { grid-template-columns: 1fr; }
+      .value-triad-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .principle-hero-box { padding: 32px 20px; }
+      .principle-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body class="inner-page">
+
+<!-- =========================================
+     NAVIGATION
+     ========================================= -->
+<nav id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="https://www.lotteindia.com/images/logo.png" alt="Lotte India Corporation Private Limited">
+    </a>
+    <div class="nav-menu">
+      <ul style="display:flex;gap:4px;align-items:center;list-style:none;margin:0;padding:0;">
+        <li class="nav-item">
+          <a href="#" class="nav-link">About Us <span class="caret">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="about-us.html">Our Story</a>
+            <a href="vision-mission.html">Vision &amp; Mission</a>
+            <a href="management-principles.html">Management Principles</a>
+            <a href="csr.html">CSR</a>
+            <a href="milestones.html">Milestones</a>
+            <a href="certifications.html">Certifications</a>
+            <a href="our-policies.html">Our Policies</a>
+            <a href="hr-services.html">HR Services</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Our Brands <span class="caret">▾</span></a>
+          <div class="mega-dropdown">
+            <div class="mega-col">
+              <h4>🥧 Pie</h4>
+              <a href="choco-pie.html">Lotte Choco Pie</a>
+              <h4 style="margin-top:16px;">🍬 Confectionery</h4>
+              <a href="coffy-bite.html">Coffy Bite</a>
+              <a href="lotte-eclairs.html">Lotte Eclairs</a>
+              <a href="caramilk.html">Caramilk</a>
+              <a href="lacto-king.html">Lacto King</a>
+            </div>
+            <div class="mega-col">
+              <h4>🍫 Pepero</h4>
+              <a href="pepero.html">Original</a>
+              <a href="pepero.html">Crunchy</a>
+              <h4 style="margin-top:16px;">🌟 Other Brands</h4>
+              <a href="other-brands.html">Coconut Punch</a>
+              <a href="other-brands.html">Fruitz</a>
+              <a href="other-brands.html">Chewits</a>
+              <a href="other-brands.html">Season's Greetings</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Grow With Lotte <span class="caret">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="career-philosophy.html">Career Philosophy</a>
+            <a href="life-at-lotte.html">Life at Lotte</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="investor-centre.html" class="nav-link">Investor Centre</a></li>
+        <li class="nav-item"><a href="news-events.html" class="nav-link">News &amp; Events</a></li>
+        <li class="nav-item"><a href="faq.html" class="nav-link">FAQ</a></li>
+        <li class="nav-item"><a href="contact-us.html" class="nav-link">Contact Us</a></li>
+        <li class="nav-item"><a href="enquiry.html" class="nav-enquiry"><i class="fas fa-paper-plane"></i> Enquiry</a></li>
+      </ul>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- =========================================
+     INNER PAGE BANNER
+     ========================================= -->
+<header class="page-banner" aria-label="Page header">
+  <img src="https://www.lotteindia.com/images/about-us-banner-img.jpg" alt="Lotte India Management Principles" class="page-banner-img">
+  <div class="page-banner-overlay"></div>
+  <div class="container page-banner-content">
+    <div data-aos="fade-up">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="about-us.html">About Us</a>
+        <span>/</span>
+        <span class="current">Management Principles</span>
+      </nav>
+      <h1>Management <span>Principles</span></h1>
+      <p style="color:rgba(255,255,255,0.8);max-width:640px;font-size:1.05rem;margin-top:8px;">Foundations of sustainable leadership, operational integrity, and shared stakeholder value.</p>
+    </div>
+  </div>
+</header>
+
+<!-- =========================================
+     INTRO & 4 PRINCIPLE CARDS (LIGHT SECTION)
+     ========================================= -->
+<section class="section section-light" aria-labelledby="principles-heading">
+  <div class="container">
+    <!-- Intro statement -->
+    <div class="principle-hero-box" data-aos="fade-up">
+      <span class="section-label"><i class="fas fa-scale-balanced"></i> Corporate Philosophy</span>
+      <p class="lead">
+        Our management philosophy creates value for the <span>business</span>, our <span>employees</span>, and <span>society</span>.
+      </p>
+      <p style="color:var(--text-secondary);max-width:700px;margin:16px auto 0;font-size:0.95rem;line-height:1.7;">
+        By grounding our operations in honesty, capability development, moral values, and real-time operational proximity, Lotte India builds long-term trust that transcends generations.
+      </p>
+    </div>
+
+    <!-- 4 Principle Cards Grid -->
+    <div class="principle-grid">
+      <!-- Principle 1: Transparent Management -->
+      <div class="principle-card" data-aos="fade-up">
+        <div>
+          <div class="principle-header">
+            <div class="principle-icon">
+              <i class="fas fa-magnifying-glass-chart"></i>
+            </div>
+            <span class="principle-number">01</span>
+          </div>
+          <span class="principle-tag">Integrity &amp; Openness</span>
+          <h3>Transparent Management</h3>
+          <p class="principle-summary">Open, honest communication at all levels.</p>
+          <p class="principle-desc">
+            We operate with complete clarity, candid dialog, and unquestioned governance. By practicing open communication between management, frontline personnel, suppliers, and regulatory bodies, we cultivate a work environment built on mutual respect and absolute integrity.
+          </p>
+        </div>
+        <ul class="principle-points">
+          <li><i class="fas fa-check-circle"></i> Clear disclosures and ethical accounting practices</li>
+          <li><i class="fas fa-check-circle"></i> Open door communication between teams and leadership</li>
+          <li><i class="fas fa-check-circle"></i> Robust whistle-blower &amp; grievance redressal framework</li>
+        </ul>
+      </div>
+
+      <!-- Principle 2: Strengthening Core Competencies -->
+      <div class="principle-card" data-aos="fade-up" data-delay="100">
+        <div>
+          <div class="principle-header">
+            <div class="principle-icon">
+              <i class="fas fa-chart-line-up"></i>
+            </div>
+            <span class="principle-number">02</span>
+          </div>
+          <span class="principle-tag">Excellence &amp; Innovation</span>
+          <h3>Strengthening Core Competencies</h3>
+          <p class="principle-summary">Building on our inherent strengths.</p>
+          <p class="principle-desc">
+            We focus fiercely on what we do best: pioneering the 'Pie' category, engineering mouthwatering confections, and perfecting large-scale distribution. Through continuous technological upgrading and skill enhancement, we defend our competitive advantage with unmatched vigor.
+          </p>
+        </div>
+        <ul class="principle-points">
+          <li><i class="fas fa-check-circle"></i> Expanding Choco Pie category leadership across India</li>
+          <li><i class="fas fa-check-circle"></i> Continuous modernization of baking &amp; confectionery lines</li>
+          <li><i class="fas fa-check-circle"></i> Leadership development &amp; technical training for staff</li>
+        </ul>
+      </div>
+
+      <!-- Principle 3: Value Based Management -->
+      <div class="principle-card" data-aos="fade-up" data-delay="200">
+        <div>
+          <div class="principle-header">
+            <div class="principle-icon">
+              <i class="fas fa-award"></i>
+            </div>
+            <span class="principle-number">03</span>
+          </div>
+          <span class="principle-tag">Purpose &amp; Ethics</span>
+          <h3>Value Based Management</h3>
+          <p class="principle-summary">Making decisions based on our core values.</p>
+          <p class="principle-desc">
+            Every business proposal, expansion plan, and strategic initiative is weighed against our core tenets of Challenge, Respect, Originality, and Customer Delight. We reject short-term gains that compromise our ethical compass or consumer safety.
+          </p>
+        </div>
+        <ul class="principle-points">
+          <li><i class="fas fa-check-circle"></i> Sustainable decision-making prioritizing consumer well-being</li>
+          <li><i class="fas fa-check-circle"></i> Alignment with Lotte Group global ethical standards</li>
+          <li><i class="fas fa-check-circle"></i> Long-term value creation for investors and community</li>
+        </ul>
+      </div>
+
+      <!-- Principle 4: On-Site Management -->
+      <div class="principle-card" data-aos="fade-up" data-delay="300">
+        <div>
+          <div class="principle-header">
+            <div class="principle-icon">
+              <i class="fas fa-users-gear"></i>
+            </div>
+            <span class="principle-number">04</span>
+          </div>
+          <span class="principle-tag">Grounded Leadership</span>
+          <h3>On-Site Management</h3>
+          <p class="principle-summary">Staying connected to our operations and people.</p>
+          <p class="principle-desc">
+            Leadership belongs on the ground. True insight arises not from boardrooms alone, but from the factory floor, regional distribution hubs, and retail grocery stores. By remaining intimately connected to frontline operations, we diagnose challenges swiftly and seize opportunities proactively.
+          </p>
+        </div>
+        <ul class="principle-points">
+          <li><i class="fas fa-check-circle"></i> Frequent leadership presence at manufacturing facilities</li>
+          <li><i class="fas fa-check-circle"></i> Real-time problem resolution and rapid feedback loops</li>
+          <li><i class="fas fa-check-circle"></i> Close touchpoints with retail partners and consumers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     TRIAD OF VALUE CREATION (DARK SECTION)
+     ========================================= -->
+<section class="section section-dark" style="background:#090909;position:relative;" aria-labelledby="triad-heading">
+  <div class="container">
+    <div class="text-center mb-40">
+      <span class="section-label" style="color:#ff6b7a;"><i class="fas fa-infinity"></i> Comprehensive Impact</span>
+      <h2 id="triad-heading" class="section-title white">The <span>Triad</span> of Value Creation</h2>
+      <p class="section-subtitle white">How our management principles generate sustainable prosperity across three critical dimensions.</p>
+    </div>
+
+    <div class="value-triad-grid">
+      <div class="triad-card" data-aos="fade-up">
+        <div class="triad-icon"><i class="fas fa-chart-line"></i></div>
+        <h4>Value for Business</h4>
+        <p>Sustainable profitability, strong market share in pies and confectionery, healthy balance sheet metrics, and enduring shareholder trust.</p>
+      </div>
+
+      <div class="triad-card" data-aos="fade-up" data-delay="150">
+        <div class="triad-icon"><i class="fas fa-people-roof"></i></div>
+        <h4>Value for Employees</h4>
+        <p>A merit-driven, safe, and celebratory work environment where career growth, continuous learning, and human dignity are actively championed.</p>
+      </div>
+
+      <div class="triad-card" data-aos="fade-up" data-delay="300">
+        <div class="triad-icon"><i class="fas fa-hand-holding-heart"></i></div>
+        <h4>Value for Society</h4>
+        <p>Meaningful corporate social responsibility through SMART classrooms, WASH hygiene infrastructure, nutritional awareness, and environmental stewardship.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     EXPLORE ABOUT US QUICK LINKS
+     ========================================= -->
+<section class="section section-light" aria-labelledby="subpages-heading">
+  <div class="container">
+    <div class="text-center mb-40">
+      <span class="section-label"><i class="fas fa-compass"></i> Discover More</span>
+      <h2 id="subpages-heading" class="section-title">Explore <span>About Us</span></h2>
+      <p class="section-subtitle">Navigate through our heritage, policies, milestones, and corporate programs.</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:20px;margin-top:40px;">
+      <a href="about-us.html" class="subpage-card" data-aos="fade-up">
+        <div class="icon-box"><i class="fas fa-book-open"></i></div>
+        <h4>Our Story</h4>
+        <p>The journey of Lotte India from Parrys Confectionery to market leader.</p>
+      </a>
+      <a href="vision-mission.html" class="subpage-card" data-aos="fade-up" data-delay="50">
+        <div class="icon-box"><i class="fas fa-bullseye"></i></div>
+        <h4>Vision &amp; Mission</h4>
+        <p>Our guiding North Star and the four fundamental core values.</p>
+      </a>
+      <a href="csr.html" class="subpage-card" data-aos="fade-up" data-delay="100">
+        <div class="icon-box"><i class="fas fa-hand-holding-heart"></i></div>
+        <h4>CSR Initiatives</h4>
+        <p>Lotte SmartLearn Schools, STEM labs, WASH sanitation, and community development.</p>
+      </a>
+      <a href="our-policies.html" class="subpage-card" data-aos="fade-up" data-delay="150">
+        <div class="icon-box"><i class="fas fa-book"></i></div>
+        <h4>Our Policies</h4>
+        <p>Corporate governance, whistleblower policies, ethical code, and safety compliance.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     FOOTER
+     ========================================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="https://www.lotteindia.com/images/logo.png" alt="Lotte India">
+        <p>Lotte India Corporation Private Limited is a leading confectionery company in India, part of the Korean conglomerate Lotte Group.</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/LotteChocopieIndia/" target="_blank" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/lottechocopieindia/" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/lotte-india-corporation-limited-official/" target="_blank" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="http://www.youtube.com/c/LotteChocopieIndia" target="_blank" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>About Lotte</h4>
+        <ul>
+          <li><a href="about-us.html">Our Story</a></li>
+          <li><a href="vision-mission.html">Vision &amp; Mission</a></li>
+          <li><a href="management-principles.html">Management Principles</a></li>
+          <li><a href="csr.html">CSR</a></li>
+          <li><a href="milestones.html">Milestones</a></li>
+          <li><a href="certifications.html">Certifications</a></li>
+          <li><a href="our-policies.html">Our Policies</a></li>
+          <li><a href="hr-services.html">HR Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Our Brands</h4>
+        <ul>
+          <li><a href="choco-pie.html">Lotte Choco Pie</a></li>
+          <li><a href="coffy-bite.html">Coffy Bite</a></li>
+          <li><a href="lotte-eclairs.html">Lotte Eclairs</a></li>
+          <li><a href="caramilk.html">Caramilk</a></li>
+          <li><a href="lacto-king.html">Lacto King</a></li>
+          <li><a href="pepero.html">Pepero</a></li>
+          <li><a href="other-brands.html">Other Brands</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Grow With Lotte</h4>
+        <ul>
+          <li><a href="career-philosophy.html">Career Philosophy</a></li>
+          <li><a href="life-at-lotte.html">Life at Lotte</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Investor Centre</h4>
+        <ul>
+          <li><a href="investor-centre.html">Annual Returns</a></li>
+          <li><a href="investor-centre.html">AGM E-Voting</a></li>
+          <li><a href="investor-centre.html">Postal Ballots</a></li>
+          <li><a href="investor-centre.html">Investor Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="news-events.html">News &amp; Events</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+          <li><a href="enquiry.html">Enquiry</a></li>
+          <li><a href="https://mail.lotteindia.com/" target="_blank">Web Mail</a></li>
+          <li><a href="https://lotteindia.darwinbox.in/user/login/" target="_blank">Employee Portal</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Policies</h4>
+        <ul>
+          <li><a href="https://www.lotteindia.com/pdf/CSR-POLICY-OF-LOTTE-INDIA.pdf" target="_blank">CSR Policy</a></li>
+          <li><a href="our-policies.html">Code of Conduct</a></li>
+          <li><a href="our-policies.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Lotte India Corporation Private Limited. All Rights Reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="our-policies.html">Privacy Policy</a>
+        <a href="our-policies.html">Terms of Use</a>
+        <a href="legal.html">Legal</a>
+        <a href="contact-us.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="scroll-top" title="Back to top"><i class="fas fa-arrow-up"></i></div>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

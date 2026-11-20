@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lotte Choco Pie | India's No.1 Choco Pie | Lotte India</title>
+  <meta name="description" content="Discover Lotte Choco Pie — India's No.1 Choco Pie. Fluffy 100% vegetarian marshmallow sandwiched between soft baked biscuits, drenched in rich decadent chocolate.">
+  <meta name="keywords" content="Lotte Choco Pie, India's No.1 Choco Pie, vegetarian choco pie, rich cocoa choco pie, choco pie variants, lotte india snacks">
+  <link rel="canonical" href="https://www.lotteindia.com/choco-pie.html">
+  <meta property="og:title" content="Lotte Choco Pie | India's No.1 Choco Pie">
+  <meta property="og:description" content="Fluffy marshmallows, soft biscuits and rich choco come together to bring you India's No.1 Choco Pie.">
+  <meta property="og:image" content="https://www.lotteindia.com/images/choco-brand.png">
+  <meta property="og:url" content="https://www.lotteindia.com/choco-pie.html">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Product Page Specific Enhancements */
+    .product-hero {
+      padding-top: 140px;
+      padding-bottom: 90px;
+      background: radial-gradient(circle at 75% 40%, rgba(230, 0, 18, 0.18) 0%, rgba(10, 10, 10, 0.98) 70%), #0A0A0A;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow-sphere {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(230,0,18,0.2) 0%, transparent 70%);
+      top: 20%;
+      right: 10%;
+      pointer-events: none;
+      filter: blur(40px);
+    }
+
+    .breadcrumb-bar {
+      padding: 16px 0;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .veg-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 139, 34, 0.15);
+      border: 1px solid rgba(46, 204, 113, 0.4);
+      color: #2ECC71;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .veg-icon-box {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #2ECC71;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 3px;
+    }
+
+    .veg-icon-dot {
+      width: 8px;
+      height: 8px;
+      background: #2ECC71;
+      border-radius: 50%;
+    }
+
+    .product-hero-image {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .product-hero-image img {
+      max-height: 480px;
+      filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(230, 0, 18, 0.35));
+      transform-origin: center;
+      animation: floatProduct 5s ease-in-out infinite;
+    }
+
+    @keyframes floatProduct {
+      0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+      50% { transform: translateY(-18px) rotate(1.5deg); }
+    }
+
+    .floating-pill {
+      position: absolute;
+      background: rgba(20, 20, 20, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .floating-pill.pill-1 {
+      top: 15%;
+      left: 0;
+      border-color: rgba(230, 0, 18, 0.4);
+    }
+
+    .floating-pill.pill-2 {
+      bottom: 12%;
+      right: 5%;
+      border-color: rgba(46, 204, 113, 0.4);
+    }
+
+    .feature-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--lotte-red), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(230, 0, 18, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(230, 0, 18, 0.15);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-card .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 18px;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.15);
+    }
+
+    .feature-card h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* Sensory Experience Section */
+    .sensory-section {
+      padding: 110px 0;
+      background: #0D0D0D;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sensory-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .sensory-image-wrap {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sensory-image-wrap img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .sensory-image-wrap:hover img {
+      transform: scale(1.06);
+    }
+
+    .sensory-badge-overlay {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      background: rgba(10, 10, 10, 0.88);
+      backdrop-filter: blur(10px);
+      padding: 16px 24px;
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--lotte-red);
+      color: #fff;
+      max-width: 320px;
+    }
+
+    .sensory-badge-overlay strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .sensory-badge-overlay span {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Secret Warm Tip */
+    .pro-tip-box {
+      margin-top: 30px;
+      padding: 20px 24px;
+      background: rgba(230, 0, 18, 0.08);
+      border: 1px dashed rgba(230, 0, 18, 0.35);
+      border-radius: var(--radius-md);
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .pro-tip-icon {
+      font-size: 2rem;
+      color: var(--lotte-red);
+      flex-shrink: 0;
+    }
+
+    .pro-tip-text h5 {
+      font-size: 0.95rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .pro-tip-text p {
+      font-size: 0.84rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Variants Section */
+    .variants-section {
+      padding: 110px 0;
+      background: #121212;
+      position: relative;
+    }
+
+    .variant-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 36px;
+      margin-top: 50px;
+    }
+
+    .variant-card {
+      background: #191919;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .variant-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(230, 0, 18, 0.35);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(230, 0, 18, 0.15);
+    }
+
+    .variant-image-box {
+      height: 320px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, rgba(0, 0, 0, 0.6) 100%), #151515;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 24px;
+    }
+
+    .variant-image-box img {
+      max-height: 260px;
+      object-fit: contain;
+      transition: transform 0.6s ease;
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+    }
+
+    .variant-card:hover .variant-image-box img {
+      transform: scale(1.08);
+    }
+
+    .variant-tag {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 6px 14px;
+      background: var(--lotte-red);
+      color: #fff;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .variant-tag.gold {
+      background: linear-gradient(135deg, #D4A017 0%, #8C6207 100%);
+      color: #fff;
+    }
+
+    .variant-body {
+      padding: 36px 32px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .variant-body h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .variant-body p {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 0.92rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .pack-sizes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .pack-size-item {
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 600;
+    }
+
+    /* Specifications Band */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 50px;
+    }
+
+    .spec-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .spec-box:hover {
+      background: rgba(230, 0, 18, 0.05);
+      border-color: rgba(230, 0, 18, 0.2);
+    }
+
+    .spec-box i {
+      font-size: 1.8rem;
+      color: var(--lotte-red);
+      margin-bottom: 12px;
+    }
+
+    .spec-box h5 {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .spec-box p {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+
+    /* Other Brands Strip */
+    .related-strip {
+      padding: 80px 0;
+      background: #080808;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .related-card {
+      background: #141414;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .related-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(230, 0, 18, 0.3);
+      background: #1a1a1a;
+    }
+
+    .related-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .related-card h4 {
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .related-card p {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 8px;
+    }
+
+    .related-card span {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--lotte-red);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 992px) {
+      .variant-cards, .sensory-grid { grid-template-columns: 1fr; }
+      .specs-grid { grid-template-columns: 1fr 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+      .product-hero-image img { max-height: 380px; }
+    }
+  </style>
+</head>
+<body class="inner-page">
+
+<!-- =========================================
+     NAVIGATION
+     ========================================= -->
+<nav id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <img src="https://www.lotteindia.com/images/logo.png" alt="Lotte India Corporation Private Limited">
+    </a>
+    <div class="nav-menu">
+      <ul style="display:flex;gap:4px;align-items:center;list-style:none;margin:0;padding:0;">
+        <li class="nav-item">
+          <a href="#" class="nav-link">About Us <span class="caret">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="about-us.html">Our Story</a>
+            <a href="vision-mission.html">Vision &amp; Mission</a>
+            <a href="management-principles.html">Management Principles</a>
+            <a href="csr.html">CSR</a>
+            <a href="milestones.html">Milestones</a>
+            <a href="certifications.html">Certifications</a>
+            <a href="our-policies.html">Our Policies</a>
+            <a href="hr-services.html">HR Services</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Our Brands <span class="caret">▾</span></a>
+          <div class="mega-dropdown">
+            <div class="mega-col">
+              <h4>🥧 Pie</h4>
+              <a href="choco-pie.html">Lotte Choco Pie</a>
+              <h4 style="margin-top:16px;">🍬 Confectionery</h4>
+              <a href="coffy-bite.html">Coffy Bite</a>
+              <a href="lotte-eclairs.html">Lotte Eclairs</a>
+              <a href="caramilk.html">Caramilk</a>
+              <a href="lacto-king.html">Lacto King</a>
+            </div>
+            <div class="mega-col">
+              <h4>🍫 Pepero</h4>
+              <a href="pepero.html">Original</a>
+              <a href="pepero.html">Crunchy</a>
+              <h4 style="margin-top:16px;">🌟 Other Brands</h4>
+              <a href="other-brands.html">Coconut Punch</a>
+              <a href="other-brands.html">Fruitz</a>
+              <a href="other-brands.html">Chewits</a>
+              <a href="other-brands.html">Season's Greetings</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Grow With Lotte <span class="caret">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="career-philosophy.html">Career Philosophy</a>
+            <a href="life-at-lotte.html">Life at Lotte</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="investor-centre.html" class="nav-link">Investor Centre</a></li>
+        <li class="nav-item"><a href="news-events.html" class="nav-link">News &amp; Events</a></li>
+        <li class="nav-item"><a href="faq.html" class="nav-link">FAQ</a></li>
+        <li class="nav-item"><a href="contact-us.html" class="nav-link">Contact Us</a></li>
+        <li class="nav-item"><a href="enquiry.html" class="nav-enquiry"><i class="fas fa-paper-plane"></i> Enquiry</a></li>
+      </ul>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- =========================================
+     BREADCRUMB BAR
+     ========================================= -->
+<div class="breadcrumb-bar">
+  <div class="container">
+    <div class="breadcrumb-nav">
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <span>/</span>
+      <a href="index.html#brands-heading">Our Brands</a>
+      <span>/</span>
+      <span class="current">Lotte Choco Pie</span>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================
+     HERO SECTION
+     ========================================= -->
+<section class="product-hero" aria-label="Lotte Choco Pie Hero">
+  <div class="hero-glow-sphere"></div>
+  <div class="container">
+    <div class="product-hero-grid">
+      <!-- Product Info Left -->
+      <div class="product-hero-info" data-aos="fade-right">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+          <span class="section-label" style="margin:0;"><i class="fas fa-crown"></i> India's No.1 Choco Pie</span>
+          <div class="veg-badge">
+            <span class="veg-icon-box"><span class="veg-icon-dot"></span></span>
+            <span>100% Vegetarian</span>
+          </div>
+        </div>
+
+        <h1 style="font-size:clamp(2.8rem, 5vw, 4.4rem);line-height:1.05;margin-bottom:16px;">
+          Lotte <span style="color:var(--lotte-red);">Choco Pie</span>
+        </h1>
+
+        <p style="font-size:1.3rem;font-weight:600;color:#F0E6D3;margin-bottom:18px;line-height:1.4;">
+          "Your very own little circle of joy."
+        </p>
+
+        <p style="font-size:1.05rem;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:14px;">
+          Fluffy marshmallows, soft biscuits and rich choco come together to bring you India's No.1 Choco Pie.
+        </p>
+
+        <p style="font-size:0.95rem;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:32px;">
+          Cream-sandwiched biscuits drenched in chocolate. Lotte Choco Pie pioneered the 'Pie' category in India and continues to rule hearts with its iconic melt-in-the-mouth magic.
+        </p>
+
+        <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+          <a href="#variants" class="btn btn-primary"><i class="fas fa-layer-group"></i> Explore Variants</a>
+          <a href="enquiry.html" class="btn btn-outline"><i class="fas fa-store"></i> Trade &amp; Bulk Enquiry</a>
+        </div>
+
+        <div style="display:flex;gap:28px;margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.1);">
+          <div>
+            <div style="font-size:1.8rem;font-weight:900;color:var(--lotte-red);">No.1</div>
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;">In India</div>
+          </div>
+          <div>
+            <div style="font-size:1.8rem;font-weight:900;color:#2ECC71;">100%</div>
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;">Vegetarian</div>
+          </div>
+          <div>
+            <div style="font-size:1.8rem;font-weight:900;color:#F5C842;">2004</div>
+            <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;">Category Pioneer</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Image Right with Floating Badges -->
+      <div class="product-hero-image" data-aos="fade-left">
+        <img src="https://www.lotteindia.com/images/choco-brand.png" alt="Lotte Choco Pie Box and Product — India's No.1">
+        
+        <div class="floating-pill pill-1">
+          <span style="color:#FFD700;font-size:1.1rem;">★</span>
+          <span>Near Monopoly Status</span>
+        </div>
+
+        <div class="floating-pill pill-2">
+          <span class="veg-icon-box"><span class="veg-icon-dot"></span></span>
+          <span>Pure Veg Marshmallow</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     PRODUCT FEATURES (3 CARDS)
+     ========================================= -->
+<section class="section section-darker" aria-labelledby="features-heading">
+  <div class="container">
+    <div class="text-center mb-40" data-aos="fade-up">
+      <span class="section-label">Triple Layer Delight</span>
+      <h2 id="features-heading" class="section-title white">Crafted to <span>Perfection</span></h2>
+      <p class="section-subtitle white">Every bite of Lotte Choco Pie harmonizes three distinct culinary textures into pure confectionery bliss.</p>
+    </div>
+
+    <div class="product-features">
+      <!-- Feature 1 -->
+      <div class="feature-card" data-aos="fade-up" data-delay="100">
+        <div class="feature-icon">🥧</div>
+        <h4>Soft Biscuit</h4>
+        <p>Baked golden to a delicate, crumbly softness that gives way seamlessly when bitten into, delivering warm vanilla-biscuit harmony.</p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-card" data-aos="fade-up" data-delay="200">
+        <div class="feature-icon">☁️</div>
+        <h4>Fluffy Marshmallow</h4>
+        <p>Pillowy, airy marshmallow center made with a 100% vegetarian formulation, giving Lotte Choco Pie its signature heavenly stretch.</p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-card" data-aos="fade-up" data-delay="300">
+        <div class="feature-icon">🍫</div>
+        <h4>Rich Chocolate Coating</h4>
+        <p>Drenched generously in glossy, full-bodied chocolate that locks in moisture and coats your palate in velvety sweetness.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     SENSORY STORY / LIFESTYLE SECTION
+     ========================================= -->
+<section class="sensory-section" aria-labelledby="sensory-heading">
+  <div class="container">
+    <div class="sensory-grid">
+      <!-- Image with overlay -->
+      <div class="sensory-image-wrap" data-aos="fade-right">
+        <img src="https://www.lotteindia.com/images/choco-pie-img.jpg" alt="Cream-sandwiched biscuit drenched in chocolate — Lotte Choco Pie" loading="lazy">
+        <div class="sensory-badge-overlay">
+          <strong>The Taste Sensation</strong>
+          <span>Crisp yet tender, chewy yet melting — a symphony of indulgence.</span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div data-aos="fade-left">
+        <span class="section-label">The Iconic Experience</span>
+        <h2 id="sensory-heading" class="section-title white" style="font-size:clamp(2rem, 3.5vw, 2.8rem);">
+          Cream Sandwiched Biscuits <span>Drenched in Chocolate</span>
+        </h2>
+        
+        <p style="color:rgba(255,255,255,0.75);line-height:1.8;font-size:1.02rem;margin-bottom:18px;">
+          Lotte Choco Pie is not just a snack; it is an emotion shared across millions of homes. When Lotte India introduced the 'Pie' category in 2004, it redefined sweet snacking by introducing India to the delightful pairing of soft-baked sponge and pillowy marshmallow.
+        </p>
+
+        <p style="color:rgba(255,255,255,0.65);line-height:1.8;font-size:0.95rem;margin-bottom:24px;">
+          Engineered with an eggless, 100% vegetarian marshmallow recipe specially crafted for Indian consumers, Lotte Choco Pie is the snack of choice for school tiffins, evening treats, office breaks, and festive celebrations.
+        </p>
+
+        <!-- Pro Tip Box -->
+        <div class="pro-tip-box">
+          <div class="pro-tip-icon">
+            <i class="fas fa-microwave"></i>
+          </div>
+          <div class="pro-tip-text">
+            <h5>Chef's Warm Secret</h5>
+            <p>Pop your Lotte Choco Pie in the microwave for just <strong>8 to 10 seconds</strong>. Watch the marshmallow puff into molten cream and the chocolate layer melt into pure warm decadence!</p>
+          </div>
+        </div>
+
+        <div style="margin-top:32px;">
+          <a href="enquiry.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Enquire for Distribution</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     VARIANTS SECTION
+     ========================================= -->
+<section id="variants" class="variants-section" aria-labelledby="variants-heading">
+  <div class="container">
+    <div class="text-center mb-40" data-aos="fade-up">
+      <span class="section-label">Our Range</span>
+      <h2 id="variants-heading" class="section-title white">Explore the <span>Variants</span></h2>
+      <p class="section-subtitle white">Whether you prefer timeless classic indulgence or intensely deep cocoa richness, there is a Lotte Choco Pie for every craving.</p>
+    </div>
+
+    <div class="variant-cards">
+      <!-- Variant 1: Original -->
+      <div class="variant-card" data-aos="fade-up" data-delay="100">
+        <div class="variant-image-box">
+          <span class="variant-tag"><i class="fas fa-star"></i> Classic Bestseller</span>
+          <img src="https://www.lotteindia.com/images/chocopie-prod.jpg" alt="Lotte Original Choco Pie Pack" loading="lazy">
+        </div>
+        <div class="variant-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <h3>Original Choco Pie</h3>
+            <span class="veg-badge" style="padding:4px 10px;font-size:0.7rem;">Veg ✅</span>
+          </div>
+          <p>
+            The signature masterpiece that millions grew up loving. Soft, golden-baked cake biscuits layered around a generous cushion of bouncy vegetarian marshmallow, all generously drenched in silky smooth milk chocolate.
+          </p>
+
+          <div style="margin-bottom:8px;">
+            <span style="font-size:0.75rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;font-weight:700;">Available Pack Sizes:</span>
+          </div>
+          <div class="pack-sizes">
+            <span class="pack-size-item">Single Pack (28g)</span>
+            <span class="pack-size-item">Pack of 6 (168g)</span>
+            <span class="pack-size-item">Pack of 12 (336g)</span>
+            <span class="pack-size-item">Family Fest Pack</span>
+          </div>
+
+          <a href="enquiry.html" class="btn btn-outline btn-sm" style="margin-top:auto;"><i class="fas fa-shopping-cart"></i> Order / Enquire</a>
+        </div>
+      </div>
+
+      <!-- Variant 2: Rich Cocoa -->
+      <div class="variant-card" data-aos="fade-up" data-delay="200">
+        <div class="variant-image-box">
+          <span class="variant-tag gold"><i class="fas fa-crown"></i> Premium Variant</span>
+          <img src="https://www.lotteindia.com/images/cp-richcocoa-img.jpg" alt="Lotte Choco Pie Rich Cocoa Pack" loading="lazy">
+        </div>
+        <div class="variant-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <h3>Rich Cocoa Choco Pie</h3>
+            <span class="veg-badge" style="padding:4px 10px;font-size:0.7rem;">Veg ✅</span>
+          </div>
+          <p>
+            An intense, dark cocoa adventure crafted for discerning connoisseurs. Deep dark chocolate sponge infused with rich cocoa solids, enclosing luscious white marshmallow and enrobed with a bittersweet dark choco crust.
+          </p>
+
+          <div style="margin-bottom:8px;">
+            <span style="font-size:0.75rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;font-weight:700;">Available Pack Sizes:</span>
+          </div>
+          <div class="pack-sizes">
+            <span class="pack-size-item">Pack of 6 (168g)</span>
+            <span class="pack-size-item">Pack of 12 (336g)</span>
+            <span class="pack-size-item">Premium Gift Box</span>
+          </div>
+
+          <a href="enquiry.html" class="btn btn-outline btn-sm" style="margin-top:auto;"><i class="fas fa-shopping-cart"></i> Order / Enquire</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Specifications Strip -->
+    <div class="specs-grid" data-aos="fade-up">
+      <div class="spec-box">
+        <i class="fas fa-leaf"></i>
+        <h5>Dietary Suitability</h5>
+        <p>100% Pure Vegetarian</p>
+      </div>
+      <div class="spec-box">
+        <i class="fas fa-shield-alt"></i>
+        <h5>Quality Standard</h5>
+        <p>FSSC 22000 Certified</p>
+      </div>
+      <div class="spec-box">
+        <i class="fas fa-industry"></i>
+        <h5>Manufactured In</h5>
+        <p>Rohtak &amp; Chennai Plants</p>
+      </div>
+      <div class="spec-box">
+        <i class="fas fa-heart"></i>
+        <h5>Trans Fat</h5>
+        <p>Zero Trans Fat</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     OTHER BRANDS STRIP
+     ========================================= -->
+<section class="related-strip" aria-label="Explore other Lotte brands">
+  <div class="container">
+    <div class="flex-between" style="flex-wrap:wrap;gap:16px;">
+      <div>
+        <span class="section-label">Confectionery World</span>
+        <h3 style="font-size:1.8rem;color:#fff;font-weight:800;">More Sweet Delights From Lotte</h3>
+      </div>
+      <a href="index.html#brands-heading" class="btn btn-outline btn-sm">View All Brands <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="related-grid">
+      <a href="coffy-bite.html" class="related-card">
+        <img src="https://www.lotteindia.com/images/coffy-bite-brand.png" alt="Coffy Bite">
+        <div>
+          <h4>Coffy Bite</h4>
+          <p>Coffee or Toffee? The argument continues.</p>
+          <span>Explore Coffy Bite <i class="fas fa-chevron-right"></i></span>
+        </div>
+      </a>
+
+      <a href="lotte-eclairs.html" class="related-card">
+        <img src="https://www.lotteindia.com/images/eclairs-brand.png" alt="Lotte Eclairs">
+        <div>
+          <h4>Lotte Eclairs</h4>
+          <p>Burst of rich choco in every single bite.</p>
+          <span>Explore Eclairs <i class="fas fa-chevron-right"></i></span>
+        </div>
+      </a>
+
+      <a href="caramilk.html" class="related-card">
+        <img src="https://www.lotteindia.com/images/caramilk-brand.png" alt="Caramilk">
+        <div>
+          <h4>Caramilk</h4>
+          <p>The child's first toffee since 1982.</p>
+          <span>Explore Caramilk <i class="fas fa-chevron-right"></i></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     FOOTER
+     ========================================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="https://www.lotteindia.com/images/logo.png" alt="Lotte India">
+        <p>Lotte India Corporation Private Limited is a leading confectionery company in India, part of the Korean conglomerate Lotte Group.</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/LotteChocopieIndia/" target="_blank" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/lottechocopieindia/" target="_blank" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/lotte-india-corporation-limited-official/" target="_blank" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="http://www.youtube.com/c/LotteChocopieIndia" target="_blank" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>About Lotte</h4>
+        <ul>
+          <li><a href="about-us.html">Our Story</a></li>
+          <li><a href="vision-mission.html">Vision &amp; Mission</a></li>
+          <li><a href="management-principles.html">Management Principles</a></li>
+          <li><a href="csr.html">CSR</a></li>
+          <li><a href="milestones.html">Milestones</a></li>
+          <li><a href="certifications.html">Certifications</a></li>
+          <li><a href="our-policies.html">Our Policies</a></li>
+          <li><a href="hr-services.html">HR Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Our Brands</h4>
+        <ul>
+          <li><a href="choco-pie.html">Lotte Choco Pie</a></li>
+          <li><a href="coffy-bite.html">Coffy Bite</a></li>
+          <li><a href="lotte-eclairs.html">Lotte Eclairs</a></li>
+          <li><a href="caramilk.html">Caramilk</a></li>
+          <li><a href="lacto-king.html">Lacto King</a></li>
+          <li><a href="pepero.html">Pepero</a></li>
+          <li><a href="other-brands.html">Other Brands</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Grow With Lotte</h4>
+        <ul>
+          <li><a href="career-philosophy.html">Career Philosophy</a></li>
+          <li><a href="life-at-lotte.html">Life at Lotte</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Investor Centre</h4>
+        <ul>
+          <li><a href="investor-centre.html">Annual Returns</a></li>
+          <li><a href="investor-centre.html">AGM E-Voting</a></li>
+          <li><a href="investor-centre.html">Postal Ballots</a></li>
+          <li><a href="investor-centre.html">Investor Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="news-events.html">News &amp; Events</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+          <li><a href="enquiry.html">Enquiry</a></li>
+          <li><a href="https://mail.lotteindia.com/" target="_blank">Web Mail</a></li>
+          <li><a href="https://lotteindia.darwinbox.in/user/login/" target="_blank">Employee Portal</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">Policies</h4>
+        <ul>
+          <li><a href="https://www.lotteindia.com/pdf/CSR-POLICY-OF-LOTTE-INDIA.pdf" target="_blank">CSR Policy</a></li>
+          <li><a href="our-policies.html">Code of Conduct</a></li>
+          <li><a href="our-policies.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Lotte India Corporation Private Limited. All Rights Reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="our-policies.html">Privacy Policy</a>
+        <a href="our-policies.html">Terms of Use</a>
+        <a href="legal.html">Legal</a>
+        <a href="contact-us.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="scroll-top" title="Back to top"><i class="fas fa-arrow-up"></i></div>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
