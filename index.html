@@ -24,6 +24,19 @@
         linear-gradient(90deg, rgba(8,7,7,.74) 0%, rgba(8,7,7,.36) 45%, rgba(8,7,7,.08) 72%),
         radial-gradient(circle at 72% 48%, rgba(255,218,177,.18), transparent 30%);
     }
+    .hero-slide:first-child {
+      background:#120d0b;
+    }
+    .hero-slide:first-child .hero-slide-img {
+      opacity:.22;
+      filter:saturate(.65) contrast(1.08);
+      object-position:center;
+    }
+    .hero-slide:first-child .hero-overlay {
+      background:
+        linear-gradient(90deg,rgba(11,8,7,.96) 0%,rgba(17,10,8,.82) 38%,rgba(32,16,11,.30) 70%,rgba(8,6,5,.45) 100%),
+        radial-gradient(circle at 72% 48%,rgba(230,0,18,.12),transparent 34%);
+    }
     .hero-cinematic-frame::after {
       content:"";
       position:absolute;
@@ -37,11 +50,13 @@
       animation:heroOrbit 18s linear infinite;
     }
     .hero-product-reveal {
-      width:min(38vw,520px);
-      right:5%;
+      width:min(43vw,620px);
+      right:4%;
+      bottom:2%;
+      filter:saturate(1.08) contrast(1.04);
     }
     .hero-product-reveal img {
-      max-height:64vh;
+      max-height:70vh;
       transform:perspective(900px) rotateY(-7deg);
     }
     .hero-title { text-wrap:balance; }
@@ -706,8 +721,8 @@
             <span>Lotte India is formed</span>
           </div>
           <div class="heritage-milestone">
-            <strong>No.1</strong>
-            <span>Choco Pie in India</span>
+            <strong>2006</strong>
+            <span>Choco Pie launch in India</span>
           </div>
         </div>
         <a href="about-us.html" class="btn btn-primary">View More <i class="fas fa-arrow-right"></i></a>
@@ -784,12 +799,13 @@
             </filter>
           </defs>
           <g filter="url(#biteShadow)" transform="rotate(-8 450 300)">
-            <ellipse cx="465" cy="270" rx="330" ry="205" fill="url(#coating)"/>
-            <ellipse cx="465" cy="292" rx="286" ry="151" fill="url(#marshmallow)"/>
-            <path d="M180 340 C260 400 650 410 750 330 L750 430 C650 500 260 490 180 408 Z" fill="url(#biscuit)"/>
-            <path d="M190 255 C250 170 330 145 420 145 C600 145 715 220 760 310 C690 270 600 240 510 238 C360 235 260 260 190 255Z" fill="#4b1d13" opacity=".72"/>
-            <path d="M260 304 C360 282 470 330 560 304 C640 280 690 300 724 340" fill="none" stroke="#fff5dd" stroke-width="16" stroke-linecap="round" opacity=".78"/>
-            <path d="M230 418 C330 450 590 452 720 398" fill="none" stroke="#d29a5a" stroke-width="8" opacity=".45"/>
+            <path d="M170 248 C250 145 430 118 610 154 C710 174 788 238 780 338 C748 390 650 426 548 422 C430 418 340 396 260 420 C210 436 180 408 170 378 C155 328 150 286 170 248Z" fill="url(#coating)"/>
+            <path d="M188 308 C270 252 390 260 470 278 C565 300 650 282 760 328 C734 370 648 400 548 396 C430 392 342 374 260 398 C226 407 202 386 188 308Z" fill="url(#marshmallow)"/>
+            <path d="M178 376 C258 348 350 374 438 392 C535 412 662 398 748 354 C720 402 638 438 548 434 C432 430 340 410 260 434 C226 442 194 422 178 376Z" fill="url(#biscuit)"/>
+            <path d="M208 252 C290 186 420 170 548 190 C650 206 716 244 760 292 C688 268 620 258 548 266 C420 280 324 264 208 252Z" fill="#4b1d13" opacity=".72"/>
+            <path d="M236 326 C330 300 418 336 510 320 C596 304 654 322 720 348" fill="none" stroke="#fff5dd" stroke-width="13" stroke-linecap="round" opacity=".82"/>
+            <path d="M220 404 C330 428 548 442 704 388" fill="none" stroke="#d29a5a" stroke-width="7" opacity=".52"/>
+            <path d="M170 248 C210 220 230 190 270 172 C248 210 266 236 300 268 C250 266 210 286 188 308Z" fill="#34140d" opacity=".92"/>
           </g>
           <path class="marshmallow-stretch" d="M570 338 C640 330 672 360 710 400 C652 368 634 430 704 470" fill="none" stroke="#f4e3c4" stroke-width="18" stroke-linecap="round"/>
         </svg>
@@ -1325,12 +1341,21 @@ window.addEventListener('load', () => {
     holder.position.y=basePosition;
     mesh.parent=holder;
   }
-  const topAnatomy = BABYLON.MeshBuilder.CreateCylinder('topAnatomy',{diameter:3.42,height:.82,tessellation:96},scene);
-  topAnatomy.material=chocolate;
+  const topAnatomy = BABYLON.MeshBuilder.CreateCylinder('topAnatomyBiscuit',{diameter:3.12,height:.48,tessellation:96},scene);
+  topAnatomy.material=biscuit;
+  const topCoatingAnatomy = BABYLON.MeshBuilder.CreateCylinder('topAnatomyCoating',{diameter:3.42,height:.24,tessellation:96},scene);
+  topCoatingAnatomy.position.y=.36;
+  topCoatingAnatomy.material=chocolate;
+  topCoatingAnatomy.parent=topAnatomy;
+  topAnatomy.scaling.y=1;
   const creamAnatomy = BABYLON.MeshBuilder.CreateCylinder('creamAnatomy',{diameter:3.16,height:.58,tessellation:96},scene);
   creamAnatomy.material=marshmallow;
-  const bottomAnatomy = BABYLON.MeshBuilder.CreateCylinder('bottomAnatomy',{diameter:3.42,height:.82,tessellation:96},scene);
+  const bottomAnatomy = BABYLON.MeshBuilder.CreateCylinder('bottomAnatomyBiscuit',{diameter:3.12,height:.48,tessellation:96},scene);
   bottomAnatomy.material=biscuit;
+  const bottomCoatingAnatomy = BABYLON.MeshBuilder.CreateCylinder('bottomAnatomyCoating',{diameter:3.42,height:.24,tessellation:96},scene);
+  bottomCoatingAnatomy.position.y=-.36;
+  bottomCoatingAnatomy.material=chocolate;
+  bottomCoatingAnatomy.parent=bottomAnatomy;
   makeExplodedLayer('topHolder',1.55,topAnatomy,0);
   makeExplodedLayer('creamHolder',0,creamAnatomy,0);
   makeExplodedLayer('bottomHolder',-1.55,bottomAnatomy,0);
