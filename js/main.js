@@ -100,26 +100,21 @@ function startHeroSlider() {
 document.querySelector('.hero-next')?.addEventListener('click', () => {
   clearInterval(heroInterval);
   showSlide(currentSlide + 1);
-  // Keep the opening campaign on Choco Pie. The remaining slides remain available
-  // through explicit arrow and dot controls.
-  showSlide(0);
 });
 
 document.querySelector('.hero-prev')?.addEventListener('click', () => {
   clearInterval(heroInterval);
   showSlide(currentSlide - 1);
-  startHeroSlider();
 });
 
 heroDots.forEach((dot, i) => {
   dot.addEventListener('click', () => {
     clearInterval(heroInterval);
     showSlide(i);
-    startHeroSlider();
   });
 });
 
-startHeroSlider();
+showSlide(0);
 
 // ========================================
 // BRAND CAROUSEL
@@ -366,6 +361,54 @@ if (hero) {
   });
 }
 
+// AUTHENTIC PRODUCT PRESENTATION
+document.querySelectorAll('.choco-studio').forEach(studio => {
+  const image = studio.querySelector('.studio-fallback');
+  if (!image) return;
+  let zoom = 1;
+  let rotateX = 0;
+  let rotateY = 0;
+  let dragging = false;
+  let previousX = 0;
+  let previousY = 0;
+
+  const update = () => {
+    image.style.transform = `scale(${zoom}) perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  };
+
+  studio.addEventListener('pointerdown', event => {
+    if (event.target.closest('button')) return;
+    dragging = true;
+    previousX = event.clientX;
+    previousY = event.clientY;
+    studio.setPointerCapture?.(event.pointerId);
+  });
+  studio.addEventListener('pointermove', event => {
+    if (!dragging || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    rotateY = Math.max(-7, Math.min(7, rotateY + (event.clientX - previousX) * 0.05));
+    rotateX = Math.max(-5, Math.min(5, rotateX - (event.clientY - previousY) * 0.05));
+    previousX = event.clientX;
+    previousY = event.clientY;
+    update();
+  });
+  studio.addEventListener('pointerup', () => dragging = false);
+  studio.addEventListener('pointercancel', () => dragging = false);
+
+  studio.querySelectorAll('[data-studio-action]').forEach(button => {
+    button.addEventListener('click', () => {
+      const action = button.dataset.studioAction;
+      if (action === 'zoom-in') zoom = Math.min(1.22, zoom + 0.08);
+      if (action === 'zoom-out') zoom = Math.max(0.92, zoom - 0.08);
+      if (action === 'reset') {
+        zoom = 1;
+        rotateX = 0;
+        rotateY = 0;
+      }
+      update();
+    });
+  });
+});
+
 // ========================================
 // CHOCO PIE CINEMATIC STORY
 // ========================================
@@ -381,12 +424,41 @@ if (pieStoryStage && pieStoryChapters.length) {
     pieStoryChapters.forEach(chapter => chapter.classList.remove('active'));
     visible.target.classList.add('active');
     pieStoryStage.dataset.chapter = visible.target.dataset.chapter;
+    const storyImage = pieStoryStage.querySelector('.pie-story-product');
+    if (storyImage) {
+      if (visible.target.dataset.chapter === '3') {
+        storyImage.src = 'assets/official/banner1-d.jpg';
+        storyImage.alt = 'Official Lotte India campaign image';
+      } else {
+        storyImage.src = 'assets/official/choco-brand.png';
+        storyImage.alt = 'Official Lotte Choco Pie packaging';
+      }
+    }
     const chapterIndex = parseInt(visible.target.dataset.chapter || '0', 10);
     const progress = document.querySelector('.pie-story-progress span');
     if (progress) progress.style.height = `${chapterIndex * 25}%`;
   }, { threshold: [0.35, 0.55, 0.75], rootMargin: '-18% 0px -18% 0px' });
 
   pieStoryChapters.forEach(chapter => storyObserver.observe(chapter));
+}
+
+if (pieStoryStage) {
+  pieStoryStage.addEventListener('pointermove', event => {
+    if (event.pointerType === 'touch' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const rect = pieStoryStage.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    const product = pieStoryStage.querySelector('.pie-story-product');
+    if (product) product.style.marginLeft = `${x * 10}px`;
+    if (product) product.style.marginTop = `${y * 8}px`;
+  });
+  pieStoryStage.addEventListener('pointerleave', () => {
+    const product = pieStoryStage.querySelector('.pie-story-product');
+    if (product) {
+      product.style.marginLeft = '';
+      product.style.marginTop = '';
+    }
+  });
 }
 
 const presentationImage = document.querySelector('.pie-story-product');
