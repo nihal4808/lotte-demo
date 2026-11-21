@@ -14,6 +14,60 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
+    .hero-cinematic-frame {
+      position:absolute;
+      inset:0;
+      z-index:5;
+      pointer-events:none;
+      overflow:hidden;
+      background:
+        linear-gradient(90deg, rgba(8,7,7,.74) 0%, rgba(8,7,7,.36) 45%, rgba(8,7,7,.08) 72%),
+        radial-gradient(circle at 72% 48%, rgba(255,218,177,.18), transparent 30%);
+    }
+    .hero-cinematic-frame::after {
+      content:"";
+      position:absolute;
+      width:min(46vw,680px);
+      aspect-ratio:1;
+      right:2%;
+      top:13%;
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:50%;
+      box-shadow:0 0 0 55px rgba(255,255,255,.025),0 0 0 110px rgba(255,255,255,.018);
+      animation:heroOrbit 18s linear infinite;
+    }
+    .hero-product-reveal {
+      width:min(38vw,520px);
+      right:5%;
+    }
+    .hero-product-reveal img {
+      max-height:64vh;
+      transform:perspective(900px) rotateY(-7deg);
+    }
+    .hero-title { text-wrap:balance; }
+    .hero-slide.active .hero-content .hero-tag,
+    .hero-slide.active .hero-content .hero-title,
+    .hero-slide.active .hero-content .hero-subtitle,
+    .hero-slide.active .hero-content .hero-buttons {
+      opacity:0;
+      clip-path:inset(0 100% 0 0);
+      animation:cinematicTextReveal 1s cubic-bezier(.16,1,.3,1) forwards;
+    }
+    @keyframes cinematicTextReveal {
+      to { opacity:1; clip-path:inset(0 0 0 0); }
+    }
+    @keyframes heroOrbit { to { transform:rotate(360deg); } }
+    .hero-kicker-line {
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .hero-kicker-line::before {
+      content:"";
+      width:42px;
+      height:1px;
+      background:var(--lotte-red);
+    }
     .scroll-progress {
       position: fixed;
       top: 0;
@@ -187,17 +241,20 @@
       opacity:0;
       transition:opacity .8s ease;
     }
-    .bite-circle {
+    .bite-cross-section {
       position:absolute;
-      width:min(38vw,460px);
-      aspect-ratio:1;
-      right:-8%;
-      top:25%;
-      border-radius:50%;
-      background:linear-gradient(145deg,#f3e7d7,#7e4625 58%,#32130d);
-      box-shadow:inset -35px 20px 55px rgba(0,0,0,.48);
-      transform:translateX(35%);
-      transition:transform 1.2s cubic-bezier(.16,1,.3,1);
+      width:min(58vw,760px);
+      height:auto;
+      right:-3%;
+      top:50%;
+      transform:translate(38%, -50%) scale(.86);
+      opacity:0;
+      transition:transform 1.35s cubic-bezier(.16,1,.3,1),opacity .8s ease;
+    }
+    .marshmallow-stretch {
+      stroke-dasharray:180;
+      stroke-dashoffset:180;
+      transition:stroke-dashoffset 1s ease .45s;
     }
     .bite-copy {
       position:absolute;
@@ -249,7 +306,8 @@
     .pie-story-stage[data-chapter="1"] .stage-light { transform:scale(.82); opacity:.55; }
     .pie-story-stage[data-chapter="2"] .pie-story-product { opacity:0; }
     .pie-story-stage[data-chapter="2"] .pie-story-bite { opacity:1; }
-    .pie-story-stage[data-chapter="2"] .bite-circle { transform:translateX(0); }
+    .pie-story-stage[data-chapter="2"] .bite-cross-section { opacity:1; transform:translate(0,-50%) scale(.92); }
+    .pie-story-stage[data-chapter="2"] .marshmallow-stretch { stroke-dashoffset:0; }
     .pie-story-stage[data-chapter="3"] .pie-story-product { opacity:0; }
     .pie-story-stage[data-chapter="3"] .pie-heritage-mark { opacity:1; transform:none; }
     .pie-story-stage[data-chapter="4"] .pie-story-product { transform:translate(-50%,-50%) scale(1.08) rotate(0); }
@@ -286,11 +344,12 @@
       .hero-product-reveal { width:54vw; right:-13%; bottom:10%; opacity:.58; }
       .hero-slide .hero-content { bottom:11%; max-width:82%; }
       .pie-story { min-height:500vh; }
-      .pie-story-layout { display:block; }
-      .pie-story-captions { position:absolute; inset:0 0 auto; z-index:5; }
+      .pie-story-layout { display:block; height:500vh; position:relative; }
+      .pie-story-captions { position:absolute; inset:0; z-index:5; pointer-events:none; }
+      .pie-story-captions .btn { pointer-events:auto; }
       .pie-story-chapter { min-height:100vh; max-width:82%; justify-content:flex-end; padding:40px 20px 100px 24px; }
       .pie-story-chapter h3 { font-size:3.2rem; letter-spacing:-3px; }
-      .pie-story-stage { height:100vh; border-left:0; }
+      .pie-story-stage { height:100vh; position:sticky; top:0; border-left:0; }
       .pie-story-product { width:78%; }
       .pie-layer { width:72%; }
       .pie-layer span { right:-28%; width:26%; font-size:.58rem; }
@@ -298,6 +357,32 @@
     }
     @media (prefers-reduced-motion:reduce) {
       .cinematic-loader,.hero-product-reveal img,.pie-story-product,.pie-story-chapter,.pie-layer,.pie-story-bite,.pie-heritage-mark { animation:none; transition:none; }
+    }
+    .stats-band {
+      min-height:260px;
+      display:flex;
+      align-items:center;
+      background:
+        linear-gradient(90deg,rgba(154,0,10,.98),rgba(230,0,18,.98)),
+        var(--lotte-red);
+    }
+    .stats-grid { width:100%; }
+    .stat-item {
+      min-height:150px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+    }
+    .stat-number {
+      font-size:clamp(3.4rem,6vw,6.5rem);
+      line-height:.82;
+      letter-spacing:-5px;
+    }
+    .stat-label {
+      margin-top:18px;
+      font-size:.72rem;
+      letter-spacing:2px;
     }
     /* Extra homepage styles */
     .hero { height: 100vh; min-height: 650px; }
@@ -414,13 +499,14 @@
   <div class="hero-slide active">
     <img src="https://www.lotteindia.com/images/banner1-d.jpg" alt="Lotte India - India's No.1 Choco Pie" class="hero-slide-img">
     <div class="hero-overlay"></div>
+    <div class="hero-cinematic-frame" aria-hidden="true"></div>
     <div class="hero-product-reveal" aria-hidden="true">
       <img src="assets/choco-brand.png" alt="" loading="eager">
     </div>
     <div class="hero-content">
-      <div class="hero-tag"><i class="fas fa-star"></i> India's No.1 Choco Pie</div>
-      <h2 class="hero-title">A Little <span>Circle</span><br>of Joy</h2>
-      <p class="hero-subtitle">Fluffy marshmallows, soft biscuits and rich chocolate — come together in the iconic Lotte Choco Pie.</p>
+      <div class="hero-tag hero-kicker-line"><i class="fas fa-star"></i> India's No.1 Choco Pie</div>
+      <h2 class="hero-title">A Little Circle<br><span>of Joy</span></h2>
+      <p class="hero-subtitle">Soft biscuit. Fluffy marshmallow. Rich chocolate.<br>One unmistakable circle of joy.</p>
       <div class="hero-buttons">
         <a href="choco-pie.html" class="btn btn-primary"><i class="fas fa-cookie-bite"></i> Discover Choco Pie</a>
         <a href="about-us.html" class="btn btn-outline">Our Story</a>
@@ -493,15 +579,15 @@
   <div class="container">
     <div class="stats-grid">
       <div class="stat-item" data-aos="fade-up">
-        <div class="stat-number"><span data-count="4">0</span></div>
-        <div class="stat-label">Regional Offices</div>
+        <div class="stat-number"><span data-count="2004">0</span></div>
+        <div class="stat-label">Lotte India formed</div>
       </div>
       <div class="stat-item" data-aos="fade-up" data-delay="100">
-        <div class="stat-number"><span data-count="26">0</span></div>
-        <div class="stat-label">Carrying &amp; Forwarding Agencies</div>
+        <div class="stat-number"><span data-count="3">0</span></div>
+        <div class="stat-label">Manufacturing plants</div>
       </div>
       <div class="stat-item" data-aos="fade-up" data-delay="200">
-        <div class="stat-number"><span data-count="2">0</span><span class="stat-suffix">K+</span></div>
+        <div class="stat-number"><span data-count="2000">0</span><span class="stat-suffix">+</span></div>
         <div class="stat-label">Distributors</div>
       </div>
       <div class="stat-item" data-aos="fade-up" data-delay="300">
@@ -597,7 +683,38 @@
       </div>
       <img class="pie-story-product" src="assets/choco-brand.png" alt="Lotte Choco Pie package and products">
       <div class="pie-story-bite" aria-hidden="true">
-        <div class="bite-circle"></div>
+        <svg class="bite-cross-section" viewBox="0 0 900 600" role="presentation">
+          <defs>
+            <linearGradient id="coating" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#7a3a23"/>
+              <stop offset=".38" stop-color="#3d1710"/>
+              <stop offset=".72" stop-color="#160806"/>
+              <stop offset="1" stop-color="#080404"/>
+            </linearGradient>
+            <linearGradient id="marshmallow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fffdf4"/>
+              <stop offset=".55" stop-color="#f1dfc2"/>
+              <stop offset="1" stop-color="#d8bc96"/>
+            </linearGradient>
+            <linearGradient id="biscuit" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#bd7c42"/>
+              <stop offset=".65" stop-color="#8d5028"/>
+              <stop offset="1" stop-color="#553019"/>
+            </linearGradient>
+            <filter id="biteShadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="25" stdDeviation="18" flood-color="#000" flood-opacity=".55"/>
+            </filter>
+          </defs>
+          <g filter="url(#biteShadow)" transform="rotate(-8 450 300)">
+            <ellipse cx="465" cy="270" rx="330" ry="205" fill="url(#coating)"/>
+            <ellipse cx="465" cy="292" rx="286" ry="151" fill="url(#marshmallow)"/>
+            <path d="M180 340 C260 400 650 410 750 330 L750 430 C650 500 260 490 180 408 Z" fill="url(#biscuit)"/>
+            <path d="M190 255 C250 170 330 145 420 145 C600 145 715 220 760 310 C690 270 600 240 510 238 C360 235 260 260 190 255Z" fill="#4b1d13" opacity=".72"/>
+            <path d="M260 304 C360 282 470 330 560 304 C640 280 690 300 724 340" fill="none" stroke="#fff5dd" stroke-width="16" stroke-linecap="round" opacity=".78"/>
+            <path d="M230 418 C330 450 590 452 720 398" fill="none" stroke="#d29a5a" stroke-width="8" opacity=".45"/>
+          </g>
+          <path class="marshmallow-stretch" d="M570 338 C640 330 672 360 710 400 C652 368 634 430 704 470" fill="none" stroke="#f4e3c4" stroke-width="18" stroke-linecap="round"/>
+        </svg>
         <div class="bite-copy">
           <span>Soft</span><strong>Bite</strong>
         </div>

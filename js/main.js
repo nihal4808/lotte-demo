@@ -25,6 +25,15 @@ window.addEventListener('scroll', () => {
     const heroProgress = Math.max(0, Math.min(1, window.scrollY / Math.max(activeHero.offsetHeight, 1)));
     activeHero.style.setProperty('--hero-push', (1 + heroProgress * 0.08).toFixed(3));
   }
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.story-image, .grow-image, .brand-image').forEach(frame => {
+      const rect = frame.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+      const image = frame.querySelector('img');
+      if (image) image.style.transform = `scale(1.06) translateY(${(progress - 0.5) * 10}px)`;
+    });
+  }
   if (window.scrollY > 60) {
     navbar?.classList.add('scrolled');
     scrollTopBtn?.classList.add('visible');
@@ -206,7 +215,9 @@ function animateCounter(el, target, suffix = '') {
     const elapsed = time - start;
     const progress = Math.min(elapsed / duration, 1);
     const eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.round(eased * target) + suffix;
+    const value = Math.round(eased * target);
+    const formatted = target === 2004 ? '2004' : value.toLocaleString('en-IN');
+    el.textContent = formatted + suffix;
     if (progress < 1) requestAnimationFrame(update);
   };
   requestAnimationFrame(update);
