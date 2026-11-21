@@ -100,7 +100,9 @@ function startHeroSlider() {
 document.querySelector('.hero-next')?.addEventListener('click', () => {
   clearInterval(heroInterval);
   showSlide(currentSlide + 1);
-  startHeroSlider();
+  // Keep the opening campaign on Choco Pie. The remaining slides remain available
+  // through explicit arrow and dot controls.
+  showSlide(0);
 });
 
 document.querySelector('.hero-prev')?.addEventListener('click', () => {

@@ -254,86 +254,6 @@
       transition:transform 1.2s cubic-bezier(.16,1,.3,1),opacity .8s ease,filter .8s ease;
       will-change:transform;
     }
-    .pie-story-webgl {
-      position:absolute;
-      inset:0;
-      z-index:3;
-      width:100%;
-      height:100%;
-      touch-action:pan-y;
-      cursor:grab;
-      outline:none;
-    }
-    .pie-story-webgl:active { cursor:grabbing; }
-    .pie-story-stage[data-chapter="1"] .pie-story-anatomy,
-    .pie-story-stage[data-chapter="1"] .pie-anatomy,
-    .pie-story-stage[data-chapter="2"] .pie-story-bite,
-    .pie-story-stage[data-chapter="3"] .pie-heritage-mark,
-    .pie-story-stage[data-chapter="4"] .product-presentation-controls {
-      z-index:5;
-    }
-    .pie-anatomy {
-      position:absolute;
-      inset:18% 12% 12%;
-      z-index:2;
-      pointer-events:none;
-    }
-    .pie-layer {
-      position:absolute;
-      left:50%;
-      width:62%;
-      height:21%;
-      transform:translate(-50%,55px);
-      opacity:0;
-      transition:transform 1.1s cubic-bezier(.16,1,.3,1),opacity .7s ease;
-    }
-    .pie-layer span {
-      position:absolute;
-      right:-42%;
-      top:50%;
-      width:38%;
-      padding-left:14px;
-      border-left:1px solid rgba(255,255,255,.55);
-      color:rgba(255,255,255,.72);
-      font-size:.68rem;
-      letter-spacing:1.2px;
-      text-transform:uppercase;
-    }
-    .pie-layer-chocolate { top:18%; background:linear-gradient(180deg,#6b3823,#35130d); border-radius:48% 48% 22% 22%; }
-    .pie-layer-marshmallow { top:40%; height:17%; background:linear-gradient(180deg,#fffaf0,#eadbc8); }
-    .pie-layer-biscuit { top:59%; background:linear-gradient(180deg,#a66a36,#68401f); border-radius:18% 18% 48% 48%; }
-    .pie-story-bite {
-      position:absolute;
-      inset:0;
-      z-index:3;
-      opacity:0;
-      transition:opacity .8s ease;
-    }
-    .bite-cross-section {
-      position:absolute;
-      width:min(58vw,760px);
-      height:auto;
-      right:-3%;
-      top:50%;
-      transform:translate(38%, -50%) scale(.86);
-      opacity:0;
-      transition:transform 1.35s cubic-bezier(.16,1,.3,1),opacity .8s ease;
-    }
-    .marshmallow-stretch {
-      stroke-dasharray:180;
-      stroke-dashoffset:180;
-      transition:stroke-dashoffset 1s ease .45s;
-    }
-    .bite-copy {
-      position:absolute;
-      right:8%;
-      bottom:12%;
-      display:flex;
-      flex-direction:column;
-      text-align:right;
-    }
-    .bite-copy span { font-size:.72rem; letter-spacing:3px; text-transform:uppercase; }
-    .bite-copy strong { font-size:clamp(3rem,6vw,7rem); line-height:.9; letter-spacing:-5px; }
     .pie-heritage-mark {
       position:absolute;
       inset:0;
@@ -366,16 +286,9 @@
       transition:height .5s ease;
     }
     .pie-story-stage[data-chapter="0"] .pie-story-product { transform:translate(-50%,-50%) scale(.94) rotate(-3deg); }
-    .pie-story-stage[data-chapter="1"] .pie-story-product { opacity:.08; transform:translate(-50%,-50%) scale(.72); }
-    .pie-story-stage[data-chapter="1"] .pie-anatomy { opacity:1; }
-    .pie-story-stage[data-chapter="1"] .pie-layer { opacity:1; transform:translate(-50%,0); }
-    .pie-story-stage[data-chapter="1"] .pie-layer-marshmallow { transition-delay:.12s; }
-    .pie-story-stage[data-chapter="1"] .pie-layer-biscuit { transition-delay:.24s; }
+    .pie-story-stage[data-chapter="1"] .pie-story-product { transform:translate(-50%,-50%) scale(.84) rotate(-1deg); }
     .pie-story-stage[data-chapter="1"] .stage-light { transform:scale(.82); opacity:.55; }
-    .pie-story-stage[data-chapter="2"] .pie-story-product { opacity:0; }
-    .pie-story-stage[data-chapter="2"] .pie-story-bite { opacity:1; }
-    .pie-story-stage[data-chapter="2"] .bite-cross-section { opacity:1; transform:translate(0,-50%) scale(.92); }
-    .pie-story-stage[data-chapter="2"] .marshmallow-stretch { stroke-dashoffset:0; }
+    .pie-story-stage[data-chapter="2"] .pie-story-product { transform:translate(-50%,-50%) scale(1.08) rotate(2deg); }
     .pie-story-stage[data-chapter="3"] .pie-story-product { opacity:0; }
     .pie-story-stage[data-chapter="3"] .pie-heritage-mark { opacity:1; transform:none; }
     .pie-story-stage[data-chapter="4"] .pie-story-product { transform:translate(-50%,-50%) scale(1.08) rotate(0); }
@@ -593,7 +506,7 @@
     <div class="hero-overlay"></div>
     <div class="hero-cinematic-frame" aria-hidden="true"></div>
     <div class="hero-product-reveal" aria-hidden="true">
-      <img src="assets/choco-brand.png" alt="" loading="eager">
+      <img src="assets/official/choco-brand.png" alt="" loading="eager">
     </div>
     <div class="hero-content">
       <div class="hero-tag hero-kicker-line"><i class="fas fa-star"></i> India's No.1 Choco Pie</div>
@@ -745,13 +658,13 @@
       </article>
       <article class="pie-story-chapter" data-chapter="1">
         <span class="pie-story-number">02 / THE ANATOMY</span>
-        <h3>Three textures.<br>One bite.</h3>
-        <p>Rich chocolate, fluffy marshmallow and soft biscuit come together in perfect balance.</p>
+        <h3>One authentic<br>composition.</h3>
+        <p>Use the official packshot to present the complete Choco Pie without adding a fabricated cutaway.</p>
       </article>
       <article class="pie-story-chapter" data-chapter="2">
         <span class="pie-story-number">03 / THE BITE</span>
-        <h3>A softer close-up.</h3>
-        <p>The pack opens into a texture-led moment, drawing attention to the contrast within every bite.</p>
+        <h3>A closer look.</h3>
+        <p>No fabricated bite or cross-section is used; the campaign moves to a clean, authentic product close-up.</p>
       </article>
       <article class="pie-story-chapter" data-chapter="3">
         <span class="pie-story-number">04 / THE HERITAGE</span>
@@ -768,69 +681,13 @@
 
     <div class="pie-story-stage" data-chapter="0" aria-label="Cinematic Choco Pie product story">
       <div class="stage-light"></div>
-      <canvas class="pie-story-webgl" id="pieStoryCanvas" aria-label="Interactive five-scene Choco Pie 3D story"></canvas>
-      <div class="pie-anatomy" aria-label="Choco Pie layers">
-        <div class="pie-layer pie-layer-chocolate"><span>Rich chocolate coating</span></div>
-        <div class="pie-layer pie-layer-marshmallow"><span>Fluffy marshmallow</span></div>
-        <div class="pie-layer pie-layer-biscuit"><span>Soft biscuit</span></div>
-      </div>
-      <img class="pie-story-product" src="assets/choco-brand.png" alt="Lotte Choco Pie package and products">
-      <div class="pie-story-bite" aria-hidden="true">
-        <svg class="bite-cross-section" viewBox="0 0 900 600" role="presentation">
-          <defs>
-            <linearGradient id="coating" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#7a3a23"/>
-              <stop offset=".38" stop-color="#3d1710"/>
-              <stop offset=".72" stop-color="#160806"/>
-              <stop offset="1" stop-color="#080404"/>
-            </linearGradient>
-            <linearGradient id="marshmallow" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#fffdf4"/>
-              <stop offset=".55" stop-color="#f1dfc2"/>
-              <stop offset="1" stop-color="#d8bc96"/>
-            </linearGradient>
-            <linearGradient id="biscuit" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#bd7c42"/>
-              <stop offset=".65" stop-color="#8d5028"/>
-              <stop offset="1" stop-color="#553019"/>
-            </linearGradient>
-            <filter id="biteShadow" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="25" stdDeviation="18" flood-color="#000" flood-opacity=".55"/>
-            </filter>
-          </defs>
-          <g filter="url(#biteShadow)" transform="rotate(-8 450 300)">
-            <path d="M170 248 C250 145 430 118 610 154 C710 174 788 238 780 338 C748 390 650 426 548 422 C430 418 340 396 260 420 C210 436 180 408 170 378 C155 328 150 286 170 248Z" fill="url(#coating)"/>
-            <path d="M188 308 C270 252 390 260 470 278 C565 300 650 282 760 328 C734 370 648 400 548 396 C430 392 342 374 260 398 C226 407 202 386 188 308Z" fill="url(#marshmallow)"/>
-            <path d="M178 376 C258 348 350 374 438 392 C535 412 662 398 748 354 C720 402 638 438 548 434 C432 430 340 410 260 434 C226 442 194 422 178 376Z" fill="url(#biscuit)"/>
-            <path d="M208 252 C290 186 420 170 548 190 C650 206 716 244 760 292 C688 268 620 258 548 266 C420 280 324 264 208 252Z" fill="#4b1d13" opacity=".72"/>
-            <path d="M236 326 C330 300 418 336 510 320 C596 304 654 322 720 348" fill="none" stroke="#fff5dd" stroke-width="13" stroke-linecap="round" opacity=".82"/>
-            <path d="M220 404 C330 428 548 442 704 388" fill="none" stroke="#d29a5a" stroke-width="7" opacity=".52"/>
-            <path d="M170 248 C210 220 230 190 270 172 C248 210 266 236 300 268 C250 266 210 286 188 308Z" fill="#34140d" opacity=".92"/>
-          </g>
-          <path class="marshmallow-stretch" d="M570 338 C640 330 672 360 710 400 C652 368 634 430 704 470" fill="none" stroke="#f4e3c4" stroke-width="18" stroke-linecap="round"/>
-        </svg>
-        <div class="bite-copy">
-          <span>Soft</span><strong>Bite</strong>
-        </div>
-      </div>
+      <img class="pie-story-product" src="assets/official/choco-brand.png" alt="Official Lotte Choco Pie packaging">
       <div class="pie-heritage-mark" aria-hidden="true">
         <span class="heritage-year">1914</span>
         <i></i>
         <span class="heritage-year">2004</span>
         <i></i>
         <span class="heritage-year">2006</span>
-      </div>
-      <div class="product-campaign-tabs" role="group" aria-label="Choose featured product">
-        <button class="campaign-product-tab active" type="button" data-campaign-product="pie">Choco Pie</button>
-        <button class="campaign-product-tab" type="button" data-campaign-product="pepero">Pepero</button>
-        <button class="campaign-product-tab" type="button" data-campaign-product="coffy">Coffy Bite</button>
-        <button class="campaign-product-tab" type="button" data-campaign-product="caramilk">Caramilk</button>
-      </div>
-      <div class="product-presentation-controls" aria-label="Product presentation controls">
-        <button type="button" class="presentation-control" data-action="left" aria-label="Rotate presentation left"><i class="fas fa-arrow-left"></i></button>
-        <button type="button" class="presentation-control" data-action="zoom" aria-label="Zoom product"><i class="fas fa-magnifying-glass-plus"></i></button>
-        <button type="button" class="presentation-control" data-action="light" aria-label="Change studio light"><i class="fas fa-sun"></i></button>
-        <button type="button" class="presentation-control" data-action="right" aria-label="Rotate presentation right"><i class="fas fa-arrow-right"></i></button>
       </div>
     </div>
   </div>
@@ -873,7 +730,7 @@
           <a href="choco-pie.html" class="btn btn-primary">View More <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="brand-image">
-          <img src="https://www.lotteindia.com/images/choco-brand.png" alt="Lotte Choco Pie — India's No.1" class="float-product" loading="lazy">
+          <img src="assets/official/choco-brand.png" alt="Lotte Choco Pie — India's No.1" class="float-product" loading="lazy">
         </div>
       </div>
 
@@ -1219,341 +1076,6 @@
 
 <div class="scroll-top" title="Back to top" role="button" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></div>
 
-<script src="js/vendor/babylon.min.js" defer></script>
-<script>
-window.addEventListener('load', () => {
-  if (!window.BABYLON) return;
-  const canvas = document.getElementById('pieStoryCanvas');
-  const stage = document.querySelector('.pie-story-stage');
-  if (!canvas || !stage) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const engine = new BABYLON.Engine(canvas, true, {
-    preserveDrawingBuffer:false,
-    stencil:false,
-    antialias:true,
-    powerPreference:'high-performance'
-  });
-  const scene = new BABYLON.Scene(engine);
-  scene.clearColor = new BABYLON.Color4(0.035,0.032,0.030,0);
-  scene.imageProcessingConfiguration.toneMappingEnabled = true;
-  scene.imageProcessingConfiguration.toneMappingType = BABYLON.ImageProcessingConfiguration.TONEMAPPING_ACES;
-  scene.imageProcessingConfiguration.exposure = 1.15;
-
-  const camera = new BABYLON.ArcRotateCamera(
-    'campaignCamera',
-    -Math.PI/2,
-    1.28,
-    8.6,
-    BABYLON.Vector3.Zero(),
-    scene
-  );
-  camera.lowerRadiusLimit = 5.2;
-  camera.upperRadiusLimit = 11;
-  camera.wheelPrecision = 35;
-  camera.panningSensibility = 0;
-  camera.attachControl(canvas, true);
-  camera.inputs.attached.panning?.detachControl?.();
-
-  const hemispheric = new BABYLON.HemisphericLight('hemispheric', new BABYLON.Vector3(0,1,0), scene);
-  hemispheric.intensity = 0.75;
-  hemispheric.diffuse = new BABYLON.Color3(1,0.86,0.72);
-  const key = new BABYLON.DirectionalLight('key', new BABYLON.Vector3(-0.7,-1,-1), scene);
-  key.position = new BABYLON.Vector3(5,7,6);
-  key.intensity = 2.4;
-  key.shadowMinZ = 0.1;
-  key.shadowMaxZ = 30;
-  const rim = new BABYLON.DirectionalLight('rim', new BABYLON.Vector3(1,-0.3,-1), scene);
-  rim.position = new BABYLON.Vector3(-5,3,-5);
-  rim.intensity = 1.15;
-  rim.diffuse = new BABYLON.Color3(1,0.45,0.38);
-
-  const shadowGenerator = new BABYLON.ShadowGenerator(1024, key);
-  shadowGenerator.usePercentageCloserFiltering = true;
-  shadowGenerator.filteringQuality = BABYLON.ShadowGenerator.QUALITY_HIGH;
-  shadowGenerator.bias = 0.0007;
-
-  const chocolate = new BABYLON.PBRMaterial('chocolate',scene);
-  chocolate.albedoColor = new BABYLON.Color3(0.20,0.055,0.035);
-  chocolate.metallic = 0;
-  chocolate.roughness = 0.28;
-  chocolate.clearCoat.isEnabled = true;
-  chocolate.clearCoat.intensity = 0.72;
-  chocolate.clearCoat.roughness = 0.22;
-  chocolate.microSurface = 0.72;
-
-  const cocoaEdge = new BABYLON.PBRMaterial('cocoaEdge',scene);
-  cocoaEdge.albedoColor = new BABYLON.Color3(0.10,0.025,0.018);
-  cocoaEdge.roughness = 0.48;
-
-  const biscuit = new BABYLON.PBRMaterial('biscuit',scene);
-  biscuit.albedoColor = new BABYLON.Color3(0.58,0.34,0.16);
-  biscuit.roughness = 0.72;
-
-  const marshmallow = new BABYLON.PBRMaterial('marshmallow',scene);
-  marshmallow.albedoColor = new BABYLON.Color3(1,0.93,0.79);
-  marshmallow.roughness = 0.68;
-  marshmallow.subSurface.isRefractionEnabled = false;
-  marshmallow.subSurface.isScatteringEnabled = true;
-  marshmallow.subSurface.scatteringIntensity = 0.28;
-
-  const complete = new BABYLON.TransformNode('completePie',scene);
-  const top = BABYLON.MeshBuilder.CreateCylinder('topChocolate',{diameter:3.42,height:.34,tessellation:96,subdivisions:1},scene);
-  top.position.y=.74;
-  top.material=chocolate;
-  top.parent=complete;
-  const topBiscuit = BABYLON.MeshBuilder.CreateCylinder('topBiscuit',{diameter:3.12,height:.48,tessellation:96},scene);
-  topBiscuit.position.y=.43;
-  topBiscuit.material=biscuit;
-  topBiscuit.parent=complete;
-  const filling = BABYLON.MeshBuilder.CreateCylinder('marshmallow',{diameter:3.16,height:.58,tessellation:96},scene);
-  filling.material=marshmallow;
-  filling.parent=complete;
-  const seam = BABYLON.MeshBuilder.CreateTorus('marshmallowSeam',{diameter:3.12,tube:.055,tessellation:96},scene);
-  seam.rotation.x=Math.PI/2;
-  seam.material=marshmallow;
-  seam.parent=complete;
-  const bottomBiscuit = BABYLON.MeshBuilder.CreateCylinder('bottomBiscuit',{diameter:3.12,height:.48,tessellation:96},scene);
-  bottomBiscuit.position.y=-.43;
-  bottomBiscuit.material=biscuit;
-  bottomBiscuit.parent=complete;
-  const bottom = BABYLON.MeshBuilder.CreateCylinder('bottomChocolate',{diameter:3.42,height:.34,tessellation:96},scene);
-  bottom.position.y=-.74;
-  bottom.material=chocolate;
-  bottom.parent=complete;
-  complete.rotation.z=-0.08;
-
-  [top,topBiscuit,filling,seam,bottomBiscuit,bottom].forEach(mesh=>shadowGenerator.addShadowCaster(mesh,true));
-
-  const floor = BABYLON.MeshBuilder.CreateGround('studioFloor',{width:12,height:12,subdivisions:1},scene);
-  floor.position.y=-1.55;
-  const floorMat = new BABYLON.PBRMaterial('studioFloorMat',scene);
-  floorMat.albedoColor = new BABYLON.Color3(0.075,0.065,0.060);
-  floorMat.roughness = 0.82;
-  floor.material=floorMat;
-  floor.receiveShadows=true;
-
-  const anatomy = new BABYLON.TransformNode('anatomy',scene);
-  anatomy.setEnabled(false);
-  function makeExplodedLayer(name,y,mesh,basePosition) {
-    const holder=new BABYLON.TransformNode(name,scene);
-    holder.parent=anatomy;
-    holder.position.y=basePosition;
-    mesh.parent=holder;
-  }
-  const topAnatomy = BABYLON.MeshBuilder.CreateCylinder('topAnatomyBiscuit',{diameter:3.12,height:.48,tessellation:96},scene);
-  topAnatomy.material=biscuit;
-  const topCoatingAnatomy = BABYLON.MeshBuilder.CreateCylinder('topAnatomyCoating',{diameter:3.42,height:.24,tessellation:96},scene);
-  topCoatingAnatomy.position.y=.36;
-  topCoatingAnatomy.material=chocolate;
-  topCoatingAnatomy.parent=topAnatomy;
-  topAnatomy.scaling.y=1;
-  const creamAnatomy = BABYLON.MeshBuilder.CreateCylinder('creamAnatomy',{diameter:3.16,height:.58,tessellation:96},scene);
-  creamAnatomy.material=marshmallow;
-  const bottomAnatomy = BABYLON.MeshBuilder.CreateCylinder('bottomAnatomyBiscuit',{diameter:3.12,height:.48,tessellation:96},scene);
-  bottomAnatomy.material=biscuit;
-  const bottomCoatingAnatomy = BABYLON.MeshBuilder.CreateCylinder('bottomAnatomyCoating',{diameter:3.42,height:.24,tessellation:96},scene);
-  bottomCoatingAnatomy.position.y=-.36;
-  bottomCoatingAnatomy.material=chocolate;
-  bottomCoatingAnatomy.parent=bottomAnatomy;
-  makeExplodedLayer('topHolder',1.55,topAnatomy,0);
-  makeExplodedLayer('creamHolder',0,creamAnatomy,0);
-  makeExplodedLayer('bottomHolder',-1.55,bottomAnatomy,0);
-
-  const bite = new BABYLON.TransformNode('biteView',scene);
-  bite.setEnabled(false);
-  function makeBiteHalf(name,x,arcStart) {
-    const holder=new BABYLON.TransformNode(name,scene);
-    holder.parent=bite;
-    holder.position.x=x;
-    holder.rotation.y=arcStart;
-    const topCut=BABYLON.MeshBuilder.CreateCylinder(name+'Top',{diameter:3.42,height:.34,tessellation:64,arc:.5},scene);
-    topCut.position.y=.74; topCut.material=chocolate; topCut.parent=holder;
-    const biscuitCut=BABYLON.MeshBuilder.CreateCylinder(name+'Biscuit',{diameter:3.12,height:.48,tessellation:64,arc:.5},scene);
-    biscuitCut.position.y=.43;biscuitCut.material=biscuit;biscuitCut.parent=holder;
-    const creamCut=BABYLON.MeshBuilder.CreateCylinder(name+'Cream',{diameter:3.16,height:.58,tessellation:64,arc:.5},scene);
-    creamCut.material=marshmallow;creamCut.parent=holder;
-    const bottomBisCut=BABYLON.MeshBuilder.CreateCylinder(name+'BottomBiscuit',{diameter:3.12,height:.48,tessellation:64,arc:.5},scene);
-    bottomBisCut.position.y=-.43;bottomBisCut.material=biscuit;bottomBisCut.parent=holder;
-    const bottomCut=BABYLON.MeshBuilder.CreateCylinder(name+'Bottom',{diameter:3.42,height:.34,tessellation:64,arc:.5},scene);
-    bottomCut.position.y=-.74;bottomCut.material=chocolate;bottomCut.parent=holder;
-  }
-  makeBiteHalf('leftBite',-1.05,-Math.PI/2);
-  makeBiteHalf('rightBite',1.05,Math.PI/2);
-
-  const stretchPath = [
-    new BABYLON.Vector3(.55,.05,-1.15),
-    new BABYLON.Vector3(.9,-.1,-1.55),
-    new BABYLON.Vector3(1.35,.25,-1.85),
-    new BABYLON.Vector3(1.65,.95,-1.55)
-  ];
-  const stretch = BABYLON.MeshBuilder.CreateTube('marshmallowStretch',{path:stretchPath,radius:.12,tessellation:12,radiusFunction:(i,d)=>.12*Math.sin((i/(stretchPath.length-1))*Math.PI*.85)},scene);
-  stretch.material=marshmallow;
-  stretch.parent=bite;
-  stretch.setEnabled(false);
-
-  const productStudio = new BABYLON.TransformNode('productStudio',scene);
-  productStudio.setEnabled(false);
-
-  const pepero = new BABYLON.TransformNode('pepero',scene);
-  pepero.parent=productStudio;
-  for(let i=0;i<7;i++){
-    const stick=BABYLON.MeshBuilder.CreateCylinder('peperoStick'+i,{height:3.8,diameter:0.42,tessellation:32},scene);
-    stick.position.x=(i-3)*.34;
-    stick.position.y=(i%2)*.08;
-    stick.rotation.z=Math.PI/2;
-    stick.material=chocolate;
-    stick.parent=pepero;
-    shadowGenerator.addShadowCaster(stick,true);
-  }
-
-  const coffy = new BABYLON.TransformNode('coffy',scene);
-  coffy.parent=productStudio;
-  for(let i=-2;i<=2;i++){
-    const toffee=BABYLON.MeshBuilder.CreateCylinder('coffy'+i,{diameter:1.05,height:.9,tessellation:32},scene);
-    toffee.position.x=i*.48;
-    toffee.position.y=(i%2)*.12;
-    toffee.rotation.z=Math.PI/2;
-    const wrap=new BABYLON.PBRMaterial('coffyWrap'+i,scene);
-    wrap.albedoColor=new BABYLON.Color3(.46,.20,.10);
-    wrap.roughness=.32;
-    wrap.clearCoat.isEnabled=true;
-    toffee.material=wrap;
-    toffee.parent=coffy;
-    shadowGenerator.addShadowCaster(toffee,true);
-  }
-
-  const caramilk = new BABYLON.TransformNode('caramilk',scene);
-  caramilk.parent=productStudio;
-  for(let i=-2;i<=2;i++){
-    const milkToffee=BABYLON.MeshBuilder.CreateCylinder('caramilk'+i,{diameter:1.05,height:.38,tessellation:48},scene);
-    milkToffee.position.x=i*.78;
-    milkToffee.position.y=Math.abs(i)*.06;
-    milkToffee.rotation.z=.12*i;
-    const milkMat=new BABYLON.PBRMaterial('caramilkMat'+i,scene);
-    milkMat.albedoColor=new BABYLON.Color3(.96,.78,.48);
-    milkMat.roughness=.38;
-    milkMat.clearCoat.isEnabled=true;
-    milkToffee.material=milkMat;
-    milkToffee.parent=caramilk;
-    shadowGenerator.addShadowCaster(milkToffee,true);
-  }
-
-  const packagePlane = BABYLON.MeshBuilder.CreatePlane('packagePlane',{width:4.8,height:3.4},scene);
-  packagePlane.position=new BABYLON.Vector3(3.7,.25,.1);
-  packagePlane.rotation.y=-0.18;
-  packagePlane.setEnabled(false);
-  const packageMat=new BABYLON.StandardMaterial('packageMat',scene);
-  packageMat.diffuseTexture=new BABYLON.Texture('assets/choco-brand.png',scene,true,false,BABYLON.Texture.TRILINEAR_SAMPLINGMODE);
-  packageMat.diffuseTexture.hasAlpha=true;
-  packageMat.transparencyMode=BABYLON.Material.MATERIAL_ALPHABLEND;
-  packageMat.backFaceCulling=false;
-  packagePlane.material=packageMat;
-
-  let active=false;
-  let currentChapter=0;
-  let targetChapter=0;
-  let campaignProduct='pie';
-  let dragRotation=0;
-  let manualZoom=8.6;
-  let lightMode=0;
-  let wheelZoom=0;
-  const observer=new IntersectionObserver(entries=>{
-    active=entries[0]?.isIntersecting || false;
-  },{threshold:.05,rootMargin:'100px'});
-  observer.observe(stage);
-
-  function setChapter(chapter) {
-    targetChapter=chapter;
-    complete.setEnabled((chapter===0 || chapter===3 || (chapter===4 && campaignProduct==='pie')));
-    anatomy.setEnabled(chapter===1);
-    bite.setEnabled(chapter===2);
-    stretch.setEnabled(chapter===2);
-    packagePlane.setEnabled(chapter===3 || chapter===4);
-    productStudio.setEnabled(chapter===4);
-    pepero.setEnabled(chapter===4 && campaignProduct==='pepero');
-    coffy.setEnabled(chapter===4 && campaignProduct==='coffy');
-    caramilk.setEnabled(chapter===4 && campaignProduct==='caramilk');
-  }
-  setChapter(0);
-
-  const storyObserver=new IntersectionObserver(entries=>{
-    const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
-    if(!visible)return;
-    const chapter=parseInt(visible.target.dataset.chapter||'0',10);
-    currentChapter=chapter;
-    targetChapter=chapter;
-    stage.dataset.chapter=String(chapter);
-  },{threshold:[.35,.55,.75],rootMargin:'-18% 0px -18% 0px'});
-  document.querySelectorAll('.pie-story-chapter').forEach(chapter=>storyObserver.observe(chapter));
-
-  let lastChapter=-1;
-  canvas.addEventListener('pointerdown',event=>{
-    canvas.setPointerCapture?.(event.pointerId);
-  });
-  canvas.addEventListener('pointermove',event=>{
-    if(event.buttons!==1)return;
-    dragRotation+=(event.movementX||0)*0.006;
-  });
-  canvas.addEventListener('wheel',event=>{
-    event.preventDefault();
-    wheelZoom=Math.max(-1.8,Math.min(1.8,wheelZoom-event.deltaY*0.002));
-  },{passive:false});
-
-  document.querySelectorAll('[data-action]').forEach(button=>{
-    button.addEventListener('click',()=>{
-      const action=button.dataset.action;
-      if(action==='left')dragRotation-=.45;
-      if(action==='right')dragRotation+=.45;
-      if(action==='zoom')wheelZoom=Math.abs(wheelZoom)<.1?-.9:.0;
-      if(action==='light'){
-        lightMode=(lightMode+1)%3;
-        key.intensity=[2.4,3.1,1.9][lightMode];
-        rim.intensity=[1.15,.7,1.65][lightMode];
-        rim.diffuse=new BABYLON.Color3(1,[.45,.62,.30][lightMode],[.38,.42,.25][lightMode]);
-      }
-    });
-  });
-
-  document.querySelectorAll('[data-campaign-product]').forEach(button=>{
-    button.addEventListener('click',()=>{
-      campaignProduct=button.dataset.campaignProduct||'pie';
-      document.querySelectorAll('[data-campaign-product]').forEach(tab=>tab.classList.toggle('active',tab===button));
-      setChapter(targetChapter);
-      complete.position.y=campaignProduct==='pie'?0:-.75;
-      pepero.rotation.z=0;
-      coffy.rotation.z=0;
-      caramilk.rotation.z=0;
-    });
-  });
-
-  engine.runRenderLoop(()=>{
-    if(!active)return;
-    if(targetChapter!==lastChapter){
-      setChapter(targetChapter);
-      lastChapter=targetChapter;
-    }
-    const targetRadius=[8.6,7.8,6.2,8.2,7.2][targetChapter]-wheelZoom;
-    camera.radius=BABYLON.Scalar.Lerp(camera.radius,targetRadius,.055);
-    camera.target.y=BABYLON.Scalar.Lerp(camera.target.y,[.1,.15,.05,.15,.2][targetChapter],.05);
-    camera.alpha=BABYLON.Scalar.Lerp(camera.alpha,-Math.PI/2+dragRotation,.045);
-
-    complete.rotation.y=BABYLON.Scalar.Lerp(complete.rotation.y,.18+dragRotation,.05);
-    anatomy.rotation.y=BABYLON.Scalar.Lerp(anatomy.rotation.y,.12+dragRotation*.35,.05);
-    bite.rotation.y=BABYLON.Scalar.Lerp(bite.rotation.y,-.18+dragRotation*.35,.05);
-    productStudio.rotation.y=BABYLON.Scalar.Lerp(productStudio.rotation.y,dragRotation*.5,.05);
-    stretch.setEnabled(targetChapter===2);
-    stretch.scaling.z=0.75+Math.sin(performance.now()*0.0014)*.04;
-
-    scene.render();
-  });
-
-  window.addEventListener('resize',()=>{
-    engine.resize();
-  });
-  window.addEventListener('beforeunload',()=>engine.dispose());
-});
-</script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

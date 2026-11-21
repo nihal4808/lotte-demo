@@ -692,8 +692,7 @@
       <!-- Product Image Right with Floating Badges -->
       <div class="product-hero-image" data-aos="fade-left">
         <div class="choco-studio" aria-label="Interactive Lotte Choco Pie studio">
-          <img class="studio-fallback" src="assets/choco-brand.png" alt="Lotte Choco Pie Box and Product — India's No.1">
-          <canvas id="chocoPieStudio" aria-label="Rotatable 3D Lotte Choco Pie"></canvas>
+          <img class="studio-fallback" src="assets/official/choco-brand.png" alt="Official Lotte Choco Pie Box and Product — India's No.1">
           <span class="choco-studio-caption">Drag to explore</span>
           <div class="choco-studio-controls" role="group" aria-label="Choco Pie studio controls">
             <button type="button" data-studio-action="rotate-left" aria-label="Rotate left"><i class="fas fa-arrow-left"></i></button>
@@ -761,7 +760,7 @@
     <div class="sensory-grid">
       <!-- Image with overlay -->
       <div class="sensory-image-wrap" data-aos="fade-right">
-        <img src="assets/choco-brand.png" alt="Cream-sandwiched biscuit, fluffy marshmallow and chocolate — Lotte Choco Pie" loading="lazy">
+        <img src="assets/official/choco-brand.png" alt="Official Lotte Choco Pie packaging" loading="lazy">
         <div class="sensory-badge-overlay">
           <strong>The Taste Sensation</strong>
           <span>Crisp yet tender, chewy yet melting — a symphony of indulgence.</span>
@@ -818,7 +817,7 @@
       <div class="variant-card" data-aos="fade-up" data-delay="100">
         <div class="variant-image-box">
           <span class="variant-tag"><i class="fas fa-star"></i> Classic Bestseller</span>
-          <img src="https://www.lotteindia.com/images/chocopie-prod.jpg" alt="Lotte Original Choco Pie Pack" loading="lazy">
+          <img src="assets/official/choco-brand.png" alt="Official Lotte Choco Pie pack" loading="lazy">
         </div>
         <div class="variant-body">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
@@ -843,33 +842,6 @@
         </div>
       </div>
 
-      <!-- Variant 2: Rich Cocoa -->
-      <div class="variant-card" data-aos="fade-up" data-delay="200">
-        <div class="variant-image-box">
-          <span class="variant-tag gold"><i class="fas fa-crown"></i> Premium Variant</span>
-          <img src="https://www.lotteindia.com/images/cp-richcocoa-img.jpg" alt="Lotte Choco Pie Rich Cocoa Pack" loading="lazy">
-        </div>
-        <div class="variant-body">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-            <h3>Rich Cocoa Choco Pie</h3>
-            <span class="veg-badge" style="padding:4px 10px;font-size:0.7rem;">Veg ✅</span>
-          </div>
-          <p>
-            An intense, dark cocoa adventure crafted for discerning connoisseurs. Deep dark chocolate sponge infused with rich cocoa solids, enclosing luscious white marshmallow and enrobed with a bittersweet dark choco crust.
-          </p>
-
-          <div style="margin-bottom:8px;">
-            <span style="font-size:0.75rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;font-weight:700;">Available Pack Sizes:</span>
-          </div>
-          <div class="pack-sizes">
-            <span class="pack-size-item">Pack of 6 (168g)</span>
-            <span class="pack-size-item">Pack of 12 (336g)</span>
-            <span class="pack-size-item">Premium Gift Box</span>
-          </div>
-
-          <a href="enquiry.html" class="btn btn-outline btn-sm" style="margin-top:auto;"><i class="fas fa-shopping-cart"></i> Order / Enquire</a>
-        </div>
-      </div>
     </div>
 
     <!-- Product Specifications Strip -->
@@ -1028,241 +1000,6 @@
 </footer>
 <div class="scroll-top" title="Back to top"><i class="fas fa-arrow-up"></i></div>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js" defer></script>
-<script>
-window.addEventListener('DOMContentLoaded', () => {
-  if (!window.THREE) return;
-  const canvas = document.getElementById('chocoPieStudio');
-  if (!canvas) return;
-
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-  camera.position.set(0, 0.45, 8.2);
-
-  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true, powerPreference:'high-performance'});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.12;
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-  scene.add(new THREE.HemisphereLight(0xfff3df, 0x1b0906, 1.45));
-  const key = new THREE.DirectionalLight(0xffe4c2, 3.8);
-  key.position.set(4.5, 6, 7);
-  key.castShadow = true;
-  key.shadow.mapSize.set(1024,1024);
-  key.shadow.camera.left = -5;
-  key.shadow.camera.right = 5;
-  key.shadow.camera.top = 5;
-  key.shadow.camera.bottom = -5;
-  scene.add(key);
-  const rim = new THREE.DirectionalLight(0xff5b50, 2.2);
-  rim.position.set(-5, 1.5, -4);
-  scene.add(rim);
-
-  const shadow = new THREE.Mesh(
-    new THREE.CircleGeometry(2.2, 64),
-    new THREE.ShadowMaterial({opacity:.28})
-  );
-  shadow.rotation.x = -Math.PI / 2;
-  shadow.position.y = -1.72;
-  shadow.receiveShadow = true;
-  scene.add(shadow);
-
-  function textureCanvas(base, fleck, type) {
-    const t = document.createElement('canvas');
-    t.width = t.height = 256;
-    const ctx = t.getContext('2d');
-    ctx.fillStyle = base;
-    ctx.fillRect(0,0,256,256);
-    for (let i=0;i<900;i++) {
-      ctx.globalAlpha = type === 'biscuit' ? .10 : .06;
-      ctx.fillStyle = fleck;
-      const size = type === 'biscuit' ? Math.random()*3+1 : Math.random()*2+.5;
-      ctx.fillRect(Math.random()*256,Math.random()*256,size,size);
-    }
-    ctx.globalAlpha = 1;
-    const texture = new THREE.CanvasTexture(t);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(3,2);
-    return texture;
-  }
-
-  const chocolateTexture = textureCanvas('#3a140d','#a75b38','chocolate');
-  const biscuitTexture = textureCanvas('#9a6033','#4f2816','biscuit');
-  const chocolate = new THREE.MeshPhysicalMaterial({
-    color:0x3a160f, map:chocolateTexture, roughness:.34, metalness:0,
-    clearcoat:.58, clearcoatRoughness:.28, sheen:.32, sheenColor:new THREE.Color(0x7a3924)
-  });
-  const biscuit = new THREE.MeshPhysicalMaterial({
-    color:0x9a6033, map:biscuitTexture, roughness:.66, clearcoat:.04
-  });
-  const marshmallow = new THREE.MeshPhysicalMaterial({
-    color:0xfff4df, roughness:.78, sheen:.25, sheenColor:new THREE.Color(0xffffff)
-  });
-  const cutChocolate = new THREE.MeshStandardMaterial({color:0x24100b,roughness:.55});
-  const cutSide = new THREE.MeshStandardMaterial({color:0xffedcf,roughness:.72});
-
-  const product = new THREE.Group();
-  const biteProduct = new THREE.Group();
-  biteProduct.visible = false;
-  scene.add(product, biteProduct);
-
-  function completePie() {
-    const group = new THREE.Group();
-    const top = new THREE.Mesh(new THREE.CylinderGeometry(1.72,1.72,.22,96,1,false),chocolate);
-    top.position.y=.78;
-    const bottom = new THREE.Mesh(new THREE.CylinderGeometry(1.72,1.72,.22,96,1,false),chocolate);
-    bottom.position.y=-.78;
-    const biscuitTop = new THREE.Mesh(new THREE.CylinderGeometry(1.53,1.53,.34,96),biscuit);
-    biscuitTop.position.y=.43;
-    const biscuitBottom = new THREE.Mesh(new THREE.CylinderGeometry(1.53,1.53,.34,96),biscuit);
-    biscuitBottom.position.y=-.43;
-    const cream = new THREE.Mesh(new THREE.CylinderGeometry(1.56,1.56,.44,96),marshmallow);
-    const seam = new THREE.Mesh(new THREE.TorusGeometry(1.56,.035,12,96),marshmallow);
-    seam.rotation.x=Math.PI/2;
-    [top,bottom,biscuitTop,biscuitBottom,cream,seam].forEach(mesh=>{
-      mesh.castShadow=true;
-      mesh.receiveShadow=true;
-    });
-    group.add(bottom,biscuitBottom,cream,seam,biscuitTop,top);
-    group.rotation.z=-.08;
-    return group;
-  }
-
-  function halfPie(offsetX, thetaStart) {
-    const group = new THREE.Group();
-    const makeHalf = (radius,height,y,material,offsetY=0) => {
-      const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius,radius,height,64,1,false,thetaStart,Math.PI),material);
-      mesh.position.set(0,y+offsetY,0);
-      mesh.castShadow=true;
-      mesh.receiveShadow=true;
-      group.add(mesh);
-    };
-    makeHalf(1.72,.22,.78,chocolate);
-    makeHalf(1.53,.34,.43,biscuit);
-    makeHalf(1.56,.44,0,marshmallow);
-    makeHalf(1.53,.34,-.43,biscuit);
-    makeHalf(1.72,.22,-.78,chocolate);
-
-    const cut = new THREE.Mesh(new THREE.CircleGeometry(1.72,64,thetaStart,Math.PI),cutSide);
-    cut.rotation.x=-Math.PI/2;
-    cut.position.y=0;
-    cut.rotation.z=thetaStart;
-    group.add(cut);
-    group.position.x=offsetX;
-    return group;
-  }
-
-  function biteView() {
-    const group = new THREE.Group();
-    const left = halfPie(-1.05,Math.PI/2);
-    const right = halfPie(.95,-Math.PI/2);
-    left.rotation.y=.18;
-    right.rotation.y=-.18;
-    group.add(left,right);
-    group.rotation.z=.02;
-    return group;
-  }
-
-  const complete = completePie();
-  product.add(complete);
-  const split = biteView();
-  biteProduct.add(split);
-
-  let targetRotation=.18;
-  let rotation=.18;
-  let zoom=1;
-  let bite=false;
-  let dragging=false;
-  let previousX=0;
-  let lightIndex=0;
-
-  canvas.addEventListener('pointerdown',e=>{
-    dragging=true;
-    previousX=e.clientX;
-    canvas.setPointerCapture?.(e.pointerId);
-  });
-  canvas.addEventListener('pointermove',e=>{
-    if(!dragging)return;
-    targetRotation+=(e.clientX-previousX)*.008;
-    previousX=e.clientX;
-  });
-  canvas.addEventListener('pointerup',()=>dragging=false);
-  canvas.addEventListener('pointercancel',()=>dragging=false);
-  canvas.addEventListener('wheel',e=>{
-    e.preventDefault();
-    zoom=Math.max(.86,Math.min(1.28,zoom-e.deltaY*.0005));
-  },{passive:false});
-
-  function setBite(next) {
-    bite=next;
-    product.visible=!bite;
-    biteProduct.visible=bite;
-    document.querySelectorAll('[data-studio-action="bite"]').forEach(button=>{
-      button.classList.toggle('active',bite);
-    });
-  }
-
-  document.querySelectorAll('[data-studio-action]').forEach(button=>{
-    button.addEventListener('click',()=>{
-      const action=button.dataset.studioAction;
-      if(action==='rotate-left')targetRotation-=Math.PI/5;
-      if(action==='rotate-right')targetRotation+=Math.PI/5;
-      if(action==='bite')setBite(!bite);
-      if(action==='light'){
-        lightIndex=(lightIndex+1)%3;
-        const colors=[0xffe4c2,0xfff4e8,0xffc0a8];
-        key.color.setHex(colors[lightIndex]);
-        key.intensity=3.8-lightIndex*.35;
-        rim.intensity=1.8+lightIndex*.35;
-      }
-    });
-
-    const sensorySection=document.querySelector('.sensory-section');
-    if(sensorySection) {
-      const biteObserver=new IntersectionObserver(entries=>{
-        if(entries[0]?.isIntersecting) setBite(true);
-        else if(entries[0] && entries[0].boundingClientRect.top>window.innerHeight) setBite(false);
-      },{threshold:.35});
-      biteObserver.observe(sensorySection);
-    }
-  });
-
-  const resize=()=>{
-    const rect=canvas.getBoundingClientRect();
-    if(!rect.width||!rect.height)return;
-    camera.aspect=rect.width/rect.height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(rect.width,rect.height,false);
-  };
-  window.addEventListener('resize',resize);
-  resize();
-
-  const observer=new IntersectionObserver(entries=>{
-    active=entries[0]?.isIntersecting ?? false;
-  },{rootMargin:'100px'});
-  let active=false;
-  observer.observe(canvas);
-
-  function animate() {
-    if(active) {
-      if(!dragging&&!reduceMotion) targetRotation+=.0012;
-      rotation+=(targetRotation-rotation)*.065;
-      product.rotation.y=rotation;
-      biteProduct.rotation.y=rotation;
-      complete.scale.setScalar(zoom);
-      split.scale.setScalar(zoom);
-      renderer.render(scene,camera);
-    }
-    requestAnimationFrame(animate);
-  }
-  requestAnimationFrame(animate);
-});
-</script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
