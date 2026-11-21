@@ -14,109 +14,146 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .hero-premium-product {
+    .hero-product-reveal {
       position: absolute;
-      right: 6%;
-      top: 16%;
-      width: min(42vw, 620px);
-      height: 68%;
-      z-index: 6;
+      right: 7%;
+      bottom: 5%;
+      width: min(40vw, 560px);
+      z-index: 7;
       pointer-events: none;
     }
-    #chocoPieCanvas {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 28px 40px rgba(0,0,0,.45));
-      cursor: grab;
+    .hero-product-reveal img {
+      max-height: 72vh;
+      margin-left: auto;
+      filter: drop-shadow(0 32px 38px rgba(0,0,0,.56));
+      animation: heroProductEnter 1.4s cubic-bezier(.2,.75,.25,1) .15s both;
     }
-    .hero-premium-product::after {
-      content: "";
-      position: absolute;
-      left: 16%;
-      right: 16%;
-      bottom: 4%;
-      height: 8%;
-      border-radius: 50%;
-      background: rgba(0,0,0,.48);
-      filter: blur(18px);
-      z-index: -1;
+    @keyframes heroProductEnter {
+      from { opacity: 0; transform: translateY(38px) rotate(2deg) scale(.96); }
+      to { opacity: 1; transform: translateY(0) rotate(-1deg) scale(1); }
     }
-    .studio-section {
-      background: #080808;
-      position: relative;
-      overflow: hidden;
-      padding: 110px 0;
-    }
-    .studio-grid {
-      display: grid;
-      grid-template-columns: .85fr 1.15fr;
-      gap: 48px;
-      align-items: center;
-    }
-    .studio-copy h2 {
+    .pie-story {
+      background: #090909;
       color: #fff;
-      font-size: clamp(2.5rem, 5vw, 5rem);
-      line-height: .98;
-      letter-spacing: -3px;
-    }
-    .studio-copy h2 span { color: var(--lotte-red); }
-    .studio-copy p { color: rgba(255,255,255,.68); line-height: 1.8; margin: 24px 0 30px; }
-    .studio-stage {
-      min-height: 520px;
-      border: 1px solid rgba(255,255,255,.09);
-      border-radius: 32px;
       position: relative;
-      background:
-        radial-gradient(circle at 50% 40%, rgba(230,0,18,.20), transparent 36%),
-        linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.015));
-      box-shadow: inset 0 1px rgba(255,255,255,.08), 0 30px 80px rgba(0,0,0,.32);
     }
-    #studioCanvas {
-      width: 100%;
-      height: 520px;
-      cursor: grab;
+    .pie-story-intro {
+      min-height: 38vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 110px 0 44px;
+    }
+    .pie-story-intro h2 {
+      max-width: 780px;
+      font-size: clamp(3rem,7vw,7rem);
+      line-height: .92;
+      letter-spacing: -5px;
+      margin-top: 14px;
+    }
+    .pie-story-intro h2 span { color: var(--lotte-red); }
+    .pie-story-layout {
+      display: grid;
+      grid-template-columns: minmax(250px,.7fr) 1.3fr;
+      gap: 0;
+      align-items: start;
+    }
+    .pie-story-chapters { position: relative; z-index: 2; }
+    .pie-story-chapter {
+      min-height: 82vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 420px;
+      padding: 60px 32px 60px 0;
+    }
+    .pie-story-number {
       display: block;
-    }
-    .studio-controls {
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      bottom: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      z-index: 3;
-    }
-    .studio-products {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .studio-product {
-      color: rgba(255,255,255,.72);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 999px;
-      padding: 9px 13px;
-      background: rgba(10,10,10,.72);
-      backdrop-filter: blur(10px);
+      color: var(--lotte-red);
       font-size: .72rem;
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
     }
-    .studio-product.active { background: var(--lotte-red); color: #fff; border-color: var(--lotte-red); }
-    .studio-light { width: 44px; height: 44px; border-radius: 50%; color: #fff; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.12); }
-    @media (max-width: 1024px) {
-      .hero-premium-product { width: 48vw; height: 52%; top: 25%; opacity: .78; }
-      .studio-grid { grid-template-columns: 1fr; }
+    .pie-story-chapter h3 {
+      font-size: clamp(2.2rem,4vw,4.2rem);
+      line-height: 1;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
     }
-    @media (max-width: 768px) {
-      .hero-premium-product { width: 70vw; height: 38%; top: 18%; right: -18%; opacity: .48; }
-      .hero-slide .hero-content { bottom: 11%; max-width: 88%; }
-      .studio-stage, #studioCanvas { min-height: 420px; height: 420px; }
-      .studio-controls { align-items: flex-end; }
+    .pie-story-chapter p {
+      color: rgba(255,255,255,.62);
+      line-height: 1.8;
     }
-    @media (prefers-reduced-motion: reduce) {
-      .hero-premium-product, .studio-stage { transition: none; }
+    .pie-story-stage {
+      height: 82vh;
+      position: sticky;
+      top: 9vh;
+      overflow: hidden;
+      background: linear-gradient(145deg,#17100e,#080808 68%);
+      border-left: 1px solid rgba(255,255,255,.07);
+    }
+    .pie-story-stage::before {
+      content:"";
+      position:absolute;
+      width:52%;
+      aspect-ratio:1;
+      right:8%;
+      top:18%;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(230,0,18,.16),transparent 68%);
+    }
+    .pie-story-product {
+      position:absolute;
+      width:min(72%,520px);
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%) rotate(-3deg);
+      filter:drop-shadow(0 38px 28px rgba(0,0,0,.52));
+      transition:transform 1.1s cubic-bezier(.2,.75,.25,1),opacity .6s ease;
+      will-change:transform;
+    }
+    .pie-story-anatomy {
+      position:absolute;
+      left:7%;
+      right:7%;
+      bottom:7%;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:8px;
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .7s ease,transform .7s ease;
+    }
+    .pie-story-anatomy span {
+      padding:12px 10px;
+      border-top:1px solid rgba(255,255,255,.18);
+      color:rgba(255,255,255,.68);
+      font-size:.68rem;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+    .pie-story-stage[data-stage="1"] .pie-story-product { transform:translate(-50%,-50%) rotate(8deg) scale(.94); }
+    .pie-story-stage[data-stage="2"] .pie-story-product { transform:translate(-50%,-50%) rotate(-8deg) scale(.82); }
+    .pie-story-stage[data-stage="2"] .pie-story-anatomy { opacity:1; transform:translateY(0); }
+    .pie-story-stage[data-stage="3"] .pie-story-product { transform:translate(-50%,-54%) rotate(0deg) scale(1.22); }
+    .pie-story-stage[data-stage="4"] .pie-story-product { transform:translate(-50%,-52%) rotate(-1deg) scale(1.05); }
+    @media (max-width:1024px) {
+      .hero-product-reveal { width:48vw; right:0; opacity:.72; }
+      .pie-story-layout { grid-template-columns:1fr 1.15fr; }
+    }
+    @media (max-width:768px) {
+      .hero-product-reveal { width:54vw; right:-13%; bottom:10%; opacity:.58; }
+      .hero-slide .hero-content { bottom:11%; max-width:82%; }
+      .pie-story-intro { min-height:30vh; padding-top:80px; }
+      .pie-story-intro h2 { font-size:3.2rem; letter-spacing:-3px; }
+      .pie-story-layout { display:block; }
+      .pie-story-chapters { position:relative; z-index:3; }
+      .pie-story-chapter { min-height:58vh; max-width:82%; padding:30px 0; }
+      .pie-story-stage { height:58vh; top:12vh; border-left:0; margin-bottom:12vh; }
+      .pie-story-product { width:78%; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .hero-product-reveal img,.pie-story-product,.pie-story-anatomy { animation:none; transition:none; }
     }
     /* Extra homepage styles */
     .hero { height: 100vh; min-height: 650px; }
@@ -135,12 +172,7 @@
       gap: 2px;
     }
     
-    /* Floating product image */
-    @keyframes floatProduct {
-      0%, 100% { transform: translateY(0) rotate(-2deg); }
-      50% { transform: translateY(-16px) rotate(2deg); }
-    }
-    .float-product { animation: floatProduct 5s ease-in-out infinite; }
+    .float-product { transition: transform .7s cubic-bezier(.2,.75,.25,1); }
     
     /* Hero text animation */
     @keyframes heroReveal {
@@ -236,8 +268,8 @@
   <div class="hero-slide active">
     <img src="https://www.lotteindia.com/images/banner1-d.jpg" alt="Lotte India - India's No.1 Choco Pie" class="hero-slide-img">
     <div class="hero-overlay"></div>
-    <div class="hero-premium-product" aria-label="Interactive 3D Choco Pie preview">
-      <canvas id="chocoPieCanvas"></canvas>
+    <div class="hero-product-reveal" aria-hidden="true">
+      <img src="assets/choco-brand.png" alt="" loading="eager">
     </div>
     <div class="hero-content">
       <div class="hero-tag"><i class="fas fa-star"></i> India's No.1 Choco Pie</div>
@@ -376,28 +408,48 @@
 </section>
 
 <!-- =========================================
-     INTERACTIVE PRODUCT STUDIO
+     CHOCO PIE CINEMATIC PRODUCT STORY
      ========================================= -->
-<section class="studio-section" aria-labelledby="studio-heading">
-  <div class="container">
-    <div class="studio-grid">
-      <div class="studio-copy" data-aos="fade-right">
-        <span class="section-label" style="color:rgba(255,100,100,.9)">The confectionery studio</span>
-        <h2 id="studio-heading">Turn it over.<br><span>Light it up.</span></h2>
-        <p>Explore Lotte favourites in a real-time 3D scene. Drag to rotate, scroll to zoom and switch products to see each confection come to life.</p>
-        <a href="choco-pie.html" class="btn btn-primary">Explore Choco Pie <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="studio-stage" data-aos="zoom-in">
-        <canvas id="studioCanvas" aria-label="Interactive 3D product studio"></canvas>
-        <div class="studio-controls">
-          <div class="studio-products" role="group" aria-label="Choose a product">
-            <button class="studio-product active" data-product="pie" type="button">Choco Pie</button>
-            <button class="studio-product" data-product="toffee" type="button">Coffy Bite</button>
-            <button class="studio-product" data-product="eclair" type="button">Eclairs</button>
-            <button class="studio-product" data-product="caramilk" type="button">Caramilk</button>
-          </div>
-          <button class="studio-light" id="studioLight" type="button" aria-label="Change studio light" title="Change studio light"><i class="fas fa-sun"></i></button>
-        </div>
+<section class="pie-story" id="pie-story" aria-labelledby="pie-story-heading">
+  <div class="container pie-story-intro">
+    <div>
+      <span class="section-label">A little circle of joy</span>
+      <h2 id="pie-story-heading">One pie.<br><span>Three pleasures.</span></h2>
+    </div>
+  </div>
+  <div class="container pie-story-layout">
+    <div class="pie-story-chapters">
+      <article class="pie-story-chapter" data-story-stage="0">
+        <span class="pie-story-number">01 / THE REVEAL</span>
+        <h3>It begins quietly.</h3>
+        <p>A familiar form appears in warm light: soft at the edges, substantial at the centre.</p>
+      </article>
+      <article class="pie-story-chapter" data-story-stage="1">
+        <span class="pie-story-number">02 / THE PRODUCT</span>
+        <h3>Meet the icon.</h3>
+        <p>The Choco Pie's compact, round composition turns one simple bite into a complete moment.</p>
+      </article>
+      <article class="pie-story-chapter" data-story-stage="2">
+        <span class="pie-story-number">03 / THE ANATOMY</span>
+        <h3>Three textures. One bite.</h3>
+        <p>Soft biscuit, fluffy marshmallow and rich chocolate work in balance.</p>
+      </article>
+      <article class="pie-story-chapter" data-story-stage="3">
+        <span class="pie-story-number">04 / THE EXPERIENCE</span>
+        <h3>Closer, richer.</h3>
+        <p>The textures come forward, inviting a pause before the first bite.</p>
+      </article>
+      <article class="pie-story-chapter" data-story-stage="4">
+        <span class="pie-story-number">05 / THE FINAL HERO</span>
+        <h3>Sweet moments,<br>every day.</h3>
+        <p>Rediscover India's No.1 Choco Pie.</p>
+        <a href="choco-pie.html" class="btn btn-primary mt-24">Discover Choco Pie</a>
+      </article>
+    </div>
+    <div class="pie-story-stage" data-stage="0" aria-label="Lotte Choco Pie product story">
+      <img class="pie-story-product" src="assets/choco-brand.png" alt="Lotte Choco Pie packaging and product">
+      <div class="pie-story-anatomy" aria-label="Choco Pie layers">
+        <span>Soft biscuit</span><span>Fluffy marshmallow</span><span>Rich chocolate</span>
       </div>
     </div>
   </div>
@@ -786,7 +838,6 @@
 
 <div class="scroll-top" title="Back to top" role="button" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></div>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

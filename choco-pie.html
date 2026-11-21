@@ -25,14 +25,14 @@
 
     .hero-glow-sphere {
       position: absolute;
-      width: 500px;
-      height: 500px;
+      width: 420px;
+      height: 420px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(230,0,18,0.2) 0%, transparent 70%);
-      top: 20%;
-      right: 10%;
+      background: radial-gradient(circle, rgba(230,0,18,0.12) 0%, transparent 68%);
+      top: 24%;
+      right: 12%;
       pointer-events: none;
-      filter: blur(40px);
+      filter: blur(50px);
     }
 
     .breadcrumb-bar {
@@ -84,12 +84,6 @@
       max-height: 480px;
       filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(230, 0, 18, 0.35));
       transform-origin: center;
-      animation: floatProduct 5s ease-in-out infinite;
-    }
-
-    @keyframes floatProduct {
-      0%, 100% { transform: translateY(0) rotate(-1.5deg); }
-      50% { transform: translateY(-18px) rotate(1.5deg); }
     }
 
     .floating-pill {
@@ -684,7 +678,7 @@
     <div class="sensory-grid">
       <!-- Image with overlay -->
       <div class="sensory-image-wrap" data-aos="fade-right">
-        <img src="https://www.lotteindia.com/images/choco-pie-img.jpg" alt="Cream-sandwiched biscuit drenched in chocolate — Lotte Choco Pie" loading="lazy">
+        <img src="assets/choco-brand.png" alt="Cream-sandwiched biscuit, fluffy marshmallow and chocolate — Lotte Choco Pie" loading="lazy">
         <div class="sensory-badge-overlay">
           <strong>The Taste Sensation</strong>
           <span>Crisp yet tender, chewy yet melting — a symphony of indulgence.</span>

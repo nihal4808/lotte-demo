@@ -314,181 +314,19 @@ if (document.body.classList.contains('inner-page')) {
 }
 
 // ========================================
-// REAL-TIME 3D PRODUCT STUDIO
+// CHOCO PIE CINEMATIC STORY
 // ========================================
-function initLotte3D() {
-  if (!window.THREE) return;
+const pieStoryStage = document.querySelector('.pie-story-stage');
+const pieStoryChapters = document.querySelectorAll('.pie-story-chapter');
 
-  function makePie() {
-    const group = new THREE.Group();
-    const choco = new THREE.MeshStandardMaterial({ color: 0x3a120b, roughness: 0.38, metalness: 0.04 });
-    const biscuit = new THREE.MeshStandardMaterial({ color: 0x8b4a20, roughness: 0.62 });
-    const cream = new THREE.MeshStandardMaterial({ color: 0xfff4df, roughness: 0.42 });
-    const top = new THREE.Mesh(new THREE.CylinderGeometry(1.9, 1.9, 0.28, 64), choco);
-    top.position.y = 1.18;
-    group.add(top);
-    const bottom = new THREE.Mesh(new THREE.CylinderGeometry(1.92, 1.92, 0.28, 64), choco);
-    bottom.position.y = -1.18;
-    group.add(bottom);
-    const biscuitTop = new THREE.Mesh(new THREE.CylinderGeometry(1.72, 1.72, 0.42, 64), biscuit);
-    biscuitTop.position.y = 0.82;
-    group.add(biscuitTop);
-    const biscuitBottom = new THREE.Mesh(new THREE.CylinderGeometry(1.72, 1.72, 0.42, 64), biscuit);
-    biscuitBottom.position.y = -0.82;
-    group.add(biscuitBottom);
-    const filling = new THREE.Mesh(new THREE.CylinderGeometry(1.74, 1.74, 0.46, 64), cream);
-    filling.scale.y = 1;
-    group.add(filling);
-    group.rotation.z = -0.18;
-    return group;
-  }
+if (pieStoryStage && pieStoryChapters.length) {
+  const storyObserver = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter(entry => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (!visible) return;
+    pieStoryStage.dataset.stage = visible.target.dataset.storyStage;
+  }, { threshold: [0.35, 0.55, 0.75], rootMargin: '-18% 0px -18% 0px' });
 
-  function makeToffee(colorA, colorB) {
-    const group = new THREE.Group();
-    for (let i = 0; i < 5; i++) {
-      const piece = new THREE.Mesh(
-        new THREE.CapsuleGeometry(0.58, 1.2, 8, 24),
-        new THREE.MeshStandardMaterial({ color: i % 2 ? colorA : colorB, roughness: 0.28, metalness: 0.08 })
-      );
-      piece.rotation.z = Math.PI / 2;
-      piece.position.set((i - 2) * 0.48, Math.sin(i) * 0.12, (i % 2) * 0.32);
-      group.add(piece);
-    }
-    group.rotation.z = -0.12;
-    return group;
-  }
-
-  function makeEclairs() {
-    const group = new THREE.Group();
-    for (let i = 0; i < 7; i++) {
-      const angle = i * 0.78;
-      const radius = i % 2 ? 0.58 : 1.18;
-      const piece = new THREE.Mesh(
-        new THREE.CapsuleGeometry(0.36, 0.9, 8, 20),
-        new THREE.MeshStandardMaterial({ color: i % 3 === 0 ? 0x542411 : 0xb96a2a, roughness: 0.32 })
-      );
-      piece.position.set(Math.cos(angle) * radius, (i - 3) * 0.12, Math.sin(angle) * radius);
-      piece.rotation.z = Math.PI / 2;
-      piece.rotation.y = angle;
-      group.add(piece);
-    }
-    return group;
-  }
-
-  function setupCanvas(canvas, options = {}) {
-    if (!canvas) return null;
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(36, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-    camera.position.set(0, 0.2, options.hero ? 9 : 8);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
-
-    scene.add(new THREE.HemisphereLight(0xffeee0, 0x170605, 2.2));
-    const key = new THREE.DirectionalLight(0xffffff, 4.2);
-    key.position.set(4, 6, 8);
-    scene.add(key);
-    const rim = new THREE.DirectionalLight(0xff3b45, 3.2);
-    rim.position.set(-5, 1, -4);
-    scene.add(rim);
-
-    const product = makePie();
-    product.scale.setScalar(options.hero ? 1.15 : 1.28);
-    scene.add(product);
-
-    let dragging = false;
-    let previousX = 0;
-    let previousY = 0;
-    let targetX = 0;
-    let targetY = 0;
-    canvas.addEventListener('pointerdown', e => {
-      dragging = true;
-      previousX = e.clientX;
-      previousY = e.clientY;
-      canvas.setPointerCapture?.(e.pointerId);
-    });
-    canvas.addEventListener('pointermove', e => {
-      if (!dragging) return;
-      targetY += (e.clientX - previousX) * 0.008;
-      targetX += (e.clientY - previousY) * 0.008;
-      previousX = e.clientX;
-      previousY = e.clientY;
-    });
-    canvas.addEventListener('pointerup', () => dragging = false);
-    canvas.addEventListener('pointercancel', () => dragging = false);
-    canvas.addEventListener('wheel', e => {
-      e.preventDefault();
-      camera.position.z = Math.max(5.2, Math.min(12, camera.position.z + e.deltaY * 0.006));
-    }, { passive: false });
-
-    let lightIndex = 0;
-    function rotateLight() {
-      lightIndex = (lightIndex + 1) % 3;
-      const colors = [0xffffff, 0xffd2b0, 0xbfd7ff];
-      const positions = [[4,6,8], [-5,4,6], [2,-4,7]];
-      key.color.setHex(colors[lightIndex]);
-      key.position.set(...positions[lightIndex]);
-    }
-
-    const resize = () => {
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
-      if (!width || !height) return;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height, false);
-    };
-    window.addEventListener('resize', resize);
-
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function animate(time) {
-      if (!reduceMotion) {
-        if (!dragging) targetY += 0.0024;
-        product.rotation.y += (targetY - product.rotation.y) * 0.07;
-        product.rotation.x += (targetX - product.rotation.x) * 0.07;
-        product.position.y = options.hero ? Math.sin(time * 0.001) * 0.08 : Math.sin(time * 0.0012) * 0.12;
-      }
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    }
-    requestAnimationFrame(animate);
-
-    return {
-      scene, camera, renderer, product,
-      replace(next) {
-        scene.remove(product);
-        scene.add(next);
-        return next;
-      },
-      rotateLight
-    };
-  }
-
-  const hero3D = setupCanvas(document.getElementById('chocoPieCanvas'), { hero: true });
-  const studio3D = setupCanvas(document.getElementById('studioCanvas'));
-  let studioProduct = studio3D?.product;
-
-  document.querySelectorAll('.studio-product').forEach(button => {
-    button.addEventListener('click', () => {
-      if (!studio3D) return;
-      document.querySelectorAll('.studio-product').forEach(b => b.classList.remove('active'));
-      button.classList.add('active');
-      let next;
-      if (button.dataset.product === 'toffee') next = makeToffee(0xd69a5b, 0x7a3a20);
-      else if (button.dataset.product === 'eclair') next = makeEclairs();
-      else if (button.dataset.product === 'caramilk') next = makeToffee(0xf2d19a, 0xfff1c9);
-      else next = makePie();
-      next.scale.setScalar(1.28);
-      studio3D.scene.remove(studioProduct);
-      studio3D.scene.add(next);
-      studioProduct = next;
-    });
-  });
-
-  document.getElementById('studioLight')?.addEventListener('click', () => studio3D?.rotateLight());
+  pieStoryChapters.forEach(chapter => storyObserver.observe(chapter));
 }
-
-window.addEventListener('load', initLotte3D);
