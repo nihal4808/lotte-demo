@@ -239,6 +239,24 @@
       transition:transform 1.2s cubic-bezier(.16,1,.3,1),opacity .8s ease,filter .8s ease;
       will-change:transform;
     }
+    .pie-story-webgl {
+      position:absolute;
+      inset:0;
+      z-index:3;
+      width:100%;
+      height:100%;
+      touch-action:pan-y;
+      cursor:grab;
+      outline:none;
+    }
+    .pie-story-webgl:active { cursor:grabbing; }
+    .pie-story-stage[data-chapter="1"] .pie-story-anatomy,
+    .pie-story-stage[data-chapter="1"] .pie-anatomy,
+    .pie-story-stage[data-chapter="2"] .pie-story-bite,
+    .pie-story-stage[data-chapter="3"] .pie-heritage-mark,
+    .pie-story-stage[data-chapter="4"] .product-presentation-controls {
+      z-index:5;
+    }
     .pie-anatomy {
       position:absolute;
       inset:18% 12% 12%;
@@ -371,6 +389,30 @@
       transition:background .25s ease,border-color .25s ease,transform .25s ease;
     }
     .presentation-control:hover { background:var(--lotte-red); border-color:var(--lotte-red); transform:translateY(-2px); }
+    .product-campaign-tabs {
+      position:absolute;
+      left:50%;
+      top:24px;
+      z-index:8;
+      display:flex;
+      gap:6px;
+      transform:translateX(-50%);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .5s ease;
+    }
+    .pie-story-stage[data-chapter="4"] .product-campaign-tabs { opacity:1; pointer-events:auto; }
+    .campaign-product-tab {
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      padding:8px 12px;
+      color:rgba(255,255,255,.68);
+      background:rgba(8,8,8,.68);
+      backdrop-filter:blur(10px);
+      font-size:.68rem;
+      font-weight:700;
+    }
+    .campaign-product-tab.active { background:var(--lotte-red); color:#fff; border-color:var(--lotte-red); }
     @media (max-width:1024px) {
       .hero-product-reveal { width:48vw; right:0; opacity:.72; }
       .pie-story-layout { grid-template-columns:minmax(250px,.68fr) 1.32fr; }
@@ -699,7 +741,7 @@
       <article class="pie-story-chapter" data-chapter="3">
         <span class="pie-story-number">04 / THE HERITAGE</span>
         <h3>Since 1914.</h3>
-        <p>A century of global confectionery craft led to Lotte's story in India and the 2004 formation of Lotte India.</p>
+        <p>Parrys' heritage began in 1914. Lotte India was formed in 2004, followed by the Choco Pie launch in India in 2006.</p>
       </article>
       <article class="pie-story-chapter" data-chapter="4">
         <span class="pie-story-number">05 / THE PRODUCT STUDIO</span>
@@ -711,6 +753,7 @@
 
     <div class="pie-story-stage" data-chapter="0" aria-label="Cinematic Choco Pie product story">
       <div class="stage-light"></div>
+      <canvas class="pie-story-webgl" id="pieStoryCanvas" aria-label="Interactive five-scene Choco Pie 3D story"></canvas>
       <div class="pie-anatomy" aria-label="Choco Pie layers">
         <div class="pie-layer pie-layer-chocolate"><span>Rich chocolate coating</span></div>
         <div class="pie-layer pie-layer-marshmallow"><span>Fluffy marshmallow</span></div>
@@ -758,6 +801,14 @@
         <span class="heritage-year">1914</span>
         <i></i>
         <span class="heritage-year">2004</span>
+        <i></i>
+        <span class="heritage-year">2006</span>
+      </div>
+      <div class="product-campaign-tabs" role="group" aria-label="Choose featured product">
+        <button class="campaign-product-tab active" type="button" data-campaign-product="pie">Choco Pie</button>
+        <button class="campaign-product-tab" type="button" data-campaign-product="pepero">Pepero</button>
+        <button class="campaign-product-tab" type="button" data-campaign-product="coffy">Coffy Bite</button>
+        <button class="campaign-product-tab" type="button" data-campaign-product="caramilk">Caramilk</button>
       </div>
       <div class="product-presentation-controls" aria-label="Product presentation controls">
         <button type="button" class="presentation-control" data-action="left" aria-label="Rotate presentation left"><i class="fas fa-arrow-left"></i></button>
@@ -1152,6 +1203,332 @@
 
 <div class="scroll-top" title="Back to top" role="button" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></div>
 
+<script src="js/vendor/babylon.min.js" defer></script>
+<script>
+window.addEventListener('load', () => {
+  if (!window.BABYLON) return;
+  const canvas = document.getElementById('pieStoryCanvas');
+  const stage = document.querySelector('.pie-story-stage');
+  if (!canvas || !stage) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const engine = new BABYLON.Engine(canvas, true, {
+    preserveDrawingBuffer:false,
+    stencil:false,
+    antialias:true,
+    powerPreference:'high-performance'
+  });
+  const scene = new BABYLON.Scene(engine);
+  scene.clearColor = new BABYLON.Color4(0.035,0.032,0.030,0);
+  scene.imageProcessingConfiguration.toneMappingEnabled = true;
+  scene.imageProcessingConfiguration.toneMappingType = BABYLON.ImageProcessingConfiguration.TONEMAPPING_ACES;
+  scene.imageProcessingConfiguration.exposure = 1.15;
+
+  const camera = new BABYLON.ArcRotateCamera(
+    'campaignCamera',
+    -Math.PI/2,
+    1.28,
+    8.6,
+    BABYLON.Vector3.Zero(),
+    scene
+  );
+  camera.lowerRadiusLimit = 5.2;
+  camera.upperRadiusLimit = 11;
+  camera.wheelPrecision = 35;
+  camera.panningSensibility = 0;
+  camera.attachControl(canvas, true);
+  camera.inputs.attached.panning?.detachControl?.();
+
+  const hemispheric = new BABYLON.HemisphericLight('hemispheric', new BABYLON.Vector3(0,1,0), scene);
+  hemispheric.intensity = 0.75;
+  hemispheric.diffuse = new BABYLON.Color3(1,0.86,0.72);
+  const key = new BABYLON.DirectionalLight('key', new BABYLON.Vector3(-0.7,-1,-1), scene);
+  key.position = new BABYLON.Vector3(5,7,6);
+  key.intensity = 2.4;
+  key.shadowMinZ = 0.1;
+  key.shadowMaxZ = 30;
+  const rim = new BABYLON.DirectionalLight('rim', new BABYLON.Vector3(1,-0.3,-1), scene);
+  rim.position = new BABYLON.Vector3(-5,3,-5);
+  rim.intensity = 1.15;
+  rim.diffuse = new BABYLON.Color3(1,0.45,0.38);
+
+  const shadowGenerator = new BABYLON.ShadowGenerator(1024, key);
+  shadowGenerator.usePercentageCloserFiltering = true;
+  shadowGenerator.filteringQuality = BABYLON.ShadowGenerator.QUALITY_HIGH;
+  shadowGenerator.bias = 0.0007;
+
+  const chocolate = new BABYLON.PBRMaterial('chocolate',scene);
+  chocolate.albedoColor = new BABYLON.Color3(0.20,0.055,0.035);
+  chocolate.metallic = 0;
+  chocolate.roughness = 0.28;
+  chocolate.clearCoat.isEnabled = true;
+  chocolate.clearCoat.intensity = 0.72;
+  chocolate.clearCoat.roughness = 0.22;
+  chocolate.microSurface = 0.72;
+
+  const cocoaEdge = new BABYLON.PBRMaterial('cocoaEdge',scene);
+  cocoaEdge.albedoColor = new BABYLON.Color3(0.10,0.025,0.018);
+  cocoaEdge.roughness = 0.48;
+
+  const biscuit = new BABYLON.PBRMaterial('biscuit',scene);
+  biscuit.albedoColor = new BABYLON.Color3(0.58,0.34,0.16);
+  biscuit.roughness = 0.72;
+
+  const marshmallow = new BABYLON.PBRMaterial('marshmallow',scene);
+  marshmallow.albedoColor = new BABYLON.Color3(1,0.93,0.79);
+  marshmallow.roughness = 0.68;
+  marshmallow.subSurface.isRefractionEnabled = false;
+  marshmallow.subSurface.isScatteringEnabled = true;
+  marshmallow.subSurface.scatteringIntensity = 0.28;
+
+  const complete = new BABYLON.TransformNode('completePie',scene);
+  const top = BABYLON.MeshBuilder.CreateCylinder('topChocolate',{diameter:3.42,height:.34,tessellation:96,subdivisions:1},scene);
+  top.position.y=.74;
+  top.material=chocolate;
+  top.parent=complete;
+  const topBiscuit = BABYLON.MeshBuilder.CreateCylinder('topBiscuit',{diameter:3.12,height:.48,tessellation:96},scene);
+  topBiscuit.position.y=.43;
+  topBiscuit.material=biscuit;
+  topBiscuit.parent=complete;
+  const filling = BABYLON.MeshBuilder.CreateCylinder('marshmallow',{diameter:3.16,height:.58,tessellation:96},scene);
+  filling.material=marshmallow;
+  filling.parent=complete;
+  const seam = BABYLON.MeshBuilder.CreateTorus('marshmallowSeam',{diameter:3.12,tube:.055,tessellation:96},scene);
+  seam.rotation.x=Math.PI/2;
+  seam.material=marshmallow;
+  seam.parent=complete;
+  const bottomBiscuit = BABYLON.MeshBuilder.CreateCylinder('bottomBiscuit',{diameter:3.12,height:.48,tessellation:96},scene);
+  bottomBiscuit.position.y=-.43;
+  bottomBiscuit.material=biscuit;
+  bottomBiscuit.parent=complete;
+  const bottom = BABYLON.MeshBuilder.CreateCylinder('bottomChocolate',{diameter:3.42,height:.34,tessellation:96},scene);
+  bottom.position.y=-.74;
+  bottom.material=chocolate;
+  bottom.parent=complete;
+  complete.rotation.z=-0.08;
+
+  [top,topBiscuit,filling,seam,bottomBiscuit,bottom].forEach(mesh=>shadowGenerator.addShadowCaster(mesh,true));
+
+  const floor = BABYLON.MeshBuilder.CreateGround('studioFloor',{width:12,height:12,subdivisions:1},scene);
+  floor.position.y=-1.55;
+  const floorMat = new BABYLON.PBRMaterial('studioFloorMat',scene);
+  floorMat.albedoColor = new BABYLON.Color3(0.075,0.065,0.060);
+  floorMat.roughness = 0.82;
+  floor.material=floorMat;
+  floor.receiveShadows=true;
+
+  const anatomy = new BABYLON.TransformNode('anatomy',scene);
+  anatomy.setEnabled(false);
+  function makeExplodedLayer(name,y,mesh,basePosition) {
+    const holder=new BABYLON.TransformNode(name,scene);
+    holder.parent=anatomy;
+    holder.position.y=basePosition;
+    mesh.parent=holder;
+  }
+  const topAnatomy = BABYLON.MeshBuilder.CreateCylinder('topAnatomy',{diameter:3.42,height:.82,tessellation:96},scene);
+  topAnatomy.material=chocolate;
+  const creamAnatomy = BABYLON.MeshBuilder.CreateCylinder('creamAnatomy',{diameter:3.16,height:.58,tessellation:96},scene);
+  creamAnatomy.material=marshmallow;
+  const bottomAnatomy = BABYLON.MeshBuilder.CreateCylinder('bottomAnatomy',{diameter:3.42,height:.82,tessellation:96},scene);
+  bottomAnatomy.material=biscuit;
+  makeExplodedLayer('topHolder',1.55,topAnatomy,0);
+  makeExplodedLayer('creamHolder',0,creamAnatomy,0);
+  makeExplodedLayer('bottomHolder',-1.55,bottomAnatomy,0);
+
+  const bite = new BABYLON.TransformNode('biteView',scene);
+  bite.setEnabled(false);
+  function makeBiteHalf(name,x,arcStart) {
+    const holder=new BABYLON.TransformNode(name,scene);
+    holder.parent=bite;
+    holder.position.x=x;
+    holder.rotation.y=arcStart;
+    const topCut=BABYLON.MeshBuilder.CreateCylinder(name+'Top',{diameter:3.42,height:.34,tessellation:64,arc:.5},scene);
+    topCut.position.y=.74; topCut.material=chocolate; topCut.parent=holder;
+    const biscuitCut=BABYLON.MeshBuilder.CreateCylinder(name+'Biscuit',{diameter:3.12,height:.48,tessellation:64,arc:.5},scene);
+    biscuitCut.position.y=.43;biscuitCut.material=biscuit;biscuitCut.parent=holder;
+    const creamCut=BABYLON.MeshBuilder.CreateCylinder(name+'Cream',{diameter:3.16,height:.58,tessellation:64,arc:.5},scene);
+    creamCut.material=marshmallow;creamCut.parent=holder;
+    const bottomBisCut=BABYLON.MeshBuilder.CreateCylinder(name+'BottomBiscuit',{diameter:3.12,height:.48,tessellation:64,arc:.5},scene);
+    bottomBisCut.position.y=-.43;bottomBisCut.material=biscuit;bottomBisCut.parent=holder;
+    const bottomCut=BABYLON.MeshBuilder.CreateCylinder(name+'Bottom',{diameter:3.42,height:.34,tessellation:64,arc:.5},scene);
+    bottomCut.position.y=-.74;bottomCut.material=chocolate;bottomCut.parent=holder;
+  }
+  makeBiteHalf('leftBite',-1.05,-Math.PI/2);
+  makeBiteHalf('rightBite',1.05,Math.PI/2);
+
+  const stretchPath = [
+    new BABYLON.Vector3(.55,.05,-1.15),
+    new BABYLON.Vector3(.9,-.1,-1.55),
+    new BABYLON.Vector3(1.35,.25,-1.85),
+    new BABYLON.Vector3(1.65,.95,-1.55)
+  ];
+  const stretch = BABYLON.MeshBuilder.CreateTube('marshmallowStretch',{path:stretchPath,radius:.12,tessellation:12,radiusFunction:(i,d)=>.12*Math.sin((i/(stretchPath.length-1))*Math.PI*.85)},scene);
+  stretch.material=marshmallow;
+  stretch.parent=bite;
+  stretch.setEnabled(false);
+
+  const productStudio = new BABYLON.TransformNode('productStudio',scene);
+  productStudio.setEnabled(false);
+
+  const pepero = new BABYLON.TransformNode('pepero',scene);
+  pepero.parent=productStudio;
+  for(let i=0;i<7;i++){
+    const stick=BABYLON.MeshBuilder.CreateCylinder('peperoStick'+i,{height:3.8,diameter:0.42,tessellation:32},scene);
+    stick.position.x=(i-3)*.34;
+    stick.position.y=(i%2)*.08;
+    stick.rotation.z=Math.PI/2;
+    stick.material=chocolate;
+    stick.parent=pepero;
+    shadowGenerator.addShadowCaster(stick,true);
+  }
+
+  const coffy = new BABYLON.TransformNode('coffy',scene);
+  coffy.parent=productStudio;
+  for(let i=-2;i<=2;i++){
+    const toffee=BABYLON.MeshBuilder.CreateCylinder('coffy'+i,{diameter:1.05,height:.9,tessellation:32},scene);
+    toffee.position.x=i*.48;
+    toffee.position.y=(i%2)*.12;
+    toffee.rotation.z=Math.PI/2;
+    const wrap=new BABYLON.PBRMaterial('coffyWrap'+i,scene);
+    wrap.albedoColor=new BABYLON.Color3(.46,.20,.10);
+    wrap.roughness=.32;
+    wrap.clearCoat.isEnabled=true;
+    toffee.material=wrap;
+    toffee.parent=coffy;
+    shadowGenerator.addShadowCaster(toffee,true);
+  }
+
+  const caramilk = new BABYLON.TransformNode('caramilk',scene);
+  caramilk.parent=productStudio;
+  for(let i=-2;i<=2;i++){
+    const milkToffee=BABYLON.MeshBuilder.CreateCylinder('caramilk'+i,{diameter:1.05,height:.38,tessellation:48},scene);
+    milkToffee.position.x=i*.78;
+    milkToffee.position.y=Math.abs(i)*.06;
+    milkToffee.rotation.z=.12*i;
+    const milkMat=new BABYLON.PBRMaterial('caramilkMat'+i,scene);
+    milkMat.albedoColor=new BABYLON.Color3(.96,.78,.48);
+    milkMat.roughness=.38;
+    milkMat.clearCoat.isEnabled=true;
+    milkToffee.material=milkMat;
+    milkToffee.parent=caramilk;
+    shadowGenerator.addShadowCaster(milkToffee,true);
+  }
+
+  const packagePlane = BABYLON.MeshBuilder.CreatePlane('packagePlane',{width:4.8,height:3.4},scene);
+  packagePlane.position=new BABYLON.Vector3(3.7,.25,.1);
+  packagePlane.rotation.y=-0.18;
+  packagePlane.setEnabled(false);
+  const packageMat=new BABYLON.StandardMaterial('packageMat',scene);
+  packageMat.diffuseTexture=new BABYLON.Texture('assets/choco-brand.png',scene,true,false,BABYLON.Texture.TRILINEAR_SAMPLINGMODE);
+  packageMat.diffuseTexture.hasAlpha=true;
+  packageMat.transparencyMode=BABYLON.Material.MATERIAL_ALPHABLEND;
+  packageMat.backFaceCulling=false;
+  packagePlane.material=packageMat;
+
+  let active=false;
+  let currentChapter=0;
+  let targetChapter=0;
+  let campaignProduct='pie';
+  let dragRotation=0;
+  let manualZoom=8.6;
+  let lightMode=0;
+  let wheelZoom=0;
+  const observer=new IntersectionObserver(entries=>{
+    active=entries[0]?.isIntersecting || false;
+  },{threshold:.05,rootMargin:'100px'});
+  observer.observe(stage);
+
+  function setChapter(chapter) {
+    targetChapter=chapter;
+    complete.setEnabled((chapter===0 || chapter===3 || (chapter===4 && campaignProduct==='pie')));
+    anatomy.setEnabled(chapter===1);
+    bite.setEnabled(chapter===2);
+    stretch.setEnabled(chapter===2);
+    packagePlane.setEnabled(chapter===3 || chapter===4);
+    productStudio.setEnabled(chapter===4);
+    pepero.setEnabled(chapter===4 && campaignProduct==='pepero');
+    coffy.setEnabled(chapter===4 && campaignProduct==='coffy');
+    caramilk.setEnabled(chapter===4 && campaignProduct==='caramilk');
+  }
+  setChapter(0);
+
+  const storyObserver=new IntersectionObserver(entries=>{
+    const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(!visible)return;
+    const chapter=parseInt(visible.target.dataset.chapter||'0',10);
+    currentChapter=chapter;
+    targetChapter=chapter;
+    stage.dataset.chapter=String(chapter);
+  },{threshold:[.35,.55,.75],rootMargin:'-18% 0px -18% 0px'});
+  document.querySelectorAll('.pie-story-chapter').forEach(chapter=>storyObserver.observe(chapter));
+
+  let lastChapter=-1;
+  canvas.addEventListener('pointerdown',event=>{
+    canvas.setPointerCapture?.(event.pointerId);
+  });
+  canvas.addEventListener('pointermove',event=>{
+    if(event.buttons!==1)return;
+    dragRotation+=(event.movementX||0)*0.006;
+  });
+  canvas.addEventListener('wheel',event=>{
+    event.preventDefault();
+    wheelZoom=Math.max(-1.8,Math.min(1.8,wheelZoom-event.deltaY*0.002));
+  },{passive:false});
+
+  document.querySelectorAll('[data-action]').forEach(button=>{
+    button.addEventListener('click',()=>{
+      const action=button.dataset.action;
+      if(action==='left')dragRotation-=.45;
+      if(action==='right')dragRotation+=.45;
+      if(action==='zoom')wheelZoom=Math.abs(wheelZoom)<.1?-.9:.0;
+      if(action==='light'){
+        lightMode=(lightMode+1)%3;
+        key.intensity=[2.4,3.1,1.9][lightMode];
+        rim.intensity=[1.15,.7,1.65][lightMode];
+        rim.diffuse=new BABYLON.Color3(1,[.45,.62,.30][lightMode],[.38,.42,.25][lightMode]);
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-campaign-product]').forEach(button=>{
+    button.addEventListener('click',()=>{
+      campaignProduct=button.dataset.campaignProduct||'pie';
+      document.querySelectorAll('[data-campaign-product]').forEach(tab=>tab.classList.toggle('active',tab===button));
+      setChapter(targetChapter);
+      complete.position.y=campaignProduct==='pie'?0:-.75;
+      pepero.rotation.z=0;
+      coffy.rotation.z=0;
+      caramilk.rotation.z=0;
+    });
+  });
+
+  engine.runRenderLoop(()=>{
+    if(!active)return;
+    if(targetChapter!==lastChapter){
+      setChapter(targetChapter);
+      lastChapter=targetChapter;
+    }
+    const targetRadius=[8.6,7.8,6.2,8.2,7.2][targetChapter]-wheelZoom;
+    camera.radius=BABYLON.Scalar.Lerp(camera.radius,targetRadius,.055);
+    camera.target.y=BABYLON.Scalar.Lerp(camera.target.y,[.1,.15,.05,.15,.2][targetChapter],.05);
+    camera.alpha=BABYLON.Scalar.Lerp(camera.alpha,-Math.PI/2+dragRotation,.045);
+
+    complete.rotation.y=BABYLON.Scalar.Lerp(complete.rotation.y,.18+dragRotation,.05);
+    anatomy.rotation.y=BABYLON.Scalar.Lerp(anatomy.rotation.y,.12+dragRotation*.35,.05);
+    bite.rotation.y=BABYLON.Scalar.Lerp(bite.rotation.y,-.18+dragRotation*.35,.05);
+    productStudio.rotation.y=BABYLON.Scalar.Lerp(productStudio.rotation.y,dragRotation*.5,.05);
+    stretch.setEnabled(targetChapter===2);
+    stretch.scaling.z=0.75+Math.sin(performance.now()*0.0014)*.04;
+
+    scene.render();
+  });
+
+  window.addEventListener('resize',()=>{
+    engine.resize();
+  });
+  window.addEventListener('beforeunload',()=>engine.dispose());
+});
+</script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
