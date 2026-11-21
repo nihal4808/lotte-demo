@@ -14,6 +14,110 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
+    .hero-premium-product {
+      position: absolute;
+      right: 6%;
+      top: 16%;
+      width: min(42vw, 620px);
+      height: 68%;
+      z-index: 6;
+      pointer-events: none;
+    }
+    #chocoPieCanvas {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 28px 40px rgba(0,0,0,.45));
+      cursor: grab;
+    }
+    .hero-premium-product::after {
+      content: "";
+      position: absolute;
+      left: 16%;
+      right: 16%;
+      bottom: 4%;
+      height: 8%;
+      border-radius: 50%;
+      background: rgba(0,0,0,.48);
+      filter: blur(18px);
+      z-index: -1;
+    }
+    .studio-section {
+      background: #080808;
+      position: relative;
+      overflow: hidden;
+      padding: 110px 0;
+    }
+    .studio-grid {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .studio-copy h2 {
+      color: #fff;
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      line-height: .98;
+      letter-spacing: -3px;
+    }
+    .studio-copy h2 span { color: var(--lotte-red); }
+    .studio-copy p { color: rgba(255,255,255,.68); line-height: 1.8; margin: 24px 0 30px; }
+    .studio-stage {
+      min-height: 520px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 32px;
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(230,0,18,.20), transparent 36%),
+        linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.015));
+      box-shadow: inset 0 1px rgba(255,255,255,.08), 0 30px 80px rgba(0,0,0,.32);
+    }
+    #studioCanvas {
+      width: 100%;
+      height: 520px;
+      cursor: grab;
+      display: block;
+    }
+    .studio-controls {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      z-index: 3;
+    }
+    .studio-products {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .studio-product {
+      color: rgba(255,255,255,.72);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      padding: 9px 13px;
+      background: rgba(10,10,10,.72);
+      backdrop-filter: blur(10px);
+      font-size: .72rem;
+      font-weight: 700;
+    }
+    .studio-product.active { background: var(--lotte-red); color: #fff; border-color: var(--lotte-red); }
+    .studio-light { width: 44px; height: 44px; border-radius: 50%; color: #fff; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.12); }
+    @media (max-width: 1024px) {
+      .hero-premium-product { width: 48vw; height: 52%; top: 25%; opacity: .78; }
+      .studio-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero-premium-product { width: 70vw; height: 38%; top: 18%; right: -18%; opacity: .48; }
+      .hero-slide .hero-content { bottom: 11%; max-width: 88%; }
+      .studio-stage, #studioCanvas { min-height: 420px; height: 420px; }
+      .studio-controls { align-items: flex-end; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-premium-product, .studio-stage { transition: none; }
+    }
     /* Extra homepage styles */
     .hero { height: 100vh; min-height: 650px; }
     
@@ -132,6 +236,9 @@
   <div class="hero-slide active">
     <img src="https://www.lotteindia.com/images/banner1-d.jpg" alt="Lotte India - India's No.1 Choco Pie" class="hero-slide-img">
     <div class="hero-overlay"></div>
+    <div class="hero-premium-product" aria-label="Interactive 3D Choco Pie preview">
+      <canvas id="chocoPieCanvas"></canvas>
+    </div>
     <div class="hero-content">
       <div class="hero-tag"><i class="fas fa-star"></i> India's No.1 Choco Pie</div>
       <h2 class="hero-title">A Little <span>Circle</span><br>of Joy</h2>
@@ -263,6 +370,34 @@
           </div>
         </div>
         <a href="about-us.html" class="btn btn-primary">View More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     INTERACTIVE PRODUCT STUDIO
+     ========================================= -->
+<section class="studio-section" aria-labelledby="studio-heading">
+  <div class="container">
+    <div class="studio-grid">
+      <div class="studio-copy" data-aos="fade-right">
+        <span class="section-label" style="color:rgba(255,100,100,.9)">The confectionery studio</span>
+        <h2 id="studio-heading">Turn it over.<br><span>Light it up.</span></h2>
+        <p>Explore Lotte favourites in a real-time 3D scene. Drag to rotate, scroll to zoom and switch products to see each confection come to life.</p>
+        <a href="choco-pie.html" class="btn btn-primary">Explore Choco Pie <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="studio-stage" data-aos="zoom-in">
+        <canvas id="studioCanvas" aria-label="Interactive 3D product studio"></canvas>
+        <div class="studio-controls">
+          <div class="studio-products" role="group" aria-label="Choose a product">
+            <button class="studio-product active" data-product="pie" type="button">Choco Pie</button>
+            <button class="studio-product" data-product="toffee" type="button">Coffy Bite</button>
+            <button class="studio-product" data-product="eclair" type="button">Eclairs</button>
+            <button class="studio-product" data-product="caramilk" type="button">Caramilk</button>
+          </div>
+          <button class="studio-light" id="studioLight" type="button" aria-label="Change studio light" title="Change studio light"><i class="fas fa-sun"></i></button>
+        </div>
       </div>
     </div>
   </div>
@@ -639,7 +774,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2024 Lotte India Corporation Private Limited. All Rights Reserved.</p>
+      <p>© 2026 Lotte India Corporation Private Limited. All Rights Reserved.</p>
       <div class="footer-bottom-links">
         <a href="our-policies.html">Privacy Policy</a>
         <a href="our-policies.html">Terms of Use</a>
@@ -651,6 +786,7 @@
 
 <div class="scroll-top" title="Back to top" role="button" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></div>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
