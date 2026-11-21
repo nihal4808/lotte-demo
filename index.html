@@ -14,6 +14,48 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      z-index: 1200;
+      background: var(--lotte-red);
+      transform-origin: left center;
+    }
+    .cinematic-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 1300;
+      display: grid;
+      place-items: center;
+      background: #080808;
+      transition: opacity .8s cubic-bezier(.16,1,.3,1), visibility .8s;
+    }
+    .cinematic-loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-mark {
+      width: 70px;
+      height: 70px;
+      position: relative;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: .72rem;
+      letter-spacing: 2px;
+    }
+    .loader-mark::after {
+      content:"";
+      position:absolute;
+      width:70px;
+      height:70px;
+      border-radius:50%;
+      border-top:1px solid var(--lotte-red);
+      animation:loaderSpin 1s linear infinite;
+    }
+    @keyframes loaderSpin { to { transform:rotate(360deg); } }
     .hero-product-reveal {
       position: absolute;
       right: 7%;
@@ -32,128 +74,230 @@
       from { opacity: 0; transform: translateY(38px) rotate(2deg) scale(.96); }
       to { opacity: 1; transform: translateY(0) rotate(-1deg) scale(1); }
     }
+    .hero.active-cinematic {
+      --hero-push: 1;
+      perspective: 1200px;
+    }
+    .hero.active-cinematic .hero-slide-img { transition: transform .15s linear; }
+    .hero.active-cinematic .hero-slide.active .hero-slide-img { transform: scale(1.035); }
+    .hero.active-cinematic .hero-product-reveal {
+      transform: translateZ(0) scale(var(--hero-push));
+      transition: transform .12s linear;
+    }
+    .hero-title {
+      clip-path: inset(0 0 0 0);
+    }
     .pie-story {
-      background: #090909;
-      color: #fff;
-      position: relative;
+      background:#090909;
+      color:#fff;
+      position:relative;
+      min-height:500vh;
     }
-    .pie-story-intro {
-      min-height: 38vh;
-      display: flex;
-      align-items: flex-end;
-      padding: 110px 0 44px;
-    }
-    .pie-story-intro h2 {
-      max-width: 780px;
-      font-size: clamp(3rem,7vw,7rem);
-      line-height: .92;
-      letter-spacing: -5px;
-      margin-top: 14px;
-    }
-    .pie-story-intro h2 span { color: var(--lotte-red); }
     .pie-story-layout {
-      display: grid;
-      grid-template-columns: minmax(250px,.7fr) 1.3fr;
-      gap: 0;
-      align-items: start;
+      display:grid;
+      grid-template-columns:minmax(280px,.72fr) 1.28fr;
+      min-height:100vh;
     }
-    .pie-story-chapters { position: relative; z-index: 2; }
+    .pie-story-captions { position:relative; z-index:4; }
     .pie-story-chapter {
-      min-height: 82vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      max-width: 420px;
-      padding: 60px 32px 60px 0;
+      min-height:100vh;
+      max-width:430px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:80px 48px 80px 0;
+      opacity:.18;
+      transform:translateY(24px);
+      transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);
     }
-    .pie-story-number {
-      display: block;
-      color: var(--lotte-red);
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: 3px;
-      margin-bottom: 18px;
-    }
+    .pie-story-chapter.active { opacity:1; transform:none; }
+    .pie-story-number { color:var(--lotte-red); font-size:.68rem; font-weight:800; letter-spacing:3px; margin-bottom:18px; }
     .pie-story-chapter h3 {
-      font-size: clamp(2.2rem,4vw,4.2rem);
-      line-height: 1;
-      letter-spacing: -2px;
-      margin-bottom: 20px;
+      font-size:clamp(2.8rem,5vw,5.8rem);
+      line-height:.92;
+      letter-spacing:-4px;
+      margin-bottom:22px;
     }
-    .pie-story-chapter p {
-      color: rgba(255,255,255,.62);
-      line-height: 1.8;
-    }
+    .pie-story-chapter h3 span { color:var(--lotte-red); }
+    .pie-story-chapter p { color:rgba(255,255,255,.64); line-height:1.8; max-width:390px; }
     .pie-story-stage {
-      height: 82vh;
-      position: sticky;
-      top: 9vh;
-      overflow: hidden;
-      background: linear-gradient(145deg,#17100e,#080808 68%);
-      border-left: 1px solid rgba(255,255,255,.07);
+      height:100vh;
+      position:sticky;
+      top:0;
+      overflow:hidden;
+      background:linear-gradient(145deg,#17110f 0%,#0b0908 72%);
+      border-left:1px solid rgba(255,255,255,.07);
     }
-    .pie-story-stage::before {
-      content:"";
+    .stage-light {
       position:absolute;
-      width:52%;
+      width:58%;
       aspect-ratio:1;
-      right:8%;
-      top:18%;
+      left:21%;
+      top:16%;
       border-radius:50%;
-      background:radial-gradient(circle,rgba(230,0,18,.16),transparent 68%);
+      background:radial-gradient(circle,rgba(255,219,181,.16),rgba(230,0,18,.08) 28%,transparent 68%);
+      filter:blur(2px);
+      opacity:.8;
+      transition:opacity .8s ease,transform 1.2s cubic-bezier(.16,1,.3,1);
     }
     .pie-story-product {
       position:absolute;
-      width:min(72%,520px);
+      width:min(68%,520px);
       left:50%;
       top:50%;
-      transform:translate(-50%,-50%) rotate(-3deg);
+      transform:translate(-50%,-50%) scale(.94) rotate(-3deg);
       filter:drop-shadow(0 38px 28px rgba(0,0,0,.52));
-      transition:transform 1.1s cubic-bezier(.2,.75,.25,1),opacity .6s ease;
+      transition:transform 1.2s cubic-bezier(.16,1,.3,1),opacity .8s ease,filter .8s ease;
       will-change:transform;
     }
-    .pie-story-anatomy {
+    .pie-anatomy {
       position:absolute;
-      left:7%;
-      right:7%;
-      bottom:7%;
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:8px;
-      opacity:0;
-      transform:translateY(18px);
-      transition:opacity .7s ease,transform .7s ease;
+      inset:18% 12% 12%;
+      z-index:2;
+      pointer-events:none;
     }
-    .pie-story-anatomy span {
-      padding:12px 10px;
-      border-top:1px solid rgba(255,255,255,.18);
-      color:rgba(255,255,255,.68);
+    .pie-layer {
+      position:absolute;
+      left:50%;
+      width:62%;
+      height:21%;
+      transform:translate(-50%,55px);
+      opacity:0;
+      transition:transform 1.1s cubic-bezier(.16,1,.3,1),opacity .7s ease;
+    }
+    .pie-layer span {
+      position:absolute;
+      right:-42%;
+      top:50%;
+      width:38%;
+      padding-left:14px;
+      border-left:1px solid rgba(255,255,255,.55);
+      color:rgba(255,255,255,.72);
       font-size:.68rem;
-      letter-spacing:1px;
+      letter-spacing:1.2px;
       text-transform:uppercase;
     }
-    .pie-story-stage[data-stage="1"] .pie-story-product { transform:translate(-50%,-50%) rotate(8deg) scale(.94); }
-    .pie-story-stage[data-stage="2"] .pie-story-product { transform:translate(-50%,-50%) rotate(-8deg) scale(.82); }
-    .pie-story-stage[data-stage="2"] .pie-story-anatomy { opacity:1; transform:translateY(0); }
-    .pie-story-stage[data-stage="3"] .pie-story-product { transform:translate(-50%,-54%) rotate(0deg) scale(1.22); }
-    .pie-story-stage[data-stage="4"] .pie-story-product { transform:translate(-50%,-52%) rotate(-1deg) scale(1.05); }
+    .pie-layer-chocolate { top:18%; background:linear-gradient(180deg,#6b3823,#35130d); border-radius:48% 48% 22% 22%; }
+    .pie-layer-marshmallow { top:40%; height:17%; background:linear-gradient(180deg,#fffaf0,#eadbc8); }
+    .pie-layer-biscuit { top:59%; background:linear-gradient(180deg,#a66a36,#68401f); border-radius:18% 18% 48% 48%; }
+    .pie-story-bite {
+      position:absolute;
+      inset:0;
+      z-index:3;
+      opacity:0;
+      transition:opacity .8s ease;
+    }
+    .bite-circle {
+      position:absolute;
+      width:min(38vw,460px);
+      aspect-ratio:1;
+      right:-8%;
+      top:25%;
+      border-radius:50%;
+      background:linear-gradient(145deg,#f3e7d7,#7e4625 58%,#32130d);
+      box-shadow:inset -35px 20px 55px rgba(0,0,0,.48);
+      transform:translateX(35%);
+      transition:transform 1.2s cubic-bezier(.16,1,.3,1);
+    }
+    .bite-copy {
+      position:absolute;
+      right:8%;
+      bottom:12%;
+      display:flex;
+      flex-direction:column;
+      text-align:right;
+    }
+    .bite-copy span { font-size:.72rem; letter-spacing:3px; text-transform:uppercase; }
+    .bite-copy strong { font-size:clamp(3rem,6vw,7rem); line-height:.9; letter-spacing:-5px; }
+    .pie-heritage-mark {
+      position:absolute;
+      inset:0;
+      z-index:2;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:28px;
+      opacity:0;
+      transform:scale(.94);
+      transition:opacity .8s ease,transform 1s cubic-bezier(.16,1,.3,1);
+    }
+    .pie-heritage-mark i { width:18vw; max-width:180px; height:1px; background:rgba(255,255,255,.4); }
+    .heritage-year { font-size:clamp(3.2rem,7vw,8rem); font-weight:900; letter-spacing:-6px; }
+    .pie-story-progress {
+      position:absolute;
+      right:18px;
+      top:50%;
+      width:1px;
+      height:180px;
+      z-index:8;
+      background:rgba(255,255,255,.12);
+      transform:translateY(-50%);
+    }
+    .pie-story-progress span {
+      display:block;
+      width:1px;
+      height:0;
+      background:var(--lotte-red);
+      transition:height .5s ease;
+    }
+    .pie-story-stage[data-chapter="0"] .pie-story-product { transform:translate(-50%,-50%) scale(.94) rotate(-3deg); }
+    .pie-story-stage[data-chapter="1"] .pie-story-product { opacity:.08; transform:translate(-50%,-50%) scale(.72); }
+    .pie-story-stage[data-chapter="1"] .pie-anatomy { opacity:1; }
+    .pie-story-stage[data-chapter="1"] .pie-layer { opacity:1; transform:translate(-50%,0); }
+    .pie-story-stage[data-chapter="1"] .pie-layer-marshmallow { transition-delay:.12s; }
+    .pie-story-stage[data-chapter="1"] .pie-layer-biscuit { transition-delay:.24s; }
+    .pie-story-stage[data-chapter="1"] .stage-light { transform:scale(.82); opacity:.55; }
+    .pie-story-stage[data-chapter="2"] .pie-story-product { opacity:0; }
+    .pie-story-stage[data-chapter="2"] .pie-story-bite { opacity:1; }
+    .pie-story-stage[data-chapter="2"] .bite-circle { transform:translateX(0); }
+    .pie-story-stage[data-chapter="3"] .pie-story-product { opacity:0; }
+    .pie-story-stage[data-chapter="3"] .pie-heritage-mark { opacity:1; transform:none; }
+    .pie-story-stage[data-chapter="4"] .pie-story-product { transform:translate(-50%,-50%) scale(1.08) rotate(0); }
+    .pie-story-stage[data-chapter="4"] .stage-light { transform:scale(1.12); opacity:1; }
+    .product-presentation-controls {
+      position:absolute;
+      left:50%;
+      bottom:26px;
+      z-index:8;
+      transform:translateX(-50%);
+      display:flex;
+      gap:8px;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .5s ease,transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .pie-story-stage[data-chapter="4"] .product-presentation-controls { opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+    .presentation-control {
+      width:44px;
+      height:44px;
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:50%;
+      color:#fff;
+      background:rgba(8,8,8,.72);
+      backdrop-filter:blur(10px);
+      transition:background .25s ease,border-color .25s ease,transform .25s ease;
+    }
+    .presentation-control:hover { background:var(--lotte-red); border-color:var(--lotte-red); transform:translateY(-2px); }
     @media (max-width:1024px) {
       .hero-product-reveal { width:48vw; right:0; opacity:.72; }
-      .pie-story-layout { grid-template-columns:1fr 1.15fr; }
+      .pie-story-layout { grid-template-columns:minmax(250px,.68fr) 1.32fr; }
     }
     @media (max-width:768px) {
       .hero-product-reveal { width:54vw; right:-13%; bottom:10%; opacity:.58; }
       .hero-slide .hero-content { bottom:11%; max-width:82%; }
-      .pie-story-intro { min-height:30vh; padding-top:80px; }
-      .pie-story-intro h2 { font-size:3.2rem; letter-spacing:-3px; }
+      .pie-story { min-height:500vh; }
       .pie-story-layout { display:block; }
-      .pie-story-chapters { position:relative; z-index:3; }
-      .pie-story-chapter { min-height:58vh; max-width:82%; padding:30px 0; }
-      .pie-story-stage { height:58vh; top:12vh; border-left:0; margin-bottom:12vh; }
+      .pie-story-captions { position:absolute; inset:0 0 auto; z-index:5; }
+      .pie-story-chapter { min-height:100vh; max-width:82%; justify-content:flex-end; padding:40px 20px 100px 24px; }
+      .pie-story-chapter h3 { font-size:3.2rem; letter-spacing:-3px; }
+      .pie-story-stage { height:100vh; border-left:0; }
       .pie-story-product { width:78%; }
+      .pie-layer { width:72%; }
+      .pie-layer span { right:-28%; width:26%; font-size:.58rem; }
+      .pie-story-progress { display:none; }
     }
     @media (prefers-reduced-motion:reduce) {
-      .hero-product-reveal img,.pie-story-product,.pie-story-anatomy { animation:none; transition:none; }
+      .cinematic-loader,.hero-product-reveal img,.pie-story-product,.pie-story-chapter,.pie-layer,.pie-story-bite,.pie-heritage-mark { animation:none; transition:none; }
     }
     /* Extra homepage styles */
     .hero { height: 100vh; min-height: 650px; }
@@ -192,6 +336,8 @@
   </style>
 </head>
 <body>
+<div class="cinematic-loader" aria-hidden="true"><div class="loader-mark">LOTTE</div></div>
+<div class="scroll-progress" aria-hidden="true"></div>
 
 <!-- =========================================
      NAVIGATION
@@ -411,45 +557,61 @@
      CHOCO PIE CINEMATIC PRODUCT STORY
      ========================================= -->
 <section class="pie-story" id="pie-story" aria-labelledby="pie-story-heading">
-  <div class="container pie-story-intro">
-    <div>
-      <span class="section-label">A little circle of joy</span>
-      <h2 id="pie-story-heading">One pie.<br><span>Three pleasures.</span></h2>
-    </div>
-  </div>
-  <div class="container pie-story-layout">
-    <div class="pie-story-chapters">
-      <article class="pie-story-chapter" data-story-stage="0">
+  <div class="pie-story-progress" aria-hidden="true"><span></span></div>
+  <div class="pie-story-layout">
+    <aside class="pie-story-captions" aria-label="Choco Pie story chapters">
+      <article class="pie-story-chapter active" data-chapter="0">
         <span class="pie-story-number">01 / THE REVEAL</span>
-        <h3>It begins quietly.</h3>
-        <p>A familiar form appears in warm light: soft at the edges, substantial at the centre.</p>
+        <h3><span>One</span> little circle.</h3>
+        <p>From shadow into warm studio light, a familiar icon arrives with quiet confidence.</p>
       </article>
-      <article class="pie-story-chapter" data-story-stage="1">
-        <span class="pie-story-number">02 / THE PRODUCT</span>
-        <h3>Meet the icon.</h3>
-        <p>The Choco Pie's compact, round composition turns one simple bite into a complete moment.</p>
+      <article class="pie-story-chapter" data-chapter="1">
+        <span class="pie-story-number">02 / THE ANATOMY</span>
+        <h3>Three textures.<br>One bite.</h3>
+        <p>Rich chocolate, fluffy marshmallow and soft biscuit come together in perfect balance.</p>
       </article>
-      <article class="pie-story-chapter" data-story-stage="2">
-        <span class="pie-story-number">03 / THE ANATOMY</span>
-        <h3>Three textures. One bite.</h3>
-        <p>Soft biscuit, fluffy marshmallow and rich chocolate work in balance.</p>
+      <article class="pie-story-chapter" data-chapter="2">
+        <span class="pie-story-number">03 / THE BITE</span>
+        <h3>A softer close-up.</h3>
+        <p>The pack opens into a texture-led moment, drawing attention to the contrast within every bite.</p>
       </article>
-      <article class="pie-story-chapter" data-story-stage="3">
-        <span class="pie-story-number">04 / THE EXPERIENCE</span>
-        <h3>Closer, richer.</h3>
-        <p>The textures come forward, inviting a pause before the first bite.</p>
+      <article class="pie-story-chapter" data-chapter="3">
+        <span class="pie-story-number">04 / THE HERITAGE</span>
+        <h3>Since 1914.</h3>
+        <p>A century of global confectionery craft led to Lotte's story in India and the 2004 formation of Lotte India.</p>
       </article>
-      <article class="pie-story-chapter" data-story-stage="4">
-        <span class="pie-story-number">05 / THE FINAL HERO</span>
-        <h3>Sweet moments,<br>every day.</h3>
-        <p>Rediscover India's No.1 Choco Pie.</p>
-        <a href="choco-pie.html" class="btn btn-primary mt-24">Discover Choco Pie</a>
+      <article class="pie-story-chapter" data-chapter="4">
+        <span class="pie-story-number">05 / THE PRODUCT STUDIO</span>
+        <h3>Turn it.<br>Feel the joy.</h3>
+        <p>Explore the packaging and move through the final campaign composition.</p>
+        <a href="choco-pie.html" class="btn btn-primary">Discover Choco Pie</a>
       </article>
-    </div>
-    <div class="pie-story-stage" data-stage="0" aria-label="Lotte Choco Pie product story">
-      <img class="pie-story-product" src="assets/choco-brand.png" alt="Lotte Choco Pie packaging and product">
-      <div class="pie-story-anatomy" aria-label="Choco Pie layers">
-        <span>Soft biscuit</span><span>Fluffy marshmallow</span><span>Rich chocolate</span>
+    </aside>
+
+    <div class="pie-story-stage" data-chapter="0" aria-label="Cinematic Choco Pie product story">
+      <div class="stage-light"></div>
+      <div class="pie-anatomy" aria-label="Choco Pie layers">
+        <div class="pie-layer pie-layer-chocolate"><span>Rich chocolate coating</span></div>
+        <div class="pie-layer pie-layer-marshmallow"><span>Fluffy marshmallow</span></div>
+        <div class="pie-layer pie-layer-biscuit"><span>Soft biscuit</span></div>
+      </div>
+      <img class="pie-story-product" src="assets/choco-brand.png" alt="Lotte Choco Pie package and products">
+      <div class="pie-story-bite" aria-hidden="true">
+        <div class="bite-circle"></div>
+        <div class="bite-copy">
+          <span>Soft</span><strong>Bite</strong>
+        </div>
+      </div>
+      <div class="pie-heritage-mark" aria-hidden="true">
+        <span class="heritage-year">1914</span>
+        <i></i>
+        <span class="heritage-year">2004</span>
+      </div>
+      <div class="product-presentation-controls" aria-label="Product presentation controls">
+        <button type="button" class="presentation-control" data-action="left" aria-label="Rotate presentation left"><i class="fas fa-arrow-left"></i></button>
+        <button type="button" class="presentation-control" data-action="zoom" aria-label="Zoom product"><i class="fas fa-magnifying-glass-plus"></i></button>
+        <button type="button" class="presentation-control" data-action="light" aria-label="Change studio light"><i class="fas fa-sun"></i></button>
+        <button type="button" class="presentation-control" data-action="right" aria-label="Rotate presentation right"><i class="fas fa-arrow-right"></i></button>
       </div>
     </div>
   </div>

@@ -15,6 +15,16 @@ const navMenu = document.querySelector('.nav-menu');
 
 // Scroll behavior
 window.addEventListener('scroll', () => {
+  const scrollProgress = document.querySelector('.scroll-progress');
+  if (scrollProgress) {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    scrollProgress.style.width = `${maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0}%`;
+  }
+  const activeHero = document.querySelector('.hero');
+  if (activeHero && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const heroProgress = Math.max(0, Math.min(1, window.scrollY / Math.max(activeHero.offsetHeight, 1)));
+    activeHero.style.setProperty('--hero-push', (1 + heroProgress * 0.08).toFixed(3));
+  }
   if (window.scrollY > 60) {
     navbar?.classList.add('scrolled');
     scrollTopBtn?.classList.add('visible');
@@ -314,6 +324,32 @@ if (document.body.classList.contains('inner-page')) {
 }
 
 // ========================================
+// CINEMATIC ENTRANCE
+// ========================================
+window.addEventListener('load', () => {
+  window.setTimeout(() => {
+    document.querySelector('.cinematic-loader')?.classList.add('done');
+  }, 650);
+});
+
+const hero = document.querySelector('.hero');
+if (hero) {
+  hero.classList.add('active-cinematic');
+  hero.addEventListener('pointermove', (event) => {
+    if (window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const rect = hero.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    const product = hero.querySelector('.hero-product-reveal');
+    if (product) product.style.transform = `translate3d(${x * -14}px,${y * -10}px,0) scale(1)`;
+  });
+  hero.addEventListener('pointerleave', () => {
+    const product = hero.querySelector('.hero-product-reveal');
+    if (product) product.style.transform = '';
+  });
+}
+
+// ========================================
 // CHOCO PIE CINEMATIC STORY
 // ========================================
 const pieStoryStage = document.querySelector('.pie-story-stage');
@@ -325,8 +361,47 @@ if (pieStoryStage && pieStoryChapters.length) {
       .filter(entry => entry.isIntersecting)
       .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
     if (!visible) return;
-    pieStoryStage.dataset.stage = visible.target.dataset.storyStage;
+    pieStoryChapters.forEach(chapter => chapter.classList.remove('active'));
+    visible.target.classList.add('active');
+    pieStoryStage.dataset.chapter = visible.target.dataset.chapter;
+    const chapterIndex = parseInt(visible.target.dataset.chapter || '0', 10);
+    const progress = document.querySelector('.pie-story-progress span');
+    if (progress) progress.style.height = `${chapterIndex * 25}%`;
   }, { threshold: [0.35, 0.55, 0.75], rootMargin: '-18% 0px -18% 0px' });
 
   pieStoryChapters.forEach(chapter => storyObserver.observe(chapter));
 }
+
+const presentationImage = document.querySelector('.pie-story-product');
+const presentationStage = document.querySelector('.pie-story-stage');
+let presentationRotation = 0;
+let presentationZoom = 1.08;
+let presentationLight = 0;
+
+function updatePresentation() {
+  if (!presentationImage || !presentationStage) return;
+  presentationImage.style.transform = `translate(-50%, -50%) scale(${presentationZoom}) rotate(${presentationRotation}deg)`;
+  const light = presentationStage.querySelector('.stage-light');
+  if (light) {
+    light.style.filter = `hue-rotate(${presentationLight * 18}deg) brightness(${1 + presentationLight * 0.08})`;
+  }
+}
+
+document.querySelectorAll('.presentation-control').forEach(control => {
+  control.addEventListener('click', () => {
+    const action = control.dataset.action;
+    if (action === 'left') presentationRotation -= 6;
+    if (action === 'right') presentationRotation += 6;
+    if (action === 'zoom') presentationZoom = presentationZoom >= 1.28 ? 1.08 : presentationZoom + 0.1;
+    if (action === 'light') presentationLight = (presentationLight + 1) % 3;
+    updatePresentation();
+  });
+});
+
+presentationStage?.addEventListener('pointermove', event => {
+  if (presentationStage.dataset.chapter !== '4' || event.pointerType === 'touch') return;
+  const rect = presentationStage.getBoundingClientRect();
+  const x = (event.clientX - rect.left) / rect.width - 0.5;
+  presentationRotation = Math.max(-8, Math.min(8, x * 16));
+  updatePresentation();
+});
