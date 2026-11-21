@@ -68,6 +68,41 @@
       height:1px;
       background:var(--lotte-red);
     }
+    .heritage-timeline {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:0;
+      margin:34px 0;
+      border-top:1px solid rgba(0,0,0,.1);
+    }
+    .heritage-milestone {
+      position:relative;
+      padding:18px 18px 4px 0;
+    }
+    .heritage-milestone::before {
+      content:"";
+      position:absolute;
+      top:-4px;
+      left:0;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--lotte-red);
+    }
+    .heritage-milestone strong {
+      display:block;
+      color:var(--lotte-red);
+      font-size:1.7rem;
+      line-height:1;
+    }
+    .heritage-milestone span {
+      display:block;
+      margin-top:8px;
+      color:var(--text-muted);
+      font-size:.72rem;
+      font-weight:700;
+      line-height:1.35;
+    }
     .scroll-progress {
       position: fixed;
       top: 0;
@@ -579,19 +614,19 @@
   <div class="container">
     <div class="stats-grid">
       <div class="stat-item" data-aos="fade-up">
-        <div class="stat-number"><span data-count="2004">0</span></div>
+        <div class="stat-number"><span data-count="2004">2004</span></div>
         <div class="stat-label">Lotte India formed</div>
       </div>
       <div class="stat-item" data-aos="fade-up" data-delay="100">
-        <div class="stat-number"><span data-count="3">0</span></div>
+        <div class="stat-number"><span data-count="3">3</span></div>
         <div class="stat-label">Manufacturing plants</div>
       </div>
       <div class="stat-item" data-aos="fade-up" data-delay="200">
-        <div class="stat-number"><span data-count="2000">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-number"><span data-count="2000">2,000</span><span class="stat-suffix">+</span></div>
         <div class="stat-label">Distributors</div>
       </div>
       <div class="stat-item" data-aos="fade-up" data-delay="300">
-        <div class="stat-number"><span data-count="1">0</span><span class="stat-suffix">M+</span></div>
+        <div class="stat-number"><span data-count="1">1</span><span class="stat-suffix">M+</span></div>
         <div class="stat-label">Retail Outlets</div>
       </div>
     </div>
@@ -619,18 +654,18 @@
         <h2 id="story-heading">Story of <span>Lotte India</span></h2>
         <p>Lotte India Corporation Private Limited came into existence post the takeover of Parrys Confectionery from Murugappa Group in 2004. Lotte Wellfood, the parent company of Lotte India is part of the Korean conglomerate, Lotte Group.</p>
         <p>Lotte India has been instrumental in creating the 'Pie' category in India — Lotte Choco Pie enjoys near monopoly status. The company is a respectable player in the confectionery space with strong brands like Coffy Bite, Caramilk, Lacto King and Lotte Eclairs, apart from BooProo and Spout gums.</p>
-        <div style="display:flex;gap:40px;margin:32px 0;">
-          <div>
-            <div style="font-size:2rem;font-weight:900;color:var(--lotte-red);">3</div>
-            <div style="font-size:0.82rem;color:var(--text-muted);font-weight:600;">Manufacturing Plants</div>
+        <div class="heritage-timeline" aria-label="Lotte India heritage timeline">
+          <div class="heritage-milestone">
+            <strong>1914</strong>
+            <span>Parrys heritage begins</span>
           </div>
-          <div>
-            <div style="font-size:2rem;font-weight:900;color:var(--lotte-red);">1914</div>
-            <div style="font-size:0.82rem;color:var(--text-muted);font-weight:600;">Company Origins</div>
+          <div class="heritage-milestone">
+            <strong>2004</strong>
+            <span>Lotte India is formed</span>
           </div>
-          <div>
-            <div style="font-size:2rem;font-weight:900;color:var(--lotte-red);">No.1</div>
-            <div style="font-size:0.82rem;color:var(--text-muted);font-weight:600;">Choco Pie in India</div>
+          <div class="heritage-milestone">
+            <strong>No.1</strong>
+            <span>Choco Pie in India</span>
           </div>
         </div>
         <a href="about-us.html" class="btn btn-primary">View More <i class="fas fa-arrow-right"></i></a>

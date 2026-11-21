@@ -209,6 +209,10 @@ document.querySelectorAll('[data-aos]').forEach(el => animObserver.observe(el));
 // COUNTER ANIMATION
 // ========================================
 function animateCounter(el, target, suffix = '') {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = (target === 2004 ? '2004' : target.toLocaleString('en-IN')) + suffix;
+    return;
+  }
   const duration = 2000;
   const start = performance.now();
   const update = (time) => {
