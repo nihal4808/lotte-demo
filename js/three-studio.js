@@ -290,13 +290,38 @@ export function initHeroScene(canvasId) {
     return obj;
   });
 
-  // ── Pointer tracking ──
+  // ── Pointer tracking & drag-to-orbit ──
   const pointer = new THREE.Vector2();
-  canvas.addEventListener('mousemove', e => {
+  let isDragging = false;
+  let dragRotY = 0;
+  let lastX = 0;
+
+  canvas.addEventListener('mousedown', e => {
+    isDragging = true;
+    lastX = e.clientX;
+  });
+  window.addEventListener('mouseup', () => { isDragging = false; });
+  window.addEventListener('mousemove', e => {
     const rect = canvas.getBoundingClientRect();
     pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    if (isDragging) {
+      dragRotY += (e.clientX - lastX) * 0.015;
+      lastX = e.clientX;
+    }
   });
+
+  // Touch drag
+  let lastTouchX = 0;
+  canvas.addEventListener('touchstart', e => {
+    if (e.touches.length === 1) lastTouchX = e.touches[0].clientX;
+  }, { passive: true });
+  canvas.addEventListener('touchmove', e => {
+    if (e.touches.length === 1) {
+      dragRotY += (e.touches[0].clientX - lastTouchX) * 0.015;
+      lastTouchX = e.touches[0].clientX;
+    }
+  }, { passive: true });
 
   // ── Scroll progress ──
   let scrollProgress = 0;
@@ -311,9 +336,11 @@ export function initHeroScene(canvasId) {
   // ── Resize ──
   const resizeObserver = new ResizeObserver(() => {
     const w = canvas.clientWidth, h = canvas.clientHeight;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
+    if (w > 0 && h > 0) {
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
   });
   resizeObserver.observe(canvas);
 
@@ -328,8 +355,9 @@ export function initHeroScene(canvasId) {
     const t = clock.elapsedTime;
 
     if (!reduced) {
-      // Pie slow idle spin
-      pieGroup.rotation.y += dt * 0.25;
+      // Pie slow idle spin + inertia from dragging
+      pieGroup.rotation.y += dt * 0.25 + dragRotY * 0.15;
+      dragRotY *= 0.92; // smooth decay
       // Scroll tilts the pie
       pieGroup.rotation.z = damp(pieGroup.rotation.z, scrollProgress * 0.35, 4, dt);
       // Rig follows mouse

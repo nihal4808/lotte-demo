@@ -495,85 +495,224 @@
 </nav>
 
 <!-- =========================================
-     HERO SECTION
+     HERO STORYTELLING SECTION
      ========================================= -->
-<section class="hero" aria-label="Hero carousel">
-  <!-- Three.js hero WebGL canvas: floating Choco Pie + orbiting treats -->
-  <canvas id="heroWebglCanvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;"></canvas>
-  <!-- Slide 1: Choco Pie -->
-  <div class="hero-slide active">
-    <img src="https://www.lotteindia.com/images/banner1-d.jpg" alt="Lotte India - India's No.1 Choco Pie" class="hero-slide-img">
-    <div class="hero-overlay"></div>
-    <div class="hero-cinematic-frame" aria-hidden="true"></div>
-    <div class="hero-product-reveal" aria-hidden="true">
-      <img src="assets/official/choco-brand.png" alt="" loading="eager">
-    </div>
-    <div class="hero-content">
-      <div class="hero-tag hero-kicker-line"><i class="fas fa-star"></i> India's No.1 Choco Pie</div>
-      <h2 class="hero-title">A Little Circle<br><span>of Joy</span></h2>
-      <p class="hero-subtitle">Soft biscuit. Fluffy marshmallow. Rich chocolate.<br>One unmistakable circle of joy.</p>
-      <div class="hero-buttons">
-        <a href="choco-pie.html" class="btn btn-primary"><i class="fas fa-cookie-bite"></i> Discover Choco Pie</a>
-        <a href="about-us.html" class="btn btn-outline">Our Story</a>
+<section class="hero" id="heroStorySection" aria-label="Lotte India Storytelling Hero">
+  <!-- Ambient backdrop glows -->
+  <div class="hero-backdrop-glow" aria-hidden="true"></div>
+  <div class="hero-bg-media" aria-hidden="true">
+    <img id="heroBgImage" src="https://www.lotteindia.com/images/banner1-d.jpg" alt="" loading="eager">
+  </div>
+
+  <div class="hero-container">
+    <div class="hero-story-grid">
+      
+      <!-- LEFT COLUMN: NARRATIVE STORYTELLING -->
+      <div class="hero-story-left">
+        <div class="hero-chapter-bar">
+          <span class="hero-chapter-tag" id="heroChapterTag">
+            <i class="fas fa-landmark"></i> Chapter 01
+          </span>
+          <span class="hero-chapter-counter" id="heroChapterCounter">01 / 04</span>
+        </div>
+
+        <div class="hero-story-slides">
+          <!-- CHAPTER 1: HERITAGE & ORIGIN -->
+          <div class="hero-story-slide active" data-chapter="0" data-bg="https://www.lotteindia.com/images/banner1-d.jpg" data-tag="Chapter 01 · Heritage" data-icon="fa-landmark" data-num="01 / 04">
+            <h1 class="hero-story-title">A Century of <span>Confectionery Craft.</span></h1>
+            <p class="hero-story-desc">
+              Born from the historic Parrys Confectionery founded in Chennai in 1914, acquired from the Murugappa Group in 2004, and powered by Korean global conglomerate Lotte Group — sweetening Indian celebrations for over 110 years.
+            </p>
+            <div class="hero-story-highlights">
+              <span class="hero-highlight-chip"><i class="fas fa-history"></i> Est. 1914 (Parrys)</span>
+              <span class="hero-highlight-chip"><i class="fas fa-globe-asia"></i> Lotte Wellfood, Korea</span>
+              <span class="hero-highlight-chip"><i class="fas fa-award"></i> Takeover in 2004</span>
+            </div>
+            <div class="hero-story-actions">
+              <a href="about-us.html" class="btn btn-primary"><i class="fas fa-book-open"></i> Discover Our Story</a>
+              <a href="milestones.html" class="btn btn-outline">Historic Milestones</a>
+            </div>
+          </div>
+
+          <!-- CHAPTER 2: THE CATEGORY PIONEER -->
+          <div class="hero-story-slide" data-chapter="1" data-bg="https://www.lotteindia.com/images/banner1-d.jpg" data-tag="Chapter 02 · Pioneer" data-icon="fa-cookie-bite" data-num="02 / 04">
+            <h2 class="hero-story-title">A Little Circle of <span>Pure Joy.</span></h2>
+            <p class="hero-story-desc">
+              In 2006, Lotte India pioneered the entire 'Pie' category in India. Crafted with 100% vegetarian fluffy marshmallow, soft crumbly biscuits, and drenched in rich decadent choco — India's No.1 Choco Pie.
+            </p>
+            <div class="hero-story-highlights">
+              <span class="hero-highlight-chip"><i class="fas fa-crown"></i> India's No.1 Choco Pie</span>
+              <span class="hero-highlight-chip"><i class="fas fa-leaf"></i> 100% Vegetarian</span>
+              <span class="hero-highlight-chip"><i class="fas fa-circle-check"></i> Category Creator</span>
+            </div>
+            <div class="hero-story-actions">
+              <a href="choco-pie.html" class="btn btn-primary"><i class="fas fa-cookie-bite"></i> Explore Choco Pie</a>
+              <a href="choco-pie.html#variants" class="btn btn-outline">View Pack Options</a>
+            </div>
+          </div>
+
+          <!-- CHAPTER 3: ICONIC CONFECTIONERY -->
+          <div class="hero-story-slide" data-chapter="2" data-bg="https://www.lotteindia.com/images/banner4.jpg" data-tag="Chapter 03 · Portfolio" data-icon="fa-candy-cane" data-num="03 / 04">
+            <h2 class="hero-story-title">Is It a Coffee or <span>a Toffee?</span></h2>
+            <p class="hero-story-desc">
+              For more than three decades, Coffy Bite has sparked India's most delicious argument. Alongside Caramilk (“the child's first toffee”), Lotte Eclairs, Lacto King, and Pepero, our brands touch millions every day.
+            </p>
+            <div class="hero-story-highlights">
+              <span class="hero-highlight-chip"><i class="fas fa-mug-hot"></i> Coffy Bite (Since 1987)</span>
+              <span class="hero-highlight-chip"><i class="fas fa-glass-water"></i> Caramilk (Since 1982)</span>
+              <span class="hero-highlight-chip"><i class="fas fa-burst"></i> Lotte Eclairs Choco Burst</span>
+            </div>
+            <div class="hero-story-actions">
+              <a href="coffy-bite.html" class="btn btn-primary"><i class="fas fa-candy-cane"></i> The Coffy Bite Story</a>
+              <a href="index.html#brands" class="btn btn-outline">Explore All Brands</a>
+            </div>
+          </div>
+
+          <!-- CHAPTER 4: SCALE & PEOPLE -->
+          <div class="hero-story-slide" data-chapter="3" data-bg="https://www.lotteindia.com/images/banner2.jpg" data-tag="Chapter 04 · Scale & Culture" data-icon="fa-users" data-num="04 / 04">
+            <h2 class="hero-story-title">Crafted with Heart, <span>Reaching 1M+ Outlets.</span></h2>
+            <p class="hero-story-desc">
+              From our 3 manufacturing plants in Chennai, Rohtak, and Nellikuppam to 4 regional offices, 26 C&amp;Fs, and 2,000+ distributors — powered by a culture that Appreciates effort, Connects teams, and Excels talent.
+            </p>
+            <div class="hero-story-highlights">
+              <span class="hero-highlight-chip"><i class="fas fa-industry"></i> 3 Principal Factories</span>
+              <span class="hero-highlight-chip"><i class="fas fa-store"></i> 1,000,000+ Retail Outlets</span>
+              <span class="hero-highlight-chip"><i class="fas fa-hand-holding-heart"></i> Appreciate · Connect · Excel</span>
+            </div>
+            <div class="hero-story-actions">
+              <a href="career-philosophy.html" class="btn btn-primary"><i class="fas fa-briefcase"></i> Grow With Lotte</a>
+              <a href="contact-us.html" class="btn btn-outline">Our Facilities</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHAPTER TAB SCRUBBER -->
+        <div class="hero-chapter-nav" role="tablist" aria-label="Story chapters">
+          <button type="button" class="hero-tab-btn active" data-tab="0" role="tab" aria-selected="true">
+            <span class="hero-tab-num">01</span>
+            <span>1914 Heritage</span>
+          </button>
+          <button type="button" class="hero-tab-btn" data-tab="1" role="tab" aria-selected="false">
+            <span class="hero-tab-num">02</span>
+            <span>Choco Pie Pioneer</span>
+          </button>
+          <button type="button" class="hero-tab-btn" data-tab="2" role="tab" aria-selected="false">
+            <span class="hero-tab-num">03</span>
+            <span>Iconic Brands</span>
+          </button>
+          <button type="button" class="hero-tab-btn" data-tab="3" role="tab" aria-selected="false">
+            <span class="hero-tab-num">04</span>
+            <span>Scale &amp; People</span>
+          </button>
+
+          <button type="button" class="hero-autoplay-toggle" id="heroAutoplayBtn" aria-label="Pause story playback" title="Pause / Play auto-advance">
+            <i class="fas fa-pause" id="heroAutoplayIcon"></i>
+            <span id="heroAutoplayText">Auto-playing</span>
+          </button>
+        </div>
       </div>
+
+      <!-- RIGHT COLUMN: DEDICATED SHOWCASE STAGE -->
+      <div class="hero-story-right">
+        <div class="hero-showcase-stage" id="heroShowcaseStage">
+          <div class="hero-stage-backdrop-glow" aria-hidden="true"></div>
+          <div class="hero-stage-watermark" id="heroStageWatermark" aria-hidden="true">1914</div>
+
+          <!-- PANE 1: HERITAGE (Authentic Archival) -->
+          <div class="hero-stage-pane active" id="heroStagePane0">
+            <div class="hero-heritage-showcase">
+              <img src="https://www.lotteindia.com/images/lotte-building.jpg" alt="Lotte India Corporate Headquarters, Chennai" loading="eager">
+              <div class="hero-heritage-stamp">
+                <span class="hero-heritage-stamp-year">1914</span>
+                <div class="hero-heritage-stamp-text">
+                  <strong>Centennial Heritage</strong><br>
+                  Chennai, Tamil Nadu
+                </div>
+              </div>
+            </div>
+            <span class="hero-stage-badge"><i class="fas fa-shield-alt"></i> Murugappa to Lotte Group (2004)</span>
+          </div>
+
+          <!-- PANE 2: 3D CHOCO PIE (Framed Three.js Canvas) -->
+          <div class="hero-stage-pane" id="heroStagePane1">
+            <canvas id="heroShowcaseCanvas" aria-label="Interactive 3D Lotte Choco Pie. Drag to inspect." tabindex="0"></canvas>
+            <span class="hero-stage-badge"><i class="fas fa-hand-pointer"></i> Drag to Rotate · 3D Choco Pie</span>
+          </div>
+
+          <!-- PANE 3: ICONIC BRANDS (Confectionery Lineup) -->
+          <div class="hero-stage-pane" id="heroStagePane2">
+            <div class="hero-brands-showcase">
+              <div class="hero-brands-duo">
+                <div class="hero-brand-card-mini">
+                  <img src="assets/official/coffy-bite-brand.png" alt="Coffy Bite" loading="lazy">
+                  <h4>Coffy Bite</h4>
+                  <span>Since 1987</span>
+                </div>
+                <div class="hero-brand-card-mini">
+                  <img src="assets/official/caramilk-brand.png" alt="Caramilk" loading="lazy">
+                  <h4>Caramilk</h4>
+                  <span>Since 1982</span>
+                </div>
+              </div>
+            </div>
+            <span class="hero-stage-badge"><i class="fas fa-comments"></i> Is It Coffee or Toffee?</span>
+          </div>
+
+          <!-- PANE 4: SCALE & PEOPLE (Manufacturing Hubs) -->
+          <div class="hero-stage-pane" id="heroStagePane3">
+            <div class="hero-scale-showcase">
+              <div class="hero-scale-image">
+                <img src="https://www.lotteindia.com/images/banner2.jpg" alt="Lotte India Employees & Manufacturing" loading="lazy">
+              </div>
+              <div class="hero-scale-chips-row">
+                <div class="hero-scale-chip">
+                  <strong>3 Hubs</strong>
+                  <span>Chennai · Rohtak · Nellikuppam</span>
+                </div>
+                <div class="hero-scale-chip">
+                  <strong>1M+</strong>
+                  <span>Retail Outlets Across India</span>
+                </div>
+              </div>
+            </div>
+            <span class="hero-stage-badge"><i class="fas fa-heart"></i> Appreciate · Connect · Excel</span>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Slide 2: Appreciate -->
-  <div class="hero-slide">
-    <img src="https://www.lotteindia.com/images/banner2.jpg" alt="Lotte India - We Appreciate Our People" class="hero-slide-img">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-tag"><i class="fas fa-heart"></i> Employee First</div>
-      <h2 class="hero-title"><span>Appreciate</span><br>Your Efforts</h2>
-      <p class="hero-subtitle">Be it big or small, we commend your determination. We ensure recognition where it is due.</p>
-      <div class="hero-buttons">
-        <a href="career-philosophy.html" class="btn btn-primary"><i class="fas fa-briefcase"></i> Grow With Lotte</a>
-        <a href="life-at-lotte.html" class="btn btn-outline">Life at Lotte</a>
-      </div>
+  <!-- CONTINUOUS BRAND MARQUEE UNDER HERO -->
+  <div class="hero-brand-marquee" aria-label="Lotte India Confectionery Brands">
+    <div class="hero-marquee-track">
+      <span class="hero-marquee-item">Lotte Choco Pie <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Coffy Bite <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Lotte Eclairs <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Caramilk <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Lacto King <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Pepero <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Coconut Punch <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Fruitz <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Chewits <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Season's Greetings <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">BooProo <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Spout Gums <span class="hero-marquee-star">★</span></span>
+      <!-- Duplicate track for seamless infinite scroll loop -->
+      <span class="hero-marquee-item">Lotte Choco Pie <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Coffy Bite <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Lotte Eclairs <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Caramilk <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Lacto King <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Pepero <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Coconut Punch <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Fruitz <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Chewits <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Season's Greetings <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">BooProo <span class="hero-marquee-star">★</span></span>
+      <span class="hero-marquee-item">Spout Gums <span class="hero-marquee-star">★</span></span>
     </div>
-  </div>
-
-  <!-- Slide 3: Connect -->
-  <div class="hero-slide">
-    <img src="https://www.lotteindia.com/images/banner4.jpg" alt="Lotte India - We Foster Teamwork" class="hero-slide-img">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-tag"><i class="fas fa-users"></i> Team Spirit</div>
-      <h2 class="hero-title"><span>Connect</span><br>We Foster Teamwork</h2>
-      <p class="hero-subtitle">We cultivate healthy and positive relationships at work. You stay engaged and committed.</p>
-      <div class="hero-buttons">
-        <a href="life-at-lotte.html" class="btn btn-primary"><i class="fas fa-users"></i> Life at Lotte</a>
-        <a href="about-us.html" class="btn btn-outline">About Us</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Slide 4: Excel -->
-  <div class="hero-slide">
-    <img src="https://www.lotteindia.com/images/banner3.jpg" alt="Lotte India - We Bring the Best Out of You" class="hero-slide-img">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-tag"><i class="fas fa-trophy"></i> Excellence</div>
-      <h2 class="hero-title"><span>Excel</span><br>Maximize Your Potential</h2>
-      <p class="hero-subtitle">We nurture your talent to reach your career goals. Maximize your potential at Lotte India.</p>
-      <div class="hero-buttons">
-        <a href="career-philosophy.html" class="btn btn-primary"><i class="fas fa-rocket"></i> View Openings</a>
-        <a href="about-us.html" class="btn btn-outline">Our Story</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Controls -->
-  <button class="hero-prev" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
-  <button class="hero-next" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
-
-  <!-- Dots -->
-  <div class="hero-indicators" role="tablist">
-    <button class="hero-dot active" aria-label="Slide 1" role="tab"></button>
-    <button class="hero-dot" aria-label="Slide 2" role="tab"></button>
-    <button class="hero-dot" aria-label="Slide 3" role="tab"></button>
-    <button class="hero-dot" aria-label="Slide 4" role="tab"></button>
   </div>
 </section>
 
@@ -1076,29 +1215,26 @@
 
 <div class="scroll-top" title="Back to top" role="button" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></div>
 
-<script src="js/main.js" defer></script>
+<script src="js/main.js?v=2" defer></script>
 
-<!-- THREE.JS HERO SCENE — floating 3D Choco Pie with orbiting treats -->
+<!-- THREE.JS HERO SHOWCASE SCENE — framed 3D Choco Pie in dedicated showcase stage -->
 <script type="module">
-  // Only load Three.js if the hero canvas exists and WebGL is available
-  const heroCanvas = document.getElementById('heroWebglCanvas');
-  if (heroCanvas) {
+  // Load Three.js into the dedicated showcase card canvas
+  const showcaseCanvas = document.getElementById('heroShowcaseCanvas');
+  if (showcaseCanvas) {
     const probe = document.createElement('canvas');
     const hasWebGL = !!(probe.getContext('webgl2') || probe.getContext('webgl'));
     if (hasWebGL) {
-      // Load lazily after page paint so it doesn't block LCP
+      // Initialize Three.js cleanly in the framed showcase
       requestIdleCallback(() => {
         import('./js/three-studio.js')
           .then(({ initHeroScene }) => {
-            initHeroScene('heroWebglCanvas');
+            initHeroScene('heroShowcaseCanvas');
           })
-          .catch(() => {
-            // Silently fail — the photographic hero slides are still visible
-            heroCanvas.style.display = 'none';
+          .catch((err) => {
+            console.warn('Three.js hero showcase init warning:', err);
           });
-      }, { timeout: 2000 });
-    } else {
-      heroCanvas.style.display = 'none';
+      }, { timeout: 1500 });
     }
   }
 </script>

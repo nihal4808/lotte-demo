@@ -12,6 +12,7 @@
 const navbar = document.getElementById('navbar');
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
+const scrollTopBtn = document.querySelector('.scroll-top');
 
 // Scroll behavior
 window.addEventListener('scroll', () => {
@@ -77,14 +78,110 @@ document.addEventListener('click', (e) => {
 });
 
 // ========================================
-// HERO SLIDER
+// HERO STORYTELLING CHAPTER SYSTEM
 // ========================================
+const heroStorySlides = document.querySelectorAll('.hero-story-slide');
+const heroTabBtns = document.querySelectorAll('.hero-tab-btn');
+const heroStagePanes = document.querySelectorAll('.hero-stage-pane');
+const heroChapterTag = document.getElementById('heroChapterTag');
+const heroChapterCounter = document.getElementById('heroChapterCounter');
+const heroStageWatermark = document.getElementById('heroStageWatermark');
+const heroBgImage = document.getElementById('heroBgImage');
+const heroAutoplayBtn = document.getElementById('heroAutoplayBtn');
+const heroAutoplayIcon = document.getElementById('heroAutoplayIcon');
+const heroAutoplayText = document.getElementById('heroAutoplayText');
+
+let currentStoryChapter = 0;
+let storyAutoplay = true;
+let storyInterval = null;
+const watermarks = ['1914', 'PIE', 'COFFY', 'INDIA'];
+
+function showStoryChapter(index) {
+  if (!heroStorySlides.length) return;
+  currentStoryChapter = (index + heroStorySlides.length) % heroStorySlides.length;
+
+  heroStorySlides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === currentStoryChapter);
+  });
+
+  heroTabBtns.forEach((btn, i) => {
+    btn.classList.toggle('active', i === currentStoryChapter);
+    btn.setAttribute('aria-selected', i === currentStoryChapter ? 'true' : 'false');
+  });
+
+  heroStagePanes.forEach((pane, i) => {
+    pane.classList.toggle('active', i === currentStoryChapter);
+  });
+
+  const activeSlide = heroStorySlides[currentStoryChapter];
+  if (activeSlide) {
+    if (heroChapterTag) {
+      const tag = activeSlide.dataset.tag || `Chapter 0${currentStoryChapter + 1}`;
+      const icon = activeSlide.dataset.icon || 'fa-landmark';
+      heroChapterTag.innerHTML = `<i class="fas ${icon}"></i> ${tag}`;
+    }
+    if (heroChapterCounter) {
+      heroChapterCounter.textContent = activeSlide.dataset.num || `0${currentStoryChapter + 1} / 04`;
+    }
+    if (heroBgImage && activeSlide.dataset.bg) {
+      heroBgImage.style.opacity = '0';
+      setTimeout(() => {
+        heroBgImage.src = activeSlide.dataset.bg;
+        heroBgImage.style.opacity = '0.18';
+      }, 300);
+    }
+  }
+
+  if (heroStageWatermark) {
+    heroStageWatermark.textContent = watermarks[currentStoryChapter] || 'LOTTE';
+  }
+}
+
+// Expose globally for interactive control
+window.showStoryChapter = showStoryChapter;
+
+function startStoryAutoplay() {
+  if (!heroStorySlides.length) return;
+  clearInterval(storyInterval);
+  storyInterval = setInterval(() => {
+    if (storyAutoplay) {
+      showStoryChapter(currentStoryChapter + 1);
+    }
+  }, 7000);
+}
+
+heroTabBtns.forEach((btn, i) => {
+  btn.addEventListener('click', () => {
+    showStoryChapter(i);
+    // Restart timer on user interaction
+    startStoryAutoplay();
+  });
+});
+
+heroAutoplayBtn?.addEventListener('click', () => {
+  storyAutoplay = !storyAutoplay;
+  if (heroAutoplayIcon) {
+    heroAutoplayIcon.className = storyAutoplay ? 'fas fa-pause' : 'fas fa-play';
+  }
+  if (heroAutoplayText) {
+    heroAutoplayText.textContent = storyAutoplay ? 'Auto-playing' : 'Paused';
+  }
+});
+
+// Initialize first chapter and start timer
+if (heroStorySlides.length) {
+  showStoryChapter(0);
+  startStoryAutoplay();
+}
+
+// Fallback legacy hero slides (if present on any other page)
 const heroSlides = document.querySelectorAll('.hero-slide');
 const heroDots = document.querySelectorAll('.hero-dot');
 let currentSlide = 0;
 let heroInterval;
 
 function showSlide(n) {
+  if (!heroSlides.length) return;
   heroSlides.forEach(s => s.classList.remove('active'));
   heroDots.forEach(d => d.classList.remove('active'));
   currentSlide = (n + heroSlides.length) % heroSlides.length;
@@ -92,29 +189,24 @@ function showSlide(n) {
   heroDots[currentSlide]?.classList.add('active');
 }
 
-function startHeroSlider() {
-  if (!heroSlides.length) return;
+if (heroSlides.length) {
   heroInterval = setInterval(() => showSlide(currentSlide + 1), 6000);
-}
-
-document.querySelector('.hero-next')?.addEventListener('click', () => {
-  clearInterval(heroInterval);
-  showSlide(currentSlide + 1);
-});
-
-document.querySelector('.hero-prev')?.addEventListener('click', () => {
-  clearInterval(heroInterval);
-  showSlide(currentSlide - 1);
-});
-
-heroDots.forEach((dot, i) => {
-  dot.addEventListener('click', () => {
+  document.querySelector('.hero-next')?.addEventListener('click', () => {
     clearInterval(heroInterval);
-    showSlide(i);
+    showSlide(currentSlide + 1);
   });
-});
-
-showSlide(0);
+  document.querySelector('.hero-prev')?.addEventListener('click', () => {
+    clearInterval(heroInterval);
+    showSlide(currentSlide - 1);
+  });
+  heroDots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      clearInterval(heroInterval);
+      showSlide(i);
+    });
+  });
+  showSlide(0);
+}
 
 // ========================================
 // BRAND CAROUSEL
@@ -241,7 +333,6 @@ document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(
 // ========================================
 // SCROLL TO TOP
 // ========================================
-const scrollTopBtn = document.querySelector('.scroll-top');
 scrollTopBtn?.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
