@@ -505,6 +505,16 @@ document.querySelectorAll('.choco-studio').forEach(studio => {
 // ========================================
 const pieStoryStage = document.querySelector('.pie-story-stage');
 const pieStoryChapters = document.querySelectorAll('.pie-story-chapter');
+const pieStageBadge = document.getElementById('pieStageBadge');
+const pieStoryControls = document.getElementById('pieStoryControls');
+
+const chapterBadges = [
+  { icon: 'fas fa-crown', text: "India's No. 1 Choco Pie" },
+  { icon: 'fas fa-cookie', text: "Oven-Baked Golden Crumb Biscuits" },
+  { icon: 'fas fa-leaf', text: "100% Pure Veg Marshmallow" },
+  { icon: 'fas fa-fill-drip', text: "Velvety Rich Chocolate Dip" },
+  { icon: 'fas fa-hand-pointer', text: "Drag to Rotate 360° · 3D Turntable" }
+];
 
 if (pieStoryStage && pieStoryChapters.length) {
   const storyObserver = new IntersectionObserver((entries) => {
@@ -512,76 +522,66 @@ if (pieStoryStage && pieStoryChapters.length) {
       .filter(entry => entry.isIntersecting)
       .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
     if (!visible) return;
+
     pieStoryChapters.forEach(chapter => chapter.classList.remove('active'));
     visible.target.classList.add('active');
-    pieStoryStage.dataset.chapter = visible.target.dataset.chapter;
-    const storyImage = pieStoryStage.querySelector('.pie-story-product');
-    if (storyImage) {
-      if (visible.target.dataset.chapter === '3') {
-        storyImage.src = 'assets/official/banner1-d.jpg';
-        storyImage.alt = 'Official Lotte India campaign image';
+
+    const chapterIndex = parseInt(visible.target.dataset.chapter || '0', 10);
+    pieStoryStage.dataset.chapter = String(chapterIndex);
+
+    // Communicate with Three.js 3D Story Engine
+    if (window.pieStory3D && typeof window.pieStory3D.setChapter === 'function') {
+      window.pieStory3D.setChapter(chapterIndex);
+    }
+
+    // Update dynamic floating badge
+    if (pieStageBadge && chapterBadges[chapterIndex]) {
+      pieStageBadge.innerHTML = `<i class="${chapterBadges[chapterIndex].icon}"></i> <span>${chapterBadges[chapterIndex].text}</span>`;
+    }
+
+    // Update turntable controls visibility
+    if (pieStoryControls) {
+      if (chapterIndex === 4) {
+        pieStoryControls.style.opacity = '1';
+        pieStoryControls.style.pointerEvents = 'auto';
+        pieStoryControls.style.transform = 'translateX(-50%) translateY(0)';
       } else {
-        storyImage.src = 'assets/official/choco-brand.png';
-        storyImage.alt = 'Official Lotte Choco Pie packaging';
+        pieStoryControls.style.opacity = '0';
+        pieStoryControls.style.pointerEvents = 'none';
+        pieStoryControls.style.transform = 'translateX(-50%) translateY(12px)';
       }
     }
-    const chapterIndex = parseInt(visible.target.dataset.chapter || '0', 10);
+
+    // Update vertical progress line
     const progress = document.querySelector('.pie-story-progress span');
-    if (progress) progress.style.height = `${chapterIndex * 25}%`;
-  }, { threshold: [0.35, 0.55, 0.75], rootMargin: '-18% 0px -18% 0px' });
+    if (progress) {
+      const denom = Math.max(1, pieStoryChapters.length - 1);
+      progress.style.height = `${(chapterIndex / denom) * 100}%`;
+    }
+  }, { threshold: [0.35, 0.55, 0.75], rootMargin: '-15% 0px -15% 0px' });
 
   pieStoryChapters.forEach(chapter => storyObserver.observe(chapter));
 }
 
-if (pieStoryStage) {
-  pieStoryStage.addEventListener('pointermove', event => {
-    if (event.pointerType === 'touch' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const rect = pieStoryStage.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    const product = pieStoryStage.querySelector('.pie-story-product');
-    if (product) product.style.marginLeft = `${x * 10}px`;
-    if (product) product.style.marginTop = `${y * 8}px`;
+// 3D Turntable button controls
+const btnRotateL = document.getElementById('pieRotateL');
+const btnRotateR = document.getElementById('pieRotateR');
+const btnReset = document.getElementById('pieReset');
+
+if (btnRotateL) {
+  btnRotateL.addEventListener('click', () => {
+    if (window.pieStory3D) window.pieStory3D.rotate(-1);
   });
-  pieStoryStage.addEventListener('pointerleave', () => {
-    const product = pieStoryStage.querySelector('.pie-story-product');
-    if (product) {
-      product.style.marginLeft = '';
-      product.style.marginTop = '';
-    }
+}
+if (btnRotateR) {
+  btnRotateR.addEventListener('click', () => {
+    if (window.pieStory3D) window.pieStory3D.rotate(1);
+  });
+}
+if (btnReset) {
+  btnReset.addEventListener('click', () => {
+    if (window.pieStory3D) window.pieStory3D.reset();
   });
 }
 
-const presentationImage = document.querySelector('.pie-story-product');
-const presentationStage = document.querySelector('.pie-story-stage');
-let presentationRotation = 0;
-let presentationZoom = 1.08;
-let presentationLight = 0;
 
-function updatePresentation() {
-  if (!presentationImage || !presentationStage) return;
-  presentationImage.style.transform = `translate(-50%, -50%) scale(${presentationZoom}) rotate(${presentationRotation}deg)`;
-  const light = presentationStage.querySelector('.stage-light');
-  if (light) {
-    light.style.filter = `hue-rotate(${presentationLight * 18}deg) brightness(${1 + presentationLight * 0.08})`;
-  }
-}
-
-document.querySelectorAll('.presentation-control').forEach(control => {
-  control.addEventListener('click', () => {
-    const action = control.dataset.action;
-    if (action === 'left') presentationRotation -= 6;
-    if (action === 'right') presentationRotation += 6;
-    if (action === 'zoom') presentationZoom = presentationZoom >= 1.28 ? 1.08 : presentationZoom + 0.1;
-    if (action === 'light') presentationLight = (presentationLight + 1) % 3;
-    updatePresentation();
-  });
-});
-
-presentationStage?.addEventListener('pointermove', event => {
-  if (presentationStage.dataset.chapter !== '4' || event.pointerType === 'touch') return;
-  const rect = presentationStage.getBoundingClientRect();
-  const x = (event.clientX - rect.left) / rect.width - 0.5;
-  presentationRotation = Math.max(-8, Math.min(8, x * 16));
-  updatePresentation();
-});

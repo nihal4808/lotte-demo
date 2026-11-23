@@ -227,20 +227,37 @@
       position:sticky;
       top:0;
       overflow:hidden;
-      background:linear-gradient(145deg,#17110f 0%,#0b0908 72%);
+      background:radial-gradient(circle at 60% 45%, #24100A 0%, #0D0604 65%, #050202 100%);
       border-left:1px solid rgba(255,255,255,.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+    #pieStoryCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+      touch-action: pan-y;
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      outline: none;
+    }
+    #pieStoryCanvas:active { cursor: grabbing; }
     .stage-light {
       position:absolute;
-      width:58%;
+      width:68%;
       aspect-ratio:1;
-      left:21%;
+      left:16%;
       top:16%;
       border-radius:50%;
-      background:radial-gradient(circle,rgba(255,219,181,.16),rgba(230,0,18,.08) 28%,transparent 68%);
-      filter:blur(2px);
-      opacity:.8;
+      background:radial-gradient(circle,rgba(255,219,181,.2),rgba(230,0,18,.12) 35%,transparent 70%);
+      filter:blur(30px);
+      opacity:.85;
+      pointer-events:none;
       transition:opacity .8s ease,transform 1.2s cubic-bezier(.16,1,.3,1);
+      z-index: 1;
     }
     .pie-story-product {
       position:absolute;
@@ -251,21 +268,46 @@
       filter:drop-shadow(0 38px 28px rgba(0,0,0,.52));
       transition:transform 1.2s cubic-bezier(.16,1,.3,1),opacity .8s ease,filter .8s ease;
       will-change:transform;
+      z-index: 2;
     }
-    .pie-heritage-mark {
-      position:absolute;
-      inset:0;
-      z-index:2;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:28px;
-      opacity:0;
-      transform:scale(.94);
-      transition:opacity .8s ease,transform 1s cubic-bezier(.16,1,.3,1);
+    .pie-stage-floating-badge {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 22px;
+      background: rgba(18, 9, 7, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      backdrop-filter: blur(14px);
+      z-index: 6;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      pointer-events: none;
+      transition: all 0.4s ease;
+      white-space: nowrap;
     }
-    .pie-heritage-mark i { width:18vw; max-width:180px; height:1px; background:rgba(255,255,255,.4); }
-    .heritage-year { font-size:clamp(3.2rem,7vw,8rem); font-weight:900; letter-spacing:-6px; }
+    .pie-stage-floating-badge i { color: var(--lotte-red); font-size: 0.95rem; }
+    .pie-chapter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 6px 16px;
+      background: rgba(230, 0, 18, 0.12);
+      border: 1px solid rgba(230, 0, 18, 0.35);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #FF8A96;
+      width: fit-content;
+    }
+    .pie-chapter-pill i { color: var(--lotte-red); }
     .pie-story-progress {
       position:absolute;
       right:18px;
@@ -278,19 +320,12 @@
     }
     .pie-story-progress span {
       display:block;
-      width:1px;
+      width:2px;
       height:0;
       background:var(--lotte-red);
-      transition:height .5s ease;
+      transition:height .3s ease;
+      box-shadow: 0 0 10px rgba(230,0,18,0.8);
     }
-    .pie-story-stage[data-chapter="0"] .pie-story-product { transform:translate(-50%,-50%) scale(.94) rotate(-3deg); }
-    .pie-story-stage[data-chapter="1"] .pie-story-product { transform:translate(-50%,-50%) scale(.84) rotate(-1deg); }
-    .pie-story-stage[data-chapter="1"] .stage-light { transform:scale(.82); opacity:.55; }
-    .pie-story-stage[data-chapter="2"] .pie-story-product { transform:translate(-50%,-50%) scale(1.08) rotate(2deg); }
-    .pie-story-stage[data-chapter="3"] .pie-story-product { opacity:0; }
-    .pie-story-stage[data-chapter="3"] .pie-heritage-mark { opacity:1; transform:none; }
-    .pie-story-stage[data-chapter="4"] .pie-story-product { transform:translate(-50%,-50%) scale(1.08) rotate(0); }
-    .pie-story-stage[data-chapter="4"] .stage-light { transform:scale(1.12); opacity:1; }
     .product-presentation-controls {
       position:absolute;
       left:50%;
@@ -298,21 +333,28 @@
       z-index:8;
       transform:translateX(-50%);
       display:flex;
-      gap:8px;
+      gap:10px;
       opacity:0;
       pointer-events:none;
       transition:opacity .5s ease,transform .7s cubic-bezier(.16,1,.3,1);
     }
-    .pie-story-stage[data-chapter="4"] .product-presentation-controls { opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+    .pie-story-stage[data-chapter="4"] .product-presentation-controls {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(-60px);
+    }
     .presentation-control {
       width:44px;
       height:44px;
-      border:1px solid rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.2);
       border-radius:50%;
       color:#fff;
-      background:rgba(8,8,8,.72);
+      background:rgba(18,9,7,.85);
       backdrop-filter:blur(10px);
       transition:background .25s ease,border-color .25s ease,transform .25s ease;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
     }
     .presentation-control:hover { background:var(--lotte-red); border-color:var(--lotte-red); transform:translateY(-2px); }
     .product-campaign-tabs {
@@ -784,49 +826,77 @@
 </section>
 
 <!-- =========================================
-     CHOCO PIE CINEMATIC PRODUCT STORY
+     CHOCO PIE CINEMATIC 3D PRODUCT STORY
      ========================================= -->
 <section class="pie-story" id="pie-story" aria-labelledby="pie-story-heading">
-  <div class="pie-story-progress" aria-hidden="true"><span></span></div>
+  <div class="pie-story-progress" aria-hidden="true"><span id="pieStoryProgressLine"></span></div>
   <div class="pie-story-layout">
+    
+    <!-- LEFT SIDE: EDITORIAL STORYTELLING CHAPTERS -->
     <aside class="pie-story-captions" aria-label="Choco Pie story chapters">
+      <!-- 01 / THE REVEAL -->
       <article class="pie-story-chapter active" data-chapter="0">
         <span class="pie-story-number">01 / THE REVEAL</span>
         <h3><span>One</span> little circle.</h3>
-        <p>From shadow into warm studio light, a familiar icon arrives with quiet confidence.</p>
+        <p>From deep cocoa shadow into warm studio light, India's No. 1 Choco Pie arrives with quiet confidence. A vibrant crimson packet holding three decades of confection craftsmanship.</p>
+        <div class="pie-chapter-pill"><i class="fas fa-crown"></i> India's No.1 Choco Pie</div>
       </article>
+
+      <!-- 02 / THE BAKED BISCUITS -->
       <article class="pie-story-chapter" data-chapter="1">
-        <span class="pie-story-number">02 / THE ANATOMY</span>
-        <h3>One authentic<br>composition.</h3>
-        <p>Use the official packshot to present the complete Choco Pie without adding a fabricated cutaway.</p>
+        <span class="pie-story-number">02 / THE BISCUIT CORE</span>
+        <h3>Golden-baked<br><span>perfection.</span></h3>
+        <p>Two delicate, oven-baked golden crumb biscuits create the foundation. Crisp on the outside, tender to the bite, and crafted to melt softly with every mouthful.</p>
+        <div class="pie-chapter-pill"><i class="fas fa-cookie"></i> Oven-Baked Crumb Biscuit</div>
       </article>
+
+      <!-- 03 / THE MARSHMALLOW -->
       <article class="pie-story-chapter" data-chapter="2">
-        <span class="pie-story-number">03 / THE BITE</span>
-        <h3>A closer look.</h3>
-        <p>No fabricated bite or cross-section is used; the campaign moves to a clean, authentic product close-up.</p>
+        <span class="pie-story-number">03 / THE MARSHMALLOW</span>
+        <h3>Fluffy, <span>100% vegetarian.</span></h3>
+        <p>At the center lies our pillowy marshmallow filling — specially formulated 100% vegetarian for Indian diets. Light, feathery, and perfectly balanced with the biscuit layers.</p>
+        <div class="pie-chapter-pill"><i class="fas fa-leaf"></i> 100% Pure Veg Marshmallow</div>
       </article>
+
+      <!-- 04 / THE RICH COCOA -->
       <article class="pie-story-chapter" data-chapter="3">
-        <span class="pie-story-number">04 / THE HERITAGE</span>
-        <h3>Since 1914.</h3>
-        <p>Parrys' heritage began in 1914. Lotte India was formed in 2004, followed by the Choco Pie launch in India in 2006.</p>
+        <span class="pie-story-number">04 / THE RICH COCOA</span>
+        <h3>Drenched in<br><span>rich chocolate.</span></h3>
+        <p>Enrobed end-to-end in decadent, velvety chocolate with our signature ripple drizzle. A delicate bite delivers a symphony of three harmonious textures.</p>
+        <div class="pie-chapter-pill"><i class="fas fa-fill-drip"></i> Velvety Rich Chocolate Dip</div>
       </article>
+
+      <!-- 05 / 3D PRODUCT STUDIO -->
       <article class="pie-story-chapter" data-chapter="4">
-        <span class="pie-story-number">05 / THE PRODUCT STUDIO</span>
-        <h3>Turn it.<br>Feel the joy.</h3>
-        <p>Explore the packaging and move through the final campaign composition.</p>
-        <a href="choco-pie.html" class="btn btn-primary">Discover Choco Pie</a>
+        <span class="pie-story-number">05 / 3D PRODUCT STUDIO</span>
+        <h3>Turn it.<br><span>Feel the joy.</span></h3>
+        <p>Explore the authentic packaging in real-time 3D. Drag to rotate 360°, inspect pack craftsmanship, and celebrate India's favourite treat.</p>
+        <div class="pie-chapter-actions">
+          <a href="choco-pie.html" class="btn btn-primary"><i class="fas fa-cookie-bite"></i> Explore Choco Pie Range</a>
+        </div>
       </article>
     </aside>
 
-    <div class="pie-story-stage" data-chapter="0" aria-label="Cinematic Choco Pie product story">
+    <!-- RIGHT SIDE: STICKY 3D SHOWCASE VIEWPORT -->
+    <div class="pie-story-stage" id="pieStoryStage" data-chapter="0" aria-label="Interactive 3D Choco Pie Packet Showcase">
       <div class="stage-light"></div>
-      <img class="pie-story-product" src="assets/official/choco-brand.png" alt="Official Lotte Choco Pie packaging">
-      <div class="pie-heritage-mark" aria-hidden="true">
-        <span class="heritage-year">1914</span>
-        <i></i>
-        <span class="heritage-year">2004</span>
-        <i></i>
-        <span class="heritage-year">2006</span>
+      
+      <!-- Interactive Real 3D Canvas -->
+      <canvas id="pieStoryCanvas" aria-label="Interactive 3D Lotte Choco Pie Packet. Scroll to animate, drag to turn." tabindex="0"></canvas>
+      
+      <!-- Fallback image (if WebGL unavailable) -->
+      <img class="pie-story-product" id="pieStoryFallback" src="assets/official/choco-brand.png" alt="Official Lotte Choco Pie packaging" style="display:none;">
+
+      <!-- Floating Dynamic Chapter Badge -->
+      <div class="pie-stage-floating-badge" id="pieStageBadge">
+        <i class="fas fa-crown"></i> <span>India's No. 1 Choco Pie</span>
+      </div>
+
+      <!-- 3D Turntable Controls (active on Chapter 5 / always available) -->
+      <div class="product-presentation-controls" id="pieStoryControls" role="group" aria-label="3D Turntable controls">
+        <button type="button" class="presentation-control" id="pieRotateL" aria-label="Rotate left" title="Rotate left"><i class="fas fa-rotate-left"></i></button>
+        <button type="button" class="presentation-control" id="pieReset" aria-label="Reset view" title="Reset view"><i class="fas fa-maximize"></i></button>
+        <button type="button" class="presentation-control" id="pieRotateR" aria-label="Rotate right" title="Rotate right"><i class="fas fa-rotate-right"></i></button>
       </div>
     </div>
   </div>
@@ -1215,26 +1285,42 @@
 
 <div class="scroll-top" title="Back to top" role="button" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></div>
 
-<script src="js/main.js?v=2" defer></script>
+<script src="js/main.js?v=3" defer></script>
 
-<!-- THREE.JS HERO SHOWCASE SCENE — framed 3D Choco Pie in dedicated showcase stage -->
+<!-- THREE.JS 3D EXPERIENCES: HERO SHOWCASE & CINEMATIC PIE STORY -->
 <script type="module">
-  // Load Three.js into the dedicated showcase card canvas
+  import { initHeroScene, initPieStory3D } from './js/three-studio.js';
+
+  // 1. Hero 3D Showcase (Dedicated Card in Hero Chapter 2)
   const showcaseCanvas = document.getElementById('heroShowcaseCanvas');
   if (showcaseCanvas) {
     const probe = document.createElement('canvas');
     const hasWebGL = !!(probe.getContext('webgl2') || probe.getContext('webgl'));
     if (hasWebGL) {
-      // Initialize Three.js cleanly in the framed showcase
-      requestIdleCallback(() => {
-        import('./js/three-studio.js')
-          .then(({ initHeroScene }) => {
-            initHeroScene('heroShowcaseCanvas');
-          })
-          .catch((err) => {
-            console.warn('Three.js hero showcase init warning:', err);
-          });
-      }, { timeout: 1500 });
+      try {
+        initHeroScene('heroShowcaseCanvas');
+      } catch (err) {
+        console.warn('Three.js hero showcase init warning:', err);
+      }
+    }
+  }
+
+  // 2. Cinematic 3D Choco Pie Story (Scroll-Driven 3D Experience)
+  const pieStoryCanvas = document.getElementById('pieStoryCanvas');
+  if (pieStoryCanvas) {
+    const probe = document.createElement('canvas');
+    const hasWebGL = !!(probe.getContext('webgl2') || probe.getContext('webgl'));
+    if (hasWebGL) {
+      try {
+        window.pieStory3D = initPieStory3D('pieStoryCanvas');
+      } catch (err) {
+        console.warn('Three.js pie story init warning:', err);
+        const fallback = document.getElementById('pieStoryFallback');
+        if (fallback) fallback.style.display = 'block';
+      }
+    } else {
+      const fallback = document.getElementById('pieStoryFallback');
+      if (fallback) fallback.style.display = 'block';
     }
   }
 </script>

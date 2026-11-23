@@ -185,8 +185,128 @@ function applyLightPreset(preset, ambientLight, keyLight, rimLight, renderer, bg
   if (bgEl) bgEl.style.background = p.bg;
 }
 
+// ─────────────────────────── Real 3D Lotte Choco Pie Packet Generator ───────────────────────────
+
+/**
+ * Builds a realistic 3D Lotte Choco Pie packet with authentic packaging texture,
+ * realistic pillow puff curvature, glossy cellophane clearcoat, gold crimp seals,
+ * and an authentic 3D chocolate choco pie beside it.
+ */
+export function buildRealChocoPiePacket(onReady) {
+  const group = new THREE.Group();
+
+  const loader = new THREE.TextureLoader();
+  loader.load('assets/official/choco-brand.png', (texture) => {
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 16;
+
+    // 1. Realistic Puffed Packaging Body
+    const W = 2.4, H = 1.82, D = 0.38;
+    const packGeo = new THREE.BoxGeometry(W, H, D, 16, 16, 4);
+    const pos = packGeo.attributes.position;
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i) / (W * 0.5);
+      const y = pos.getY(i) / (H * 0.5);
+      const z = pos.getZ(i);
+      const bulge = Math.max(0, 1 - (x * x * 0.45 + y * y * 0.45));
+      if (Math.abs(z) > 0.05) {
+        pos.setZ(i, z * (0.85 + 0.35 * bulge));
+      }
+    }
+    packGeo.computeVertexNormals();
+
+    const frontMat = new THREE.MeshPhysicalMaterial({
+      map: texture,
+      transparent: true,
+      roughness: 0.22,
+      clearcoat: 0.9,
+      clearcoatRoughness: 0.1,
+      reflectivity: 0.85,
+      sheen: 0.35,
+      sheenColor: new THREE.Color('#FF6666')
+    });
+
+    const bodyMat = new THREE.MeshPhysicalMaterial({
+      color: '#B8000E',
+      roughness: 0.26,
+      metalness: 0.15,
+      clearcoat: 0.8,
+      clearcoatRoughness: 0.12
+    });
+
+    // Box faces: [px, nx, py, ny, pz (front), nz (back)]
+    const packMesh = new THREE.Mesh(packGeo, [bodyMat, bodyMat, bodyMat, bodyMat, frontMat, bodyMat]);
+    packMesh.castShadow = true;
+    packMesh.receiveShadow = true;
+    group.add(packMesh);
+
+    // 2. Gold Crimp Foil Seal Ribs (top & bottom of snack packet)
+    const crimpGeo = new THREE.CylinderGeometry(0.045, 0.045, W * 0.96, 16);
+    const crimpMat = new THREE.MeshPhysicalMaterial({
+      color: '#D4AF37',
+      metalness: 0.85,
+      roughness: 0.28,
+      clearcoat: 0.6
+    });
+    const topCrimp = new THREE.Mesh(crimpGeo, crimpMat);
+    topCrimp.rotation.z = Math.PI / 2;
+    topCrimp.position.set(0, H * 0.5, 0);
+    group.add(topCrimp);
+
+    const botCrimp = new THREE.Mesh(crimpGeo, crimpMat);
+    botCrimp.rotation.z = Math.PI / 2;
+    botCrimp.position.set(0, -H * 0.5, 0);
+    group.add(botCrimp);
+
+    // 3. Realistic 3D Round Choco Pie sitting in front of the pack
+    const pieGroup = new THREE.Group();
+    pieGroup.scale.setScalar(0.42);
+    pieGroup.position.set(0.68, -0.42, 0.36);
+    pieGroup.rotation.set(-0.32, 0.42, -0.12);
+
+    const { shellG, coreG, baseG, drizzleGeos } = buildChocoPieGeometries();
+    const chocoMat = new THREE.MeshPhysicalMaterial({
+      color: '#34150C',
+      roughness: 0.28,
+      clearcoat: 0.92,
+      clearcoatRoughness: 0.14,
+      sheen: 0.4,
+      sheenColor: new THREE.Color('#783820')
+    });
+    const pieMarshMat = new THREE.MeshPhysicalMaterial({
+      color: '#FFF8F0',
+      roughness: 0.85,
+      emissive: new THREE.Color('#FFE8D0'),
+      emissiveIntensity: 0.18
+    });
+    const pieBiscuitMat = new THREE.MeshStandardMaterial({
+      color: '#B57038',
+      roughness: 0.8
+    });
+
+    const chocoShell = new THREE.Mesh(shellG, chocoMat);
+    chocoShell.castShadow = true;
+    pieGroup.add(chocoShell);
+
+    const chocoCore = new THREE.Mesh(coreG, pieMarshMat);
+    pieGroup.add(chocoCore);
+
+    const chocoBase = new THREE.Mesh(baseG, pieBiscuitMat);
+    pieGroup.add(chocoBase);
+
+    const chocoDrizzleMat = new THREE.MeshPhysicalMaterial({ color: '#522010', roughness: 0.22, clearcoat: 1 });
+    drizzleGeos.forEach(dg => pieGroup.add(new THREE.Mesh(dg, chocoDrizzleMat)));
+
+    group.add(pieGroup);
+
+    if (onReady) onReady(group);
+  });
+
+  return group;
+}
+
 // ═══════════════════════════════════════════════════════════════════
-// MODULE 1: HERO SCENE (homepage)
+// MODULE 1: HERO SCENE — REAL 3D CHOCO PIE PACKET
 // ═══════════════════════════════════════════════════════════════════
 
 export function initHeroScene(canvasId) {
@@ -199,106 +319,64 @@ export function initHeroScene(canvasId) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.1;
+  renderer.toneMappingExposure = 1.15;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(34, canvas.clientWidth / canvas.clientHeight, 0.05, 50);
-  camera.position.set(0, 0.4, 5.4);
+  camera.position.set(0, 0.1, 4.6);
 
-  // ── Lights ──
-  const ambient = new THREE.AmbientLight('#FFE9CC', 0.35);
+  // ── Studio Lighting ──
+  const ambient = new THREE.AmbientLight('#FFE9CC', 0.4);
   scene.add(ambient);
-  const keyLight = new THREE.DirectionalLight('#FFC98C', 2.0);
-  keyLight.position.set(3, 5, 4);
+  const keyLight = new THREE.DirectionalLight('#FFF0D6', 2.4);
+  keyLight.position.set(3, 4, 4);
   keyLight.castShadow = true;
   keyLight.shadow.mapSize.set(1024, 1024);
   keyLight.shadow.camera.near = 0.1;
   keyLight.shadow.camera.far = 20;
   scene.add(keyLight);
-  const rimLight = new THREE.PointLight('#E73437', 12, 10);
-  rimLight.position.set(-4, 1, -2);
+  const rimLight = new THREE.PointLight('#E60012', 8, 12);
+  rimLight.position.set(-3.5, 2, -2.5);
   scene.add(rimLight);
+  const fillLight = new THREE.DirectionalLight('#BBDDFF', 0.8);
+  fillLight.position.set(-3, -1, 3);
+  scene.add(fillLight);
 
   // ── Contact shadow plane ──
   const shadowPlane = new THREE.Mesh(
-    new THREE.PlaneGeometry(5, 5),
-    new THREE.ShadowMaterial({ opacity: 0.35, color: '#5E0A12' })
+    new THREE.PlaneGeometry(6, 6),
+    new THREE.ShadowMaterial({ opacity: 0.38, color: '#3A080A' })
   );
   shadowPlane.rotation.x = -Math.PI / 2;
-  shadowPlane.position.y = -0.55;
+  shadowPlane.position.y = -1.15;
   shadowPlane.receiveShadow = true;
   scene.add(shadowPlane);
 
-  // ── Build Choco Pie ──
-  const { shellG, coreG, baseG, drizzleGeos } = buildChocoPieGeometries();
-  const chocoTex = speckleTexture(11, 900, 1, 3.5, 10, 3);
-  const shellMat = new THREE.MeshPhysicalMaterial({
-    color: '#3A1A12', roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.16,
-    sheen: 0.35, sheenColor: new THREE.Color('#7a3b25'),
-    bumpMap: chocoTex, bumpScale: 0.6,
-  });
-  const marshmallowMat = new THREE.MeshPhysicalMaterial({
-    color: '#FFF9F0', roughness: 0.85, sheen: 1,
-    sheenColor: new THREE.Color('#ffffff'), sheenRoughness: 0.6,
-    emissive: new THREE.Color('#FFE3C8'), emissiveIntensity: 0.14,
-  });
-  const biscuitTex = speckleTexture(29, 700, 1.5, 5, 8, 2);
-  const biscuitMat = new THREE.MeshStandardMaterial({ color: '#B9773A', roughness: 0.8, bumpMap: biscuitTex, bumpScale: 1.2 });
-  const drizzleMat = new THREE.MeshPhysicalMaterial({ color: '#6B3424', roughness: 0.22, clearcoat: 1 });
-
-  const pieGroup = new THREE.Group();
-  pieGroup.rotation.set(0.52, 0, 0);
-  pieGroup.scale.setScalar(0.62);
-
-  const shellMesh = new THREE.Mesh(shellG, shellMat);
-  shellMesh.castShadow = true;
-  pieGroup.add(shellMesh);
-
-  drizzleGeos.forEach(g => { const m = new THREE.Mesh(g, drizzleMat); pieGroup.add(m); });
-
-  const marshmallowSeam = new THREE.Mesh(
-    new THREE.TorusGeometry(1.285, 0.045, 16, 96),
-    marshmallowMat
-  );
-  marshmallowSeam.rotation.x = Math.PI / 2;
-  pieGroup.add(marshmallowSeam);
-
-  // Rig group: responds to mouse
+  // ── Real 3D Lotte Choco Pie Packet Rig ──
   const rig = new THREE.Group();
-  rig.add(pieGroup);
   scene.add(rig);
 
-  // ── Orbiting treats ──
-  const orbiters = [
-    { kind: 'toffee', pos: [-0.85, 1.25, -0.4], color: '#2A0F11', scale: 0.42, speed: 1.4 },
-    { kind: 'toffee', pos: [0.9, -0.55, 0.4], color: '#FFF8F4', scale: 0.36, speed: 1.1 },
-    { kind: 'tile',   pos: [0.85, 1.4, -0.8],  color: '#FFF8F4', scale: 0.45, speed: 1.6 },
-    { kind: 'tile',   pos: [-0.95, -0.6, 0.5], color: '#9C1420', scale: 0.34, speed: 1.2 },
-    { kind: 'toffee', pos: [-0.2, 1.85, -1.6], color: '#FFF8F4', scale: 0.3,  speed: 0.9 },
-  ];
-  const orbiterMeshes = orbiters.map((o, i) => {
-    const obj = new THREE.Group();
-    obj.position.set(...o.pos);
-    obj.scale.setScalar(o.scale);
-    obj.rotation.set(i * 0.7, i * 1.3, i * 0.4);
-    if (o.kind === 'toffee') {
-      obj.add(buildToffeeGroup(scene, o.color, '#FFF8F4'));
-    } else {
-      obj.add(buildGlyphTile(o.color));
-    }
-    rig.add(obj);
-    return obj;
+  const packetGroup = new THREE.Group();
+  packetGroup.position.set(0, 0.05, 0);
+  packetGroup.rotation.set(0.12, -0.15, 0.04);
+  rig.add(packetGroup);
+
+  buildRealChocoPiePacket((loadedModel) => {
+    packetGroup.add(loadedModel);
   });
 
   // ── Pointer tracking & drag-to-orbit ──
   const pointer = new THREE.Vector2();
   let isDragging = false;
   let dragRotY = 0;
+  let dragRotX = 0;
   let lastX = 0;
+  let lastY = 0;
 
   canvas.addEventListener('mousedown', e => {
     isDragging = true;
     lastX = e.clientX;
+    lastY = e.clientY;
   });
   window.addEventListener('mouseup', () => { isDragging = false; });
   window.addEventListener('mousemove', e => {
@@ -307,31 +385,29 @@ export function initHeroScene(canvasId) {
     pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
     if (isDragging) {
       dragRotY += (e.clientX - lastX) * 0.015;
+      dragRotX += (e.clientY - lastY) * 0.008;
       lastX = e.clientX;
+      lastY = e.clientY;
     }
   });
 
   // Touch drag
   let lastTouchX = 0;
+  let lastTouchY = 0;
   canvas.addEventListener('touchstart', e => {
-    if (e.touches.length === 1) lastTouchX = e.touches[0].clientX;
+    if (e.touches.length === 1) {
+      lastTouchX = e.touches[0].clientX;
+      lastTouchY = e.touches[0].clientY;
+    }
   }, { passive: true });
   canvas.addEventListener('touchmove', e => {
     if (e.touches.length === 1) {
       dragRotY += (e.touches[0].clientX - lastTouchX) * 0.015;
+      dragRotX += (e.touches[0].clientY - lastTouchY) * 0.008;
       lastTouchX = e.touches[0].clientX;
+      lastTouchY = e.touches[0].clientY;
     }
   }, { passive: true });
-
-  // ── Scroll progress ──
-  let scrollProgress = 0;
-  const heroSection = canvas.closest('section') || canvas.parentElement;
-  const updateScroll = () => {
-    if (!heroSection) return;
-    const r = heroSection.getBoundingClientRect();
-    scrollProgress = clamp01(-r.top / Math.max(r.height - window.innerHeight, 1));
-  };
-  window.addEventListener('scroll', updateScroll, { passive: true });
 
   // ── Resize ──
   const resizeObserver = new ResizeObserver(() => {
@@ -355,21 +431,16 @@ export function initHeroScene(canvasId) {
     const t = clock.elapsedTime;
 
     if (!reduced) {
-      // Pie slow idle spin + inertia from dragging
-      pieGroup.rotation.y += dt * 0.25 + dragRotY * 0.15;
-      dragRotY *= 0.92; // smooth decay
-      // Scroll tilts the pie
-      pieGroup.rotation.z = damp(pieGroup.rotation.z, scrollProgress * 0.35, 4, dt);
-      // Rig follows mouse
-      rig.rotation.y = damp(rig.rotation.y, pointer.x * 0.35 + scrollProgress * Math.PI, 3, dt);
-      rig.rotation.x = damp(rig.rotation.x, -pointer.y * 0.18, 3, dt);
-      // Bob
-      pieGroup.position.y = Math.sin(t * 0.8) * 0.05;
-      // Orbiters: each floats independently
-      orbiterMeshes.forEach((o, i) => {
-        o.position.y = orbiters[i].pos[1] + Math.sin(t * orbiters[i].speed + i) * 0.1;
-        o.rotation.y += dt * orbiters[i].speed * 0.4;
-      });
+      // Gentle idle floating bob and subtle packet breathing
+      packetGroup.position.y = 0.05 + Math.sin(t * 1.4) * 0.04;
+      packetGroup.rotation.y += dt * 0.22 + dragRotY * 0.15;
+      packetGroup.rotation.x = THREE.MathUtils.clamp(packetGroup.rotation.x + dragRotX * 0.1, -0.4, 0.4);
+      dragRotY *= 0.92;
+      dragRotX *= 0.92;
+
+      // Mouse interactive tilt
+      rig.rotation.y = damp(rig.rotation.y, pointer.x * 0.22, 4, dt);
+      rig.rotation.x = damp(rig.rotation.x, -pointer.y * 0.14, 4, dt);
     }
 
     renderer.render(scene, camera);
@@ -381,7 +452,6 @@ export function initHeroScene(canvasId) {
     dispose() {
       cancelAnimationFrame(rafId);
       resizeObserver.disconnect();
-      window.removeEventListener('scroll', updateScroll);
       renderer.dispose();
     }
   };
@@ -1373,6 +1443,179 @@ export function initProductStudio(canvasId) {
       resizeObs2.disconnect();
       entObs.disconnect();
       visObs.disconnect();
+      renderer.dispose();
+    }
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MODULE 4: PIE STORY 3D ANIMATION (The Reveal / Anatomy / Product Studio)
+// ═══════════════════════════════════════════════════════════════════
+
+export function initPieStory3D(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return null;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.18;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(32, canvas.clientWidth / canvas.clientHeight, 0.05, 50);
+  camera.position.set(0, 0, 4.8);
+
+  // Studio Lighting
+  const ambient = new THREE.AmbientLight('#FFEAD4', 0.45);
+  scene.add(ambient);
+
+  const keyLight = new THREE.SpotLight('#FFF2DE', 3.0, 15, Math.PI / 3, 0.3);
+  keyLight.position.set(2.8, 4.5, 4.2);
+  keyLight.castShadow = true;
+  keyLight.shadow.mapSize.set(1024, 1024);
+  scene.add(keyLight);
+
+  const rimLight = new THREE.PointLight('#E60012', 7, 10);
+  rimLight.position.set(-3.5, 2.0, -2.5);
+  scene.add(rimLight);
+
+  const goldAccent = new THREE.PointLight('#FFD700', 4, 8);
+  goldAccent.position.set(3.0, -1.5, 2.0);
+  scene.add(goldAccent);
+
+  // Soft Contact Floor Shadow
+  const shadowPlane = new THREE.Mesh(
+    new THREE.PlaneGeometry(6, 6),
+    new THREE.ShadowMaterial({ opacity: 0.42, color: '#2B0406' })
+  );
+  shadowPlane.rotation.x = -Math.PI / 2;
+  shadowPlane.position.y = -1.2;
+  shadowPlane.receiveShadow = true;
+  scene.add(shadowPlane);
+
+  // 3D Real Packet Model
+  const rig = new THREE.Group();
+  scene.add(rig);
+
+  const modelGroup = new THREE.Group();
+  rig.add(modelGroup);
+
+  let realModel = null;
+  buildRealChocoPiePacket((loadedModel) => {
+    realModel = loadedModel;
+    modelGroup.add(loadedModel);
+  });
+
+  // Chapter Targets (0: Reveal, 1: Crumb Biscuit, 2: Marshmallow, 3: Rich Cocoa, 4: 3D Studio)
+  const chapterPoses = [
+    { rotX: 0.05, rotY: -0.15, rotZ: 0.02, camZ: 4.8, camY: 0, scale: 1.0 },
+    { rotX: -0.12, rotY: 0.65, rotZ: -0.05, camZ: 4.2, camY: -0.15, scale: 1.08 },
+    { rotX: 0.32, rotY: -0.45, rotZ: 0.12, camZ: 4.0, camY: 0.15, scale: 1.12 },
+    { rotX: -0.22, rotY: 0.25, rotZ: -0.18, camZ: 3.8, camY: 0.08, scale: 1.18 },
+    { rotX: 0.0, rotY: 0.0, rotZ: 0.0, camZ: 4.5, camY: 0, scale: 1.05 },
+  ];
+
+  let currentChapter = 0;
+  let targetPose = { ...chapterPoses[0] };
+
+  // Drag interaction for Chapter 5 / anytime user drags
+  let isDragging = false;
+  let dragRotY = 0;
+  let dragRotX = 0;
+  let lastX = 0, lastY = 0;
+
+  canvas.addEventListener('mousedown', e => {
+    isDragging = true;
+    lastX = e.clientX;
+    lastY = e.clientY;
+  });
+  window.addEventListener('mouseup', () => { isDragging = false; });
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    dragRotY += (e.clientX - lastX) * 0.012;
+    dragRotX += (e.clientY - lastY) * 0.008;
+    lastX = e.clientX;
+    lastY = e.clientY;
+  });
+
+  // Touch
+  let lastTouchX = 0, lastTouchY = 0;
+  canvas.addEventListener('touchstart', e => {
+    if (e.touches.length === 1) {
+      lastTouchX = e.touches[0].clientX;
+      lastTouchY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+  canvas.addEventListener('touchmove', e => {
+    if (e.touches.length === 1) {
+      dragRotY += (e.touches[0].clientX - lastTouchX) * 0.012;
+      dragRotX += (e.touches[0].clientY - lastTouchY) * 0.008;
+      lastTouchX = e.touches[0].clientX;
+      lastTouchY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  // Resize
+  const resizeObs = new ResizeObserver(() => {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (w > 0 && h > 0) {
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+  });
+  resizeObs.observe(canvas);
+
+  // Render loop
+  const clock = new THREE.Clock();
+  let rafId;
+
+  function animate() {
+    rafId = requestAnimationFrame(animate);
+    const dt = Math.min(clock.getDelta(), 0.05);
+    const t = clock.elapsedTime;
+
+    // Smoothly interpolate towards target chapter pose
+    modelGroup.scale.setScalar(damp(modelGroup.scale.x, targetPose.scale, 4, dt));
+    camera.position.z = damp(camera.position.z, targetPose.camZ, 3, dt);
+    camera.position.y = damp(camera.position.y, targetPose.camY, 3, dt);
+
+    if (currentChapter === 4 || Math.abs(dragRotY) > 0.001 || Math.abs(dragRotX) > 0.001) {
+      // Free drag rotation with inertia
+      modelGroup.rotation.y += dragRotY;
+      modelGroup.rotation.x = THREE.MathUtils.clamp(modelGroup.rotation.x + dragRotX, -0.6, 0.6);
+      dragRotY *= 0.92;
+      dragRotX *= 0.92;
+    } else {
+      modelGroup.rotation.x = damp(modelGroup.rotation.x, targetPose.rotX + Math.sin(t * 1.2) * 0.02, 3, dt);
+      modelGroup.rotation.y = damp(modelGroup.rotation.y, targetPose.rotY + Math.sin(t * 0.8) * 0.03, 3, dt);
+      modelGroup.rotation.z = damp(modelGroup.rotation.z, targetPose.rotZ, 3, dt);
+    }
+
+    // Subtle floating bob
+    modelGroup.position.y = Math.sin(t * 1.5) * 0.04;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  return {
+    setChapter(ch) {
+      currentChapter = Math.max(0, Math.min(4, ch));
+      targetPose = { ...chapterPoses[currentChapter] };
+    },
+    rotate(dir) { dragRotY += dir * 0.4; },
+    reset() {
+      dragRotY = 0; dragRotX = 0;
+      targetPose = { ...chapterPoses[currentChapter] };
+    },
+    dispose() {
+      cancelAnimationFrame(rafId);
+      resizeObs.disconnect();
       renderer.dispose();
     }
   };
