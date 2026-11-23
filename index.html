@@ -498,6 +498,8 @@
      HERO SECTION
      ========================================= -->
 <section class="hero" aria-label="Hero carousel">
+  <!-- Three.js hero WebGL canvas: floating Choco Pie + orbiting treats -->
+  <canvas id="heroWebglCanvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;"></canvas>
   <!-- Slide 1: Choco Pie -->
   <div class="hero-slide active">
     <img src="https://www.lotteindia.com/images/banner1-d.jpg" alt="Lotte India - India's No.1 Choco Pie" class="hero-slide-img">
@@ -1075,5 +1077,30 @@
 <div class="scroll-top" title="Back to top" role="button" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></div>
 
 <script src="js/main.js" defer></script>
+
+<!-- THREE.JS HERO SCENE — floating 3D Choco Pie with orbiting treats -->
+<script type="module">
+  // Only load Three.js if the hero canvas exists and WebGL is available
+  const heroCanvas = document.getElementById('heroWebglCanvas');
+  if (heroCanvas) {
+    const probe = document.createElement('canvas');
+    const hasWebGL = !!(probe.getContext('webgl2') || probe.getContext('webgl'));
+    if (hasWebGL) {
+      // Load lazily after page paint so it doesn't block LCP
+      requestIdleCallback(() => {
+        import('./js/three-studio.js')
+          .then(({ initHeroScene }) => {
+            initHeroScene('heroWebglCanvas');
+          })
+          .catch(() => {
+            // Silently fail — the photographic hero slides are still visible
+            heroCanvas.style.display = 'none';
+          });
+      }, { timeout: 2000 });
+    } else {
+      heroCanvas.style.display = 'none';
+    }
+  }
+</script>
 </body>
 </html>
