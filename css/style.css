@@ -413,9 +413,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .hero-story-title span {
   color: var(--lotte-red);
-  background: linear-gradient(135deg, #FF3B47 0%, #E60012 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  display: inline;
+}
+
+@supports (-webkit-background-clip: text) {
+  .hero-story-title span {
+    background: linear-gradient(135deg, #FF4552 0%, #E60012 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 .hero-story-desc {
