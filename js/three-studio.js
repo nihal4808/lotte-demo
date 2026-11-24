@@ -154,22 +154,22 @@ function buildPeperoStick() {
 
 const LIGHT_PRESETS = {
   'warm-morning': {
-    ambient: 0.35, ambientColor: '#FFE9CC',
-    key: { color: '#FFC98C', intensity: 2.8, pos: [-4.2, 5, -2.4] },
-    rim: { color: '#FFE7C4', intensity: 1.4 },
-    bg: '#F5DEB3',
+    ambient: 0.52, ambientColor: '#FFF2E2',
+    key: { color: '#FFF5E6', intensity: 2.9, pos: [-3.5, 4.8, 3.2] },
+    rim: { color: '#E60012', intensity: 2.2 },
+    bg: 'radial-gradient(circle at 50% 45%, #351610 0%, #170906 60%, #0A0302 100%)',
   },
   'diwali-gold': {
-    ambient: 0.12, ambientColor: '#FF9E3D',
-    key: { color: '#FFA640', intensity: 1.8, pos: [-3.4, 5.5, -2] },
-    rim: { color: '#FFC266', intensity: 2.2 },
-    bg: '#24100A',
+    ambient: 0.42, ambientColor: '#FFE4B5',
+    key: { color: '#FFD700', intensity: 2.7, pos: [-3.0, 5.2, 2.8] },
+    rim: { color: '#FFA500', intensity: 2.6 },
+    bg: 'radial-gradient(circle at 50% 45%, #3B1E08 0%, #1A0D03 60%, #060301 100%)',
   },
   'crisp-editorial': {
-    ambient: 0.4, ambientColor: '#FFFFFF',
-    key: { color: '#FFFFFF', intensity: 2.4, pos: [-0.6, 7, -1.2] },
-    rim: { color: '#DCE6FF', intensity: 1.6 },
-    bg: '#E2E3E7',
+    ambient: 0.48, ambientColor: '#F0F4F8',
+    key: { color: '#FFFFFF', intensity: 2.8, pos: [0, 6.0, 3.5] },
+    rim: { color: '#B0C4DE', intensity: 1.8 },
+    bg: 'radial-gradient(circle at 50% 45%, #222026 0%, #111014 60%, #070608 100%)',
   },
 };
 
@@ -182,7 +182,7 @@ function applyLightPreset(preset, ambientLight, keyLight, rimLight, renderer, bg
   keyLight.position.set(...p.key.pos);
   rimLight.color.set(p.rim.color);
   rimLight.intensity = p.rim.intensity;
-  if (bgEl) bgEl.style.background = p.bg;
+  if (bgEl && p.bg) bgEl.style.background = p.bg;
 }
 
 // ─────────────────────────── Real 3D Lotte Choco Pie Packet Generator ───────────────────────────
@@ -1063,131 +1063,61 @@ export function initProductStudio(canvasId) {
   camera.position.set(0, 0.3, 5.0);
   camera.lookAt(0, 0.3, 0);
 
-  // ── Lights (match Babylon preset: warm-morning default) ──
-  const ambientLight = new THREE.AmbientLight('#FFE9CC', 0.35);
+  // ── Lights (match preset: warm-morning default) ──
+  const ambientLight = new THREE.AmbientLight('#FFF2E2', 0.52);
   scene.add(ambientLight);
-  const keyLight = new THREE.SpotLight('#FFC98C', 2.8, 20, Math.PI / 3.2, 0.4);
-  keyLight.position.set(-4.2, 5, -2.4);
+  const keyLight = new THREE.SpotLight('#FFF5E6', 2.9, 20, Math.PI / 3.2, 0.4);
+  keyLight.position.set(-3.5, 4.8, 3.2);
   keyLight.castShadow = true;
   keyLight.shadow.mapSize.set(1024, 1024);
   keyLight.shadow.bias = -0.0004;
   scene.add(keyLight);
-  const rimLight = new THREE.DirectionalLight('#FFE7C4', 1.4);
-  rimLight.position.set(2, 4, -6);
+  const rimLight = new THREE.DirectionalLight('#E60012', 2.2);
+  rimLight.position.set(2, 4, -4);
   scene.add(rimLight);
-  // Fill softbox (rect area light equivalent)
+  // Fill softbox
   const fillLight = new THREE.PointLight('#FFF3D8', 1.2, 15);
   fillLight.position.set(3, 3, 3);
   scene.add(fillLight);
 
-  // ── Reflective floor ──
-  const floorGeo = new THREE.PlaneGeometry(10, 10);
-  const floorMat = new THREE.MeshStandardMaterial({ color: '#E6CDA8', roughness: 0.42, metalness: 0 });
+  // ── Contact shadow & transparent luxury floor ──
+  const floorGeo = new THREE.PlaneGeometry(12, 12);
+  const floorMat = new THREE.ShadowMaterial({ opacity: 0.32 });
   const floor = new THREE.Mesh(floorGeo, floorMat);
   floor.rotation.x = -Math.PI / 2;
+  floor.position.y = -0.92;
   floor.receiveShadow = true;
   scene.add(floor);
 
-  // Contact shadow disc under product
-  const contactGeo = new THREE.PlaneGeometry(3, 3);
+  // Soft contact shadow disc under product
+  const contactGeo = new THREE.PlaneGeometry(3.6, 3.6);
   const contactCanvas = document.createElement('canvas');
   contactCanvas.width = contactCanvas.height = 256;
   const cctx = contactCanvas.getContext('2d');
   const rg = cctx.createRadialGradient(128, 128, 0, 128, 128, 128);
-  rg.addColorStop(0, 'rgba(20,8,4,0.42)');
-  rg.addColorStop(0.35, 'rgba(20,8,4,0.25)');
-  rg.addColorStop(1, 'rgba(20,8,4,0)');
+  rg.addColorStop(0, 'rgba(10,3,2,0.55)');
+  rg.addColorStop(0.38, 'rgba(10,3,2,0.26)');
+  rg.addColorStop(1, 'rgba(10,3,2,0)');
   cctx.fillStyle = rg;
   cctx.fillRect(0, 0, 256, 256);
   const contactTex = new THREE.CanvasTexture(contactCanvas);
   const contactMat = new THREE.MeshBasicMaterial({ map: contactTex, transparent: true });
   const contactShadow = new THREE.Mesh(contactGeo, contactMat);
   contactShadow.rotation.x = -Math.PI / 2;
-  contactShadow.position.y = 0.003;
+  contactShadow.position.y = -0.915;
   scene.add(contactShadow);
 
   // ── Turntable group ──
   const turntable = new THREE.Group();
   scene.add(turntable);
 
-  // ── Build Choco Pie carton (matches competitor's cp-box design) ──
-  function buildChocoPieCarton() {
+  // ── Real 3D Lotte Choco Pie Product Rig ──
+  function buildStudioChocoPiePack() {
     const g = new THREE.Group();
-    const W = 1.9, H = 0.62, D2 = 1.3;
-
-    // Red rounded box body
-    const boxMat = new THREE.MeshPhysicalMaterial({ color: '#E73437', roughness: 0.24, clearcoat: 0.95 });
-    const boxGeo = new THREE.BoxGeometry(W, H, D2);
-    const box = new THREE.Mesh(boxGeo, boxMat);
-    box.position.y = H / 2;
-    box.rotation.y = 0.32;
-    box.castShadow = true;
-    g.add(box);
-
-    // Pack print canvas on top
-    const topCanvas = document.createElement('canvas');
-    topCanvas.width = 512; topCanvas.height = 320;
-    const tc = topCanvas.getContext('2d');
-    tc.fillStyle = '#E73437'; tc.fillRect(0, 0, 512, 320);
-    // Warm sun glow
-    const sg = tc.createRadialGradient(360, 160, 0, 360, 160, 215);
-    sg.addColorStop(0, 'rgba(255,214,150,0.55)'); sg.addColorStop(1, 'rgba(255,214,150,0)');
-    tc.fillStyle = sg; tc.fillRect(0, 0, 512, 320);
-    // Border
-    tc.strokeStyle = 'rgba(255,248,236,0.85)'; tc.lineWidth = 3;
-    tc.strokeRect(16, 14, 480, 292);
-    // Text
-    tc.fillStyle = '#FFFFFF'; tc.textAlign = 'center';
-    tc.font = `800 20px 'Poppins', sans-serif`;
-    tc.fillText('LOTTE', 110, 65);
-    tc.font = `italic 700 72px Georgia, serif`;
-    tc.fillText('Choco', 155, 160);
-    tc.fillText('Pie', 155, 240);
-    tc.font = `700 13px 'Poppins', sans-serif`;
-    tc.fillStyle = '#FFE6C7';
-    tc.fillText("INDIA'S No.1 CHOCO PIE", 155, 290);
-    // Pack count badge
-    tc.fillStyle = '#FFF6E8';
-    tc.beginPath(); tc.arc(458, 65, 28, 0, Math.PI*2); tc.fill();
-    tc.fillStyle = '#C41E24'; tc.font = `800 22px 'Poppins', sans-serif`;
-    tc.fillText('12', 458, 68);
-    tc.font = `700 10px 'Poppins', sans-serif`;
-    tc.fillText('PIES', 458, 84);
-    const topTex = new THREE.CanvasTexture(topCanvas);
-    const topPlane = new THREE.Mesh(
-      new THREE.PlaneGeometry(W - 0.1, D2 - 0.1),
-      new THREE.MeshPhysicalMaterial({ map: topTex, clearcoat: 0.5 })
-    );
-    topPlane.rotation.x = -Math.PI / 2;
-    topPlane.position.y = H + 0.001;
-    topPlane.rotation.y = 0.32;
-    g.add(topPlane);
-
-    // Actual pie sitting on top of the box
-    const { shellG, drizzleGeos } = buildChocoPieGeometries();
-    const pieMini = new THREE.Group();
-    pieMini.scale.setScalar(0.28);
-    pieMini.position.set(0.42, H + 0.001, 0.08);
-    pieMini.rotation.y = -0.6;
-    pieMini.rotation.x = 0.52;
-    pieMini.add(new THREE.Mesh(shellG, new THREE.MeshPhysicalMaterial({
-      color: '#3A1A12', roughness: 0.3, clearcoat: 1,
-    })));
-    drizzleGeos.forEach(dg => pieMini.add(new THREE.Mesh(dg, new THREE.MeshPhysicalMaterial({
-      color: '#6B3424', roughness: 0.22, clearcoat: 1
-    }))));
-    g.add(pieMini);
-
-    // Pie leaning against front
-    const pieLean = new THREE.Group();
-    pieLean.scale.setScalar(0.28);
-    pieLean.position.set(-0.42, 0.11, -D2 / 2 - 0.165);
-    pieLean.rotation.set(-1.2, 0, 0.05);
-    pieLean.add(new THREE.Mesh(shellG, new THREE.MeshPhysicalMaterial({
-      color: '#3A1A12', roughness: 0.3, clearcoat: 1,
-    })));
-    g.add(pieLean);
-
+    g.position.set(0, 0, 0);
+    buildRealChocoPiePacket((loaded) => {
+      g.add(loaded);
+    });
     return g;
   }
 
@@ -1277,7 +1207,7 @@ export function initProductStudio(canvasId) {
   }
 
   const products = {
-    'choco-pie': buildChocoPieCarton(),
+    'choco-pie': buildStudioChocoPiePack(),
     'coffy-bite': buildCoffyBiteJar(),
     'caramilk': buildCaramilkPile(),
     'pepero': buildPeperoDisplay(),
@@ -1292,8 +1222,8 @@ export function initProductStudio(canvasId) {
 
   // ── Drag orbit (matches Babylon ArcRotateCamera feel) ──
   let isDragging = false, lastX = 0, lastY = 0;
-  let targetRotY = 0, targetRotX = 0.15, currentRotY = 0, currentRotX = 0.15;
-  let targetZoom = 5.0, currentZoom = 5.0;
+  let targetRotY = 0, targetRotX = 0.12, currentRotY = 0, currentRotX = 0.12;
+  let targetZoom = 4.6, currentZoom = 4.6;
   const ALPHA0 = -Math.PI / 2 - 0.42;
   const BETA0  = Math.PI / 2.42;
 
@@ -1404,10 +1334,10 @@ export function initProductStudio(canvasId) {
     const phi = currentRotX + 0.15; // elevation
     camera.position.set(
       Math.sin(0) * currentZoom,
-      Math.sin(phi) * currentZoom * 0.4 + 0.3,
+      Math.sin(phi) * currentZoom * 0.35 + 0.05,
       Math.cos(0) * currentZoom
     );
-    camera.lookAt(0, 0.3, 0);
+    camera.lookAt(0, 0, 0);
 
     // Update floor colour per preset
     renderer.render(scene, camera);
@@ -1425,9 +1355,9 @@ export function initProductStudio(canvasId) {
       activeProduct = id;
       // Reset camera framing per product type
       const frames = {
-        'choco-pie': 5.0, 'coffy-bite': 4.8, 'caramilk': 4.0, 'pepero': 5.5,
+        'choco-pie': 4.6, 'coffy-bite': 4.8, 'caramilk': 4.0, 'pepero': 5.5,
       };
-      targetZoom = frames[id] || 5.0;
+      targetZoom = frames[id] || 4.6;
       targetRotY += Math.PI / 4; // spin to new product
     },
     setPreset(preset) {
@@ -1436,7 +1366,7 @@ export function initProductStudio(canvasId) {
     },
     rotate(dir) { targetRotY += dir * Math.PI / 4; },
     zoom(dir) { targetZoom = Math.max(2.4, Math.min(9, targetZoom + dir * 0.6)); },
-    reset() { targetRotY = 0; targetRotX = 0.15; targetZoom = 5.0; },
+    reset() { targetRotY = 0; targetRotX = 0.12; targetZoom = 4.6; },
     enter() { triggerEntrance(); },
     dispose() {
       cancelAnimationFrame(rafId2);
